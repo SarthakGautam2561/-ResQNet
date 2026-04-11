@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
+import { isSupabaseConfigured, saveSupabaseConfig, clearSupabaseConfig } from '../services/supabase';
 import './LoginPage.css';
 
 export default function LoginPage() {
@@ -13,6 +14,8 @@ export default function LoginPage() {
   const [role, setRole] = useState('official');
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [configUrl, setConfigUrl] = useState('');
+  const [configAnon, setConfigAnon] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -57,6 +60,50 @@ export default function LoginPage() {
           </div>
           <p className="login-subtitle">EMERGENCY RESPONSE COMMAND CENTER</p>
         </div>
+
+        {!isSupabaseConfigured && (
+          <div style={{ marginBottom: 16, border: '1px solid rgba(239,68,68,0.4)', padding: 12, borderRadius: 8, background: 'rgba(147,0,10,0.1)' }}>
+            <div style={{ fontSize: 11, color: '#fca5a5', fontWeight: 700, marginBottom: 8 }}>
+              Supabase not configured. Paste URL and anon key to continue.
+            </div>
+            <div className="form-group">
+              <label className="form-label">SUPABASE URL</label>
+              <input
+                className="form-input"
+                type="text"
+                value={configUrl}
+                onChange={(e) => setConfigUrl(e.target.value)}
+                placeholder="https://xxxx.supabase.co"
+              />
+            </div>
+            <div className="form-group">
+              <label className="form-label">ANON KEY</label>
+              <input
+                className="form-input"
+                type="text"
+                value={configAnon}
+                onChange={(e) => setConfigAnon(e.target.value)}
+                placeholder="eyJhbGciOi..."
+              />
+            </div>
+            <div style={{ display: 'flex', gap: 8 }}>
+              <button
+                className="login-btn"
+                type="button"
+                onClick={() => saveSupabaseConfig(configUrl, configAnon)}
+              >
+                Save & Reload
+              </button>
+              <button
+                className="toggle-btn"
+                type="button"
+                onClick={() => clearSupabaseConfig()}
+              >
+                Clear
+              </button>
+            </div>
+          </div>
+        )}
 
         <form className="login-form" onSubmit={handleSubmit}>
           {isSignup && (

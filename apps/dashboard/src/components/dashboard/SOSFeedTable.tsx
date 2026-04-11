@@ -5,7 +5,17 @@ import { CATEGORY_ICONS, SEVERITY_COLORS, SEVERITY_LABELS } from '@resqnet/share
 import { useAuth } from '../../hooks/useAuth';
 import './SOSFeedTable.css';
 const STATUS_COLORS: Record<string, string> = {
-  pending: '#eab308', acknowledged: '#3b82f6', in_progress: '#f97316', resolved: '#22c55e',
+  pending: '#eab308',
+  processed: '#3b82f6',
+  in_progress: '#f97316',
+  resolved: '#22c55e',
+};
+
+const STATUS_LABELS: Record<string, string> = {
+  pending: 'Pending',
+  processed: 'Processed',
+  in_progress: 'In Progress',
+  resolved: 'Resolved',
 };
 
 interface SOSFeedTableProps {
@@ -76,7 +86,7 @@ export default function SOSFeedTable({ reports, onMarkResolved }: SOSFeedTablePr
           >
             <option value="all">All Status</option>
             <option value="pending">Pending</option>
-            <option value="acknowledged">Acknowledged</option>
+            <option value="processed">Processed</option>
             <option value="in_progress">In Progress</option>
             <option value="resolved">Resolved</option>
           </select>
@@ -131,7 +141,7 @@ export default function SOSFeedTable({ reports, onMarkResolved }: SOSFeedTablePr
                       borderColor: STATUS_COLORS[report.status] || '#94a3b8',
                     }}
                   >
-                    {report.status.replace('_', ' ')}
+                    {STATUS_LABELS[report.status] || report.status.replace('_', ' ')}
                   </span>
                 </td>
                 <td className="feed-td feed-td--actions">

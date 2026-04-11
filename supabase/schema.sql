@@ -11,7 +11,7 @@ end $$;
 
 do $$ begin
   if not exists (select 1 from pg_type where typname = 'sos_status') then
-    create type sos_status as enum ('pending', 'acknowledged', 'in_progress', 'resolved');
+    create type sos_status as enum ('pending', 'processed', 'in_progress', 'resolved');
   end if;
 end $$;
 

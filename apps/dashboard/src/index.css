@@ -1,49 +1,57 @@
-/* ═══════════════════════════════════════════════════════════
+/* ==========================================================
    ResQNet Dashboard — Global Styles
-   Emergency Control Room Aesthetic
-   ═══════════════════════════════════════════════════════════ */
+   Emergency Control Room Aesthetic (V2)
+   ========================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap');
 
 :root {
-  /* ── Surface Hierarchy ── */
-  --surface-lowest: #0a0e1a;
-  --surface-dim: #0f131f;
-  --surface-low: #171b28;
-  --surface: #1b1f2c;
-  --surface-high: #262a37;
-  --surface-highest: #313442;
-  --surface-bright: #353946;
+  /* —— Surface Hierarchy —— */
+  --surface-lowest: #0a0c16;
+  --surface-dim: #0d1324;
+  --surface-low: #111a2f;
+  --surface: #15223b;
+  --surface-high: #1a2947;
+  --surface-highest: #223257;
+  --surface-bright: #2b3e6d;
 
-  /* ── Semantic Colors ── */
-  --primary: #ffb3ad;
-  --primary-container: #ff5451;
-  --error: #ef4444;
+  /* —— Semantic Colors —— */
+  --primary: #4cc9ff;
+  --primary-container: #1d9bf0;
+  --error: #ff5b5b;
   --error-container: #93000a;
-  --secondary: #adc6ff;
-  --secondary-container: #0566d9;
-  --tertiary: #ffb95f;
-  --tertiary-container: #ca8100;
-  --success: #22c55e;
+  --secondary: #ffd166;
+  --secondary-container: #ff9f1c;
+  --tertiary: #7ae582;
+  --tertiary-container: #2a9d8f;
+  --success: #2dd4bf;
 
-  /* ── Severity ── */
-  --severity-critical: #ef4444;
-  --severity-high: #f97316;
-  --severity-important: #eab308;
-  --severity-moderate: #06b6d4;
-  --severity-low: #3b82f6;
+  /* —— Severity —— */
+  --severity-critical: #ff5b5b;
+  --severity-high: #ff8a4c;
+  --severity-important: #ffd166;
+  --severity-moderate: #4cc9ff;
+  --severity-low: #6a8cff;
 
-  /* ── Text ── */
-  --text-primary: #dfe2f3;
-  --text-secondary: #94a3b8;
-  --text-muted: #64748b;
+  /* —— Text —— */
+  --text-primary: #e6edf9;
+  --text-secondary: #b3bdd6;
+  --text-muted: #7281a5;
 
-  /* ── Borders ── */
-  --outline: #ab8986;
-  --outline-variant: #5b403e;
+  /* —— Borders —— */
+  --outline: #3a4a72;
+  --outline-variant: #24304d;
+  --glass-stroke: rgba(255, 255, 255, 0.08);
 
-  /* ── Typography ── */
-  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  /* —— Typography —— */
+  --font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+  --mono-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* —— Backgrounds —— */
+  --gradient-hero:
+    radial-gradient(circle at top right, rgba(76, 201, 255, 0.18), transparent 55%),
+    radial-gradient(circle at 10% 20%, rgba(255, 209, 102, 0.15), transparent 50%),
+    linear-gradient(160deg, #0a0c16 10%, #0f1628 50%, #0b0f1d 90%);
 }
 
 * {
@@ -54,43 +62,56 @@
 
 body {
   font-family: var(--font-family);
-  background: var(--surface-lowest);
+  background: var(--gradient-hero);
   color: var(--text-primary);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow: hidden;
 }
 
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 32px 32px;
+  opacity: 0.2;
+  pointer-events: none;
+  z-index: 0;
+}
+
 #root {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
+  position: relative;
+  z-index: 1;
 }
 
-/* ── Scrollbar ── */
+/* —— Scrollbar —— */
 ::-webkit-scrollbar {
   width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--surface-dim);
+  background: rgba(17, 24, 39, 0.6);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--surface-highest);
+  background: rgba(76, 201, 255, 0.35);
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--outline);
+  background: rgba(76, 201, 255, 0.6);
 }
 
-/* ── Animations ── */
+/* —— Animations —— */
 @keyframes pulse-critical {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.5; }
 }
 
 @keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 8px rgba(239, 68, 68, 0.3); }
-  50% { box-shadow: 0 0 20px rgba(239, 68, 68, 0.6); }
+  0%, 100% { box-shadow: 0 0 8px rgba(255, 91, 91, 0.25); }
+  50% { box-shadow: 0 0 20px rgba(255, 91, 91, 0.5); }
 }
 
 @keyframes slide-in {
@@ -119,7 +140,7 @@ body {
   animation: fade-in 0.3s ease-out;
 }
 
-/* ── Leaflet Overrides ── */
+/* —— Leaflet Overrides —— */
 .leaflet-container {
   background: var(--surface-dim) !important;
 }
@@ -133,8 +154,8 @@ body {
 .leaflet-popup-content-wrapper {
   background: var(--surface-high) !important;
   color: var(--text-primary) !important;
-  border-radius: 0 !important;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.6) !important;
+  border-radius: 10px !important;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5) !important;
 }
 
 .leaflet-popup-tip {

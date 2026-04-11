@@ -63,7 +63,7 @@ export const SEVERITY_BG_COLORS: Record<SeverityLevel, string> = {
 };
 
 // ── Status ──────────────────────────────────────────────────
-export const SOS_STATUSES = ['pending', 'acknowledged', 'in_progress', 'resolved'] as const;
+export const SOS_STATUSES = ['pending', 'processed', 'in_progress', 'resolved'] as const;
 export type SOSStatus = (typeof SOS_STATUSES)[number];
 
 // ── User Roles ──────────────────────────────────────────────

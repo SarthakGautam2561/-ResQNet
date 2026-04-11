@@ -74,8 +74,8 @@ export default function StatusScreen() {
     switch (status) {
       case 'pending':
         return { label: 'Pending', color: '#eab308', bg: '#713f12' };
-      case 'acknowledged':
-        return { label: 'Acknowledged', color: '#3b82f6', bg: '#1e3a5f' };
+      case 'processed':
+        return { label: 'Processed', color: '#3b82f6', bg: '#1e3a5f' };
       case 'in_progress':
         return { label: 'In Progress', color: '#f97316', bg: '#7c2d12' };
       case 'resolved':
