@@ -47,11 +47,13 @@
 
 .feed-table-wrap {
   overflow-y: auto;
+  overflow-x: auto;
   flex: 1;
 }
 
 .feed-table {
   width: 100%;
+  min-width: 820px;
   border-collapse: collapse;
   font-size: 12px;
 }
@@ -122,6 +124,20 @@
   color: var(--text-secondary);
 }
 
+.feed-th--area,
+.feed-td--area {
+  min-width: 180px;
+  max-width: 260px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.feed-td--muted {
+  color: var(--text-muted);
+  font-size: 11px;
+}
+
 .feed-category {
   display: inline-flex;
   align-items: center;
@@ -185,6 +201,25 @@
   background: rgba(76, 201, 255, 0.2);
   color: var(--severity-moderate);
 }
+
+.feed-needs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  max-width: 220px;
+}
+
+.feed-need {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: rgba(76, 201, 255, 0.12);
+  border: 1px solid rgba(76, 201, 255, 0.3);
+  color: var(--text-primary);
+  letter-spacing: 0.02em;
+}
+
 
 .feed-empty {
   display: flex;

@@ -35,6 +35,7 @@ async function syncReport(report: {
   phone: string | null;
   latitude: number;
   longitude: number;
+  district?: string | null;
   category: string;
   severity: number;
   message: string | null;
@@ -57,6 +58,7 @@ async function syncReport(report: {
           phone: report.phone,
           latitude: report.latitude,
           longitude: report.longitude,
+          district: report.district || null,
           category: report.category,
           severity: report.severity,
           message: report.message,

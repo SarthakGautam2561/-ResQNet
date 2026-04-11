@@ -7,6 +7,7 @@ import {
   Building2,
   LogOut,
   Globe,
+  LineChart,
 } from 'lucide-react';
 import { useAuth } from '../../hooks/useAuth';
 import './DashboardLayout.css';
@@ -40,6 +41,10 @@ export default function DashboardLayout() {
           <NavLink to="/heatmap" className={({ isActive }) => `nav-item ${isActive ? 'nav-item--active' : ''}`}>
             <Flame size={18} />
             <span>Heatmap</span>
+          </NavLink>
+          <NavLink to="/intel" className={({ isActive }) => `nav-item ${isActive ? 'nav-item--active' : ''}`}>
+            <LineChart size={18} />
+            <span>Intel</span>
           </NavLink>
           <NavLink to="/reports" className={({ isActive }) => `nav-item ${isActive ? 'nav-item--active' : ''}`}>
             <FileText size={18} />

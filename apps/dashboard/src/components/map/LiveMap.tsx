@@ -28,6 +28,7 @@ export default function LiveMap({ reports, onMarkerClick, className, style }: Li
   const [follow, setFollow] = useState(true);
   const [showResolved, setShowResolved] = useState(false);
   const [mapRef, setMapRef] = useState<L.Map | null>(null);
+  const [tileMode, setTileMode] = useState<'dark' | 'light'>('dark');
 
   const visibleReports = useMemo(() => {
     return showResolved ? reports : reports.filter((r) => r.status !== 'resolved');
@@ -57,11 +58,19 @@ export default function LiveMap({ reports, onMarkerClick, className, style }: Li
         zoomControl={false}
         whenCreated={setMapRef}
       >
-        <TileLayer
-          url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
-          attribution='&copy; <a href="https://carto.com/">CARTO</a>'
-          className="map-tiles"
-        />
+        {tileMode === 'dark' ? (
+          <TileLayer
+            url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+            attribution='&copy; <a href="https://carto.com/">CARTO</a>'
+            className="map-tiles map-tiles--dark"
+          />
+        ) : (
+          <TileLayer
+            url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
+            attribution='&copy; <a href="https://carto.com/">CARTO</a>'
+            className="map-tiles map-tiles--light"
+          />
+        )}
         <AutoCenter reports={activeReports} follow={follow} />
         {visibleReports.map((report) => {
           const color = SEVERITY_COLORS[report.severity] || '#94a3b8';
@@ -128,6 +137,9 @@ export default function LiveMap({ reports, onMarkerClick, className, style }: Li
           </button>
           <button type="button" onClick={() => setFollow((prev) => !prev)}>
             {follow ? 'Follow: On' : 'Follow: Off'}
+          </button>
+          <button type="button" onClick={() => setTileMode((prev) => (prev === 'dark' ? 'light' : 'dark'))}>
+            Map: {tileMode === 'dark' ? 'Night' : 'Day'}
           </button>
         </div>
       </div>

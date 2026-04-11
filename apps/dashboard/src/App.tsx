@@ -8,6 +8,7 @@ import ReportsPage from './pages/ReportsPage';
 import SheltersPage from './pages/SheltersPage';
 import LoginPage from './pages/LoginPage';
 import PublicPage from './pages/PublicPage';
+import IntelPage from './pages/IntelPage';
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const { user, loading } = useAuth();
@@ -58,6 +59,7 @@ function AppRoutes() {
         <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/map" element={<MapPage />} />
         <Route path="/heatmap" element={<HeatmapPage />} />
+        <Route path="/intel" element={<IntelPage />} />
         <Route path="/reports" element={<ReportsPage />} />
         <Route path="/shelters" element={<SheltersPage />} />
       </Route>

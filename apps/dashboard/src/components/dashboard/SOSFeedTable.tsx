@@ -4,6 +4,7 @@ import type { SOSReport } from '../../hooks/useRealtimeSOS';
 import { CATEGORY_ICONS, SEVERITY_COLORS, SEVERITY_LABELS } from '@resqnet/shared-types';
 import { useAuth } from '../../hooks/useAuth';
 import './SOSFeedTable.css';
+
 const STATUS_COLORS: Record<string, string> = {
   pending: '#eab308',
   processed: '#3b82f6',
@@ -21,9 +22,10 @@ const STATUS_LABELS: Record<string, string> = {
 interface SOSFeedTableProps {
   reports: SOSReport[];
   onMarkResolved?: (id: string) => void;
+  detailedAreaById?: Record<string, string | null | undefined>;
 }
 
-export default function SOSFeedTable({ reports, onMarkResolved }: SOSFeedTableProps) {
+export default function SOSFeedTable({ reports, onMarkResolved, detailedAreaById }: SOSFeedTableProps) {
   const { user } = useAuth();
   const role = user?.role || 'public';
   const canResolve = ['admin', 'official', 'ngo'].includes(role);
@@ -60,9 +62,7 @@ export default function SOSFeedTable({ reports, onMarkResolved }: SOSFeedTablePr
     });
 
   const SortIcon = ({ field }: { field: string }) =>
-    sortField === field ? (
-      sortDir === 'desc' ? <ChevronDown size={12} /> : <ChevronUp size={12} />
-    ) : null;
+    sortField === field ? (sortDir === 'desc' ? <ChevronDown size={12} /> : <ChevronUp size={12} />) : null;
 
   return (
     <div className="feed-container">
@@ -76,7 +76,9 @@ export default function SOSFeedTable({ reports, onMarkResolved }: SOSFeedTablePr
           >
             <option value="all">All Categories</option>
             {Object.keys(CATEGORY_ICONS).map((cat) => (
-              <option key={cat} value={cat}>{cat}</option>
+              <option key={cat} value={cat}>
+                {cat}
+              </option>
             ))}
           </select>
           <select
@@ -106,73 +108,77 @@ export default function SOSFeedTable({ reports, onMarkResolved }: SOSFeedTablePr
                 SEVERITY <SortIcon field="severity" />
               </th>
               <th className="feed-th">MESSAGE</th>
+              <th className="feed-th feed-th--area">DETAILED AREA</th>
               <th className="feed-th">STATUS</th>
               <th className="feed-th">ACTIONS</th>
             </tr>
           </thead>
           <tbody>
-            {filtered.map((report, idx) => (
-              <tr
-                key={report.id}
-                className={`feed-row ${idx === 0 ? 'animate-slide-in' : ''} ${report.severity >= 5 ? 'feed-row--critical' : ''}`}
-              >
-                <td className="feed-td feed-td--time">{formatTime(report.created_at)}</td>
-                <td className="feed-td">{report.name || '—'}</td>
-                <td className="feed-td">
-                  <span className="feed-category">
-                    <span>{CATEGORY_ICONS[report.category] || '⚠️'}</span>
-                    <span>{report.category}</span>
-                  </span>
-                </td>
-                <td className="feed-td">
-                  <span
-                    className="feed-severity"
-                    style={{ background: SEVERITY_COLORS[report.severity] }}
-                  >
-                    {report.severity} — {SEVERITY_LABELS[report.severity]}
-                  </span>
-                </td>
-                <td className="feed-td feed-td--message">{report.message || '—'}</td>
-                <td className="feed-td">
-                  <span
-                    className="feed-status"
-                    style={{
-                      color: STATUS_COLORS[report.status] || '#94a3b8',
-                      borderColor: STATUS_COLORS[report.status] || '#94a3b8',
-                    }}
-                  >
-                    {STATUS_LABELS[report.status] || report.status.replace('_', ' ')}
-                  </span>
-                </td>
-                <td className="feed-td feed-td--actions">
-                  {report.status !== 'resolved' && canResolve && (
-                    <>
-                      <button
-                        className="feed-action feed-action--resolve"
-                        onClick={() => onMarkResolved?.(report.id)}
-                        title="Mark Resolved"
-                      >
-                        <CheckCircle size={14} />
-                      </button>
-                      <a
-                        className="feed-action feed-action--navigate"
-                        href={`https://www.google.com/maps?q=${report.latitude},${report.longitude}`}
-                        target="_blank"
-                        rel="noreferrer"
-                        title="Navigate"
-                      >
-                        <Navigation size={14} />
-                      </a>
-                    </>
-                  )}
-                </td>
-              </tr>
-            ))}
+            {filtered.map((report, idx) => {
+              const detailedArea = detailedAreaById?.[report.id];
+              return (
+                <tr
+                  key={report.id}
+                  className={`feed-row ${idx === 0 ? 'animate-slide-in' : ''} ${
+                    report.severity >= 5 ? 'feed-row--critical' : ''
+                  }`}
+                >
+                  <td className="feed-td feed-td--time">{formatTime(report.created_at)}</td>
+                  <td className="feed-td">{report.name || '--'}</td>
+                  <td className="feed-td">
+                    <span className="feed-category">
+                      <span>{CATEGORY_ICONS[report.category] || '!'}</span>
+                      <span>{report.category}</span>
+                    </span>
+                  </td>
+                  <td className="feed-td">
+                    <span className="feed-severity" style={{ background: SEVERITY_COLORS[report.severity] }}>
+                      {report.severity} - {SEVERITY_LABELS[report.severity]}
+                    </span>
+                  </td>
+                  <td className="feed-td feed-td--message">{report.message || '--'}</td>
+                  <td className="feed-td feed-td--area" title={detailedArea || undefined}>
+                    {detailedArea || '--'}
+                  </td>
+                  <td className="feed-td">
+                    <span
+                      className="feed-status"
+                      style={{
+                        color: STATUS_COLORS[report.status] || '#94a3b8',
+                        borderColor: STATUS_COLORS[report.status] || '#94a3b8',
+                      }}
+                    >
+                      {STATUS_LABELS[report.status] || report.status.replace('_', ' ')}
+                    </span>
+                  </td>
+                  <td className="feed-td feed-td--actions">
+                    {report.status !== 'resolved' && canResolve && (
+                      <>
+                        <button
+                          className="feed-action feed-action--resolve"
+                          onClick={() => onMarkResolved?.(report.id)}
+                          title="Mark Resolved"
+                        >
+                          <CheckCircle size={14} />
+                        </button>
+                        <a
+                          className="feed-action feed-action--navigate"
+                          href={`https://www.google.com/maps?q=${report.latitude},${report.longitude}`}
+                          target="_blank"
+                          rel="noreferrer"
+                          title="Navigate"
+                        >
+                          <Navigation size={14} />
+                        </a>
+                      </>
+                    )}
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
-        {filtered.length === 0 && (
-          <div className="feed-empty">No reports matching filters</div>
-        )}
+        {filtered.length === 0 && <div className="feed-empty">No reports matching filters</div>}
       </div>
     </div>
   );

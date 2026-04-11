@@ -66,6 +66,37 @@ export const SEVERITY_BG_COLORS: Record<SeverityLevel, string> = {
 export const SOS_STATUSES = ['pending', 'processed', 'in_progress', 'resolved'] as const;
 export type SOSStatus = (typeof SOS_STATUSES)[number];
 
+export interface ProcessedSOSReport {
+  id: string;
+  source_project?: string | null;
+  name: string | null;
+  phone: string | null;
+  latitude: number;
+  longitude: number;
+  category: SOSCategory | string | null;
+  message: string | null;
+  created_at: string;
+  district: string | null;
+  detailed_area?: string | null;
+  verified_severity: number | null;
+  supply_requirements: Record<string, number> | null;
+  casualties_reported: boolean | null;
+  processed_at: string | null;
+  rephrased_message: string | null;
+}
+
+export interface DisasterAnalytics {
+  id: string;
+  source_project?: string | null;
+  district: string;
+  date_bucket: string;
+  total_incidents: number | null;
+  avg_severity: number | null;
+  critical_needs: Record<string, number> | null;
+  last_updated: string | null;
+  overall_summary: string | null;
+}
+
 // ── User Roles ──────────────────────────────────────────────
 export const USER_ROLES = ['admin', 'official', 'ngo', 'volunteer', 'public'] as const;
 export type UserRole = (typeof USER_ROLES)[number];
@@ -78,6 +109,7 @@ export interface SOSReport {
   phone: string | null;
   latitude: number;
   longitude: number;
+  district?: string | null;
   category: SOSCategory;
   severity: SeverityLevel;
   message: string | null;
@@ -113,6 +145,7 @@ export interface QueuedSOSReport {
   phone: string | null;
   latitude: number;
   longitude: number;
+  district?: string | null;
   category: SOSCategory;
   severity: SeverityLevel;
   message: string | null;

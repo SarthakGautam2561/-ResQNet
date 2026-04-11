@@ -13,7 +13,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
 import * as Haptics from 'expo-haptics';
 import { SOS_CATEGORIES, SEVERITY_LEVELS } from '../constants/categories';
-import { getCurrentLocation, Coordinates } from '../services/locationService';
+import { getCurrentLocation, getDistrictFromCoordinates, Coordinates } from '../services/locationService';
 import { addToQueue } from '../services/offlineQueue';
 import { syncAllPending } from '../services/syncService';
 import { isSupabaseConfigured } from '../services/supabase';
@@ -37,7 +37,8 @@ export default function SOSFormScreen() {
     (async () => {
       setIsLoadingLocation(true);
       const coords = await getCurrentLocation();
-      setLocation(coords);
+      const district = await getDistrictFromCoordinates(coords.latitude, coords.longitude);
+      setLocation({ ...coords, district });
       setIsLoadingLocation(false);
     })();
   }, []);
@@ -61,6 +62,7 @@ export default function SOSFormScreen() {
         phone: phone.trim() || null,
         latitude: location.latitude,
         longitude: location.longitude,
+        district: location.district || null,
         category,
         severity,
         message: message.trim() || null,

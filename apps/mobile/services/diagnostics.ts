@@ -49,6 +49,7 @@ export async function testSupabaseInsert(): Promise<{ ok: boolean; message: stri
     phone: null,
     latitude: 0,
     longitude: 0,
+    district: 'Diagnostics',
     category: 'Other',
     severity: 1,
     message: 'diagnostic ping',

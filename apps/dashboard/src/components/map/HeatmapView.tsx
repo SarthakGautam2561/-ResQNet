@@ -72,6 +72,7 @@ interface HeatmapViewProps {
 export default function HeatmapView({ reports, style, className }: HeatmapViewProps) {
   const [includeResolved, setIncludeResolved] = useState(false);
   const [mapRef, setMapRef] = useState<L.Map | null>(null);
+  const [tileMode, setTileMode] = useState<'dark' | 'light'>('dark');
 
   const visibleReports = useMemo(() => {
     return includeResolved ? reports : reports.filter((r) => r.status !== 'resolved');
@@ -86,11 +87,19 @@ export default function HeatmapView({ reports, style, className }: HeatmapViewPr
         zoomControl={false}
         whenCreated={setMapRef}
       >
-        <TileLayer
-          url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
-          attribution='&copy; <a href="https://carto.com/">CARTO</a>'
-          className="map-tiles"
-        />
+        {tileMode === 'dark' ? (
+          <TileLayer
+            url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+            attribution='&copy; <a href="https://carto.com/">CARTO</a>'
+            className="map-tiles map-tiles--dark"
+          />
+        ) : (
+          <TileLayer
+            url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
+            attribution='&copy; <a href="https://carto.com/">CARTO</a>'
+            className="map-tiles map-tiles--light"
+          />
+        )}
         <HeatLayer reports={visibleReports} />
       </MapContainer>
 
@@ -103,6 +112,9 @@ export default function HeatmapView({ reports, style, className }: HeatmapViewPr
         <div className="map-panel map-actions">
           <button type="button" onClick={() => setIncludeResolved((prev) => !prev)}>
             {includeResolved ? 'Hide Resolved' : 'Show Resolved'}
+          </button>
+          <button type="button" onClick={() => setTileMode((prev) => (prev === 'dark' ? 'light' : 'dark'))}>
+            Map: {tileMode === 'dark' ? 'Night' : 'Day'}
           </button>
         </div>
       </div>

@@ -132,6 +132,7 @@ async function forwardReportToSupabase(report: QueuedSOSReport): Promise<boolean
           phone: report.phone,
           latitude: report.latitude,
           longitude: report.longitude,
+          district: report.district || null,
           category: report.category,
           severity: report.severity,
           message: report.message,

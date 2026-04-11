@@ -4,6 +4,7 @@ import { Alert } from 'react-native';
 export interface Coordinates {
   latitude: number;
   longitude: number;
+  district?: string | null;
 }
 
 // Default coordinates (Delhi) if location unavailable
@@ -60,5 +61,25 @@ export async function getCurrentLocation(): Promise<Coordinates> {
       // Ignore
     }
     return DEFAULT_COORDS;
+  }
+}
+
+export async function getDistrictFromCoordinates(
+  latitude: number,
+  longitude: number
+): Promise<string | null> {
+  try {
+    const results = await Location.reverseGeocodeAsync({ latitude, longitude });
+    if (!results || results.length === 0) return null;
+    const place = results[0] as Record<string, string | undefined>;
+    return (
+      place.district ||
+      place.subregion ||
+      place.city ||
+      place.region ||
+      null
+    );
+  } catch {
+    return null;
   }
 }

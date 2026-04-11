@@ -1,7 +1,7 @@
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 14px;
+  gap: 16px;
 }
 
 .stat-card {
@@ -9,7 +9,7 @@
   background: rgba(13, 19, 36, 0.7);
   border: 1px solid var(--glass-stroke);
   border-radius: 16px;
-  padding: 16px;
+  padding: 18px;
   display: flex;
   align-items: center;
   gap: 12px;
