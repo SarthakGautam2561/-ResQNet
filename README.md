@@ -22,6 +22,7 @@ Create `D:\ResQNet\apps\mobile\.env.local`:
 EXPO_PUBLIC_SUPABASE_URL=your_supabase_url_here
 EXPO_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key_here
 ```
+If you build with EAS, also add these as EAS environment variables. If you forget, the app now includes an in-app **Supabase Setup** screen to paste the URL/key once.
 
 ### Dashboard (Vite)
 Create `D:\ResQNet\apps\dashboard\.env.local`:
@@ -67,3 +68,16 @@ npm run dev
 - The mobile app queues SOS reports offline and auto-syncs on reconnect.
 - The dashboard subscribes to realtime `sos_reports` changes for live updates.
 - Public view fetches a safe subset of SOS fields (no phone numbers).
+
+## Foreground Relay Mode (Android)
+This build includes a foreground **Bluetooth Classic** relay (no Wi-Fi required).
+- Offline device scans nearby Bluetooth devices and sends queued SOS to the relay phone.
+- Online device runs Relay Mode and forwards received SOS to Supabase.
+
+**To test:**
+1. Install the dev client APK on both Android devices.
+2. Start the dev server: `npx expo start --dev-client`
+3. Open the app on both devices.
+4. On the **online** device, open **Relay Mode** and tap **Start Relay Listener**.
+5. On the **offline** device, open **Relay Mode**, tap **Scan for Relays**, select the relay device, then tap **Send Pending SOS**.
+6. If pairing is required, tap **Bluetooth Settings** and pair once.

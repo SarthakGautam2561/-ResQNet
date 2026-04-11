@@ -1,6 +1,6 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import uuid from 'react-native-uuid';
 import type { QueuedSOSReport } from '@resqnet/shared-types';
+import { kvStorage } from './kvStorage';
 
 const QUEUE_KEY = 'resqnet_sos_queue';
 
@@ -9,7 +9,7 @@ export type QueuedReport = QueuedSOSReport;
 // Get all queued reports
 export async function getQueue(): Promise<QueuedReport[]> {
   try {
-    const data = await AsyncStorage.getItem(QUEUE_KEY);
+    const data = await kvStorage.getItem(QUEUE_KEY);
     return data ? JSON.parse(data) : [];
   } catch {
     return [];
@@ -28,7 +28,7 @@ export async function addToQueue(report: Omit<QueuedReport, 'id' | 'synced' | 'r
     retry_count: 0,
   };
   queue.push(newReport);
-  await AsyncStorage.setItem(QUEUE_KEY, JSON.stringify(queue));
+  await kvStorage.setItem(QUEUE_KEY, JSON.stringify(queue));
   return newReport;
 }
 
@@ -44,7 +44,7 @@ export async function markAsSynced(reportId: string): Promise<void> {
   const updated = queue.map((r) =>
     r.id === reportId ? { ...r, synced: true } : r
   );
-  await AsyncStorage.setItem(QUEUE_KEY, JSON.stringify(updated));
+  await kvStorage.setItem(QUEUE_KEY, JSON.stringify(updated));
 }
 
 // Increment retry count
@@ -53,7 +53,7 @@ export async function incrementRetry(reportId: string): Promise<void> {
   const updated = queue.map((r) =>
     r.id === reportId ? { ...r, retry_count: r.retry_count + 1 } : r
   );
-  await AsyncStorage.setItem(QUEUE_KEY, JSON.stringify(updated));
+  await kvStorage.setItem(QUEUE_KEY, JSON.stringify(updated));
 }
 
 // Get count of pending (unsynced) reports
@@ -69,5 +69,9 @@ export async function cleanupSyncedReports(): Promise<void> {
   const filtered = queue.filter(
     (r) => !r.synced || new Date(r.created_at).getTime() > oneDayAgo
   );
-  await AsyncStorage.setItem(QUEUE_KEY, JSON.stringify(filtered));
+  await kvStorage.setItem(QUEUE_KEY, JSON.stringify(filtered));
+}
+
+export async function clearQueue(): Promise<void> {
+  await kvStorage.setItem(QUEUE_KEY, JSON.stringify([]));
 }

@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { View, Text, FlatList, StyleSheet, RefreshControl } from 'react-native';
-import { supabase } from '../services/supabase';
+import { LinearGradient } from 'expo-linear-gradient';
+import { getSupabaseClient } from '../services/supabase';
 import { SOS_CATEGORIES, SEVERITY_LEVELS } from '../constants/categories';
 import type { SOSReport } from '@resqnet/shared-types';
 
@@ -13,10 +14,16 @@ export default function StatusScreen() {
   const [reports, setReports] = useState<StatusReport[]>([]);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
+  const [clientReady, setClientReady] = useState(false);
 
   const fetchReports = useCallback(async () => {
     try {
-      const { data, error } = await supabase
+      const client = await getSupabaseClient();
+      if (!client) {
+        setReports([]);
+        return;
+      }
+      const { data, error } = await client
         .from('sos_reports')
         .select('id, created_at, name, category, severity, message, status, assigned_to')
         .order('created_at', { ascending: false })
@@ -33,18 +40,27 @@ export default function StatusScreen() {
   }, []);
 
   useEffect(() => {
-    fetchReports();
+    fetchReports().finally(() => setClientReady(true));
 
-    // Realtime subscription for status updates
-    const channel = supabase
-      .channel('status-updates')
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'sos_reports' }, () => {
-        fetchReports();
-      })
-      .subscribe();
+    let channel: any = null;
+    (async () => {
+      const client = await getSupabaseClient();
+      if (!client) return;
+      channel = client
+        .channel('status-updates')
+        .on('postgres_changes', { event: '*', schema: 'public', table: 'sos_reports' }, () => {
+          fetchReports();
+        })
+        .subscribe();
+    })();
 
     return () => {
-      supabase.removeChannel(channel);
+      if (channel) {
+        void (async () => {
+          const client = await getSupabaseClient();
+          client?.removeChannel(channel as any);
+        })();
+      }
     };
   }, [fetchReports]);
 
@@ -81,7 +97,7 @@ export default function StatusScreen() {
     return d.toLocaleDateString();
   };
 
-  const renderItem = ({ item }: { item: SOSReport }) => {
+  const renderItem = ({ item }: { item: StatusReport }) => {
     const cat = SOS_CATEGORIES.find((c) => c.key === item.category);
     const sev = SEVERITY_LEVELS.find((s) => s.level === item.severity);
     const status = getStatusInfo(item.status);
@@ -89,7 +105,9 @@ export default function StatusScreen() {
     return (
       <View style={styles.card}>
         <View style={styles.cardTop}>
-          <Text style={styles.cardEmoji}>{cat?.icon || '⚠️'}</Text>
+          <View style={[styles.iconBadge, { backgroundColor: (cat?.color || '#94a3b8') + '25' }]}>
+            <Text style={styles.cardEmoji}>{cat?.icon || '⚠️'}</Text>
+          </View>
           <View style={styles.cardInfo}>
             <Text style={styles.cardCategory}>{item.category}</Text>
             <Text style={styles.cardTime}>{formatTime(item.created_at)}</Text>
@@ -113,7 +131,7 @@ export default function StatusScreen() {
             </Text>
           </View>
           {item.name && <Text style={styles.nameText}>{item.name}</Text>}
-          {item.assigned_to && <Text style={styles.assignedText}>👤 Assigned</Text>}
+          {item.assigned_to && <Text style={styles.assignedText}>Assigned</Text>}
         </View>
       </View>
     );
@@ -121,14 +139,14 @@ export default function StatusScreen() {
 
   if (loading) {
     return (
-      <View style={styles.loadingContainer}>
-        <Text style={styles.loadingText}>Loading reports...</Text>
-      </View>
+      <LinearGradient colors={['#0a0f1f', '#0b152b', '#0a0f1f']} style={styles.loadingContainer}>
+        <Text style={styles.loadingText}>{clientReady ? 'Loading reports...' : 'Preparing connection...'}</Text>
+      </LinearGradient>
     );
   }
 
   return (
-    <View style={styles.container}>
+    <LinearGradient colors={['#0a0f1f', '#0b152b', '#0a0f1f']} style={styles.container}>
       <FlatList
         data={reports}
         keyExtractor={(item) => item.id}
@@ -143,36 +161,45 @@ export default function StatusScreen() {
           </View>
         }
       />
-    </View>
+    </LinearGradient>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#0a0e1a' },
-  loadingContainer: { flex: 1, backgroundColor: '#0a0e1a', justifyContent: 'center', alignItems: 'center' },
-  loadingText: { color: '#64748b', fontSize: 16 },
+  container: { flex: 1 },
+  loadingContainer: { flex: 1, justifyContent: 'center', alignItems: 'center' },
+  loadingText: { color: '#8aa0c7', fontSize: 16 },
   list: { padding: 16, gap: 12 },
   card: {
-    backgroundColor: '#1e293b',
-    borderRadius: 12,
+    backgroundColor: '#111a2d',
+    borderRadius: 14,
     padding: 16,
+    borderWidth: 1,
+    borderColor: '#1c2742',
   },
-  cardTop: { flexDirection: 'row', alignItems: 'center', marginBottom: 8 },
-  cardEmoji: { fontSize: 22, marginRight: 10 },
+  cardTop: { flexDirection: 'row', alignItems: 'center', marginBottom: 8, gap: 10 },
+  iconBadge: {
+    width: 34,
+    height: 34,
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  cardEmoji: { fontSize: 18 },
   cardInfo: { flex: 1 },
   cardCategory: { fontSize: 14, fontWeight: '700', color: '#e2e8f0' },
-  cardTime: { fontSize: 11, color: '#64748b', marginTop: 1 },
+  cardTime: { fontSize: 11, color: '#8aa0c7', marginTop: 1 },
   badge: { flexDirection: 'row', alignItems: 'center', paddingHorizontal: 8, paddingVertical: 4, borderRadius: 6, gap: 4 },
   badgeDot: { width: 6, height: 6, borderRadius: 3 },
   badgeText: { fontSize: 11, fontWeight: '700' },
-  cardMessage: { color: '#94a3b8', fontSize: 13, lineHeight: 18, marginBottom: 8 },
+  cardMessage: { color: '#b7c5e1', fontSize: 13, lineHeight: 18, marginBottom: 8 },
   cardFooter: { flexDirection: 'row', alignItems: 'center', gap: 8 },
   sevBadge: { paddingHorizontal: 6, paddingVertical: 2, borderRadius: 4 },
   sevText: { fontSize: 10, fontWeight: '700' },
-  nameText: { color: '#64748b', fontSize: 11 },
+  nameText: { color: '#8aa0c7', fontSize: 11 },
   assignedText: { color: '#3b82f6', fontSize: 11, fontWeight: '600' },
   emptyState: { alignItems: 'center', paddingTop: 80 },
   emptyIcon: { fontSize: 48, marginBottom: 12 },
-  emptyText: { fontSize: 18, fontWeight: '700', color: '#64748b' },
-  emptySubtext: { fontSize: 14, color: '#475569', marginTop: 4 },
+  emptyText: { fontSize: 18, fontWeight: '700', color: '#8aa0c7' },
+  emptySubtext: { fontSize: 14, color: '#6f82a7', marginTop: 4 },
 });

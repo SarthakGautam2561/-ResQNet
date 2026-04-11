@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { supabase } from '../services/supabase';
+import { supabase, isSupabaseConfigured } from '../services/supabase';
 import type { SOSReport, SOSStatus } from '@resqnet/shared-types';
 export type { SOSReport };
 
@@ -8,6 +8,11 @@ export function useRealtimeSOS() {
   const [loading, setLoading] = useState(true);
 
   const fetchReports = useCallback(async () => {
+    if (!supabase || !isSupabaseConfigured) {
+      setReports([]);
+      setLoading(false);
+      return;
+    }
     const { data, error } = await supabase
       .from('sos_reports')
       .select('*')
@@ -23,6 +28,9 @@ export function useRealtimeSOS() {
     fetchReports();
 
     // Realtime subscription
+    if (!supabase || !isSupabaseConfigured) {
+      return;
+    }
     const channel = supabase
       .channel('sos-realtime-dashboard')
       .on(
@@ -63,6 +71,7 @@ export function useRealtimeSOS() {
 
   // Update status
   const updateStatus = async (reportId: string, status: SOSStatus) => {
+    if (!supabase || !isSupabaseConfigured) return false;
     const { error } = await supabase
       .from('sos_reports')
       .update({ status })

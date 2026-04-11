@@ -1,17 +1,31 @@
 import * as Network from 'expo-network';
-import { supabase } from './supabase';
+import { getSupabaseClient } from './supabase';
 import { getUnsyncedReports, markAsSynced, incrementRetry } from './offlineQueue';
+import { kvStorage } from './kvStorage';
 
 let syncInterval: ReturnType<typeof setInterval> | null = null;
+const LAST_SYNC_ERROR_KEY = 'resqnet_last_sync_error';
 
 // Check if device has internet connectivity
 export async function isOnline(): Promise<boolean> {
   try {
     const networkState = await Network.getNetworkStateAsync();
-    return networkState.isConnected === true && networkState.isInternetReachable === true;
+    return networkState.isConnected === true;
   } catch {
     return false;
   }
+}
+
+export async function getLastSyncError(): Promise<string | null> {
+  return kvStorage.getItem(LAST_SYNC_ERROR_KEY);
+}
+
+async function setLastSyncError(message: string | null): Promise<void> {
+  if (!message) {
+    await kvStorage.removeItem(LAST_SYNC_ERROR_KEY);
+    return;
+  }
+  await kvStorage.setItem(LAST_SYNC_ERROR_KEY, message);
 }
 
 // Sync a single report to Supabase
@@ -28,26 +42,41 @@ async function syncReport(report: {
   source_device: string;
 }): Promise<boolean> {
   try {
-    const { error } = await supabase.from('sos_reports').insert({
-      name: report.name,
-      phone: report.phone,
-      latitude: report.latitude,
-      longitude: report.longitude,
-      category: report.category,
-      severity: report.severity,
-      message: report.message,
-      created_at: report.created_at,
-      source_device: report.source_device,
-      synced_at: new Date().toISOString(),
-      status: 'pending',
-    });
+    const client = await getSupabaseClient();
+    if (!client) {
+      await setLastSyncError('Supabase not configured.');
+      console.error('Supabase config missing.');
+      return false;
+    }
+    const { error } = await client
+      .from('sos_reports')
+      .upsert(
+        {
+          id: report.id,
+          name: report.name,
+          phone: report.phone,
+          latitude: report.latitude,
+          longitude: report.longitude,
+          category: report.category,
+          severity: report.severity,
+          message: report.message,
+          created_at: report.created_at,
+          source_device: report.source_device,
+          synced_at: new Date().toISOString(),
+          status: 'pending',
+        },
+        { onConflict: 'id', ignoreDuplicates: true }
+      );
 
     if (error) {
+      await setLastSyncError(error.message);
       console.error('Sync error for report', report.id, error);
       return false;
     }
+    await setLastSyncError(null);
     return true;
   } catch (e) {
+    await setLastSyncError(e instanceof Error ? e.message : 'Network error');
     console.error('Network error syncing report', report.id, e);
     return false;
   }
@@ -78,6 +107,10 @@ export async function syncAllPending(): Promise<{ synced: number; failed: number
       await incrementRetry(report.id);
       failed++;
     }
+  }
+
+  if (synced > 0 && failed === 0) {
+    await setLastSyncError(null);
   }
 
   return { synced, failed };

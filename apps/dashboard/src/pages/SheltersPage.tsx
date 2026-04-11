@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { supabase } from '../services/supabase';
+import { supabase, isSupabaseConfigured } from '../services/supabase';
 import { useAuth } from '../hooks/useAuth';
 
 interface Shelter {
@@ -21,6 +21,10 @@ export default function SheltersPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (!supabase || !isSupabaseConfigured) {
+      setLoading(false);
+      return;
+    }
     if (!canManageShelters) {
       setLoading(false);
       return;
@@ -39,6 +43,14 @@ export default function SheltersPage() {
     return (
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', color: '#64748b' }}>
         Access restricted to Admin, Official, and NGO roles.
+      </div>
+    );
+  }
+
+  if (!supabase || !isSupabaseConfigured) {
+    return (
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', color: '#64748b' }}>
+        Supabase not configured. Set `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` in `.env.local` and restart.
       </div>
     );
   }

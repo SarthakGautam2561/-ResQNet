@@ -9,14 +9,16 @@ import {
   Alert,
   ActivityIndicator,
 } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
 import * as Haptics from 'expo-haptics';
 import { SOS_CATEGORIES, SEVERITY_LEVELS } from '../constants/categories';
-import type { SOSCategory, SeverityLevel } from '@resqnet/shared-types';
 import { getCurrentLocation, Coordinates } from '../services/locationService';
 import { addToQueue } from '../services/offlineQueue';
 import { syncAllPending } from '../services/syncService';
+import { isSupabaseConfigured } from '../services/supabase';
 import { useNetworkStatus } from '../hooks/useNetworkStatus';
+import type { SOSCategory, SeverityLevel } from '@resqnet/shared-types';
 
 export default function SOSFormScreen() {
   const router = useRouter();
@@ -31,7 +33,6 @@ export default function SOSFormScreen() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isLoadingLocation, setIsLoadingLocation] = useState(true);
 
-  // Get GPS immediately on form open
   useEffect(() => {
     (async () => {
       setIsLoadingLocation(true);
@@ -65,19 +66,32 @@ export default function SOSFormScreen() {
         message: message.trim() || null,
       });
 
-      // Try to sync immediately if online
+      let syncedNow = false;
+      let syncFailed = false;
+      let configMissing = false;
+
       if (isConnected) {
-        await syncAllPending();
+        const configured = await isSupabaseConfigured();
+        configMissing = !configured;
+        if (configured) {
+          const result = await syncAllPending();
+          syncedNow = result.synced > 0;
+          syncFailed = result.failed > 0 && result.synced === 0;
+        }
       }
 
-      Alert.alert(
-        '✅ SOS Submitted',
-        isConnected
+      const messageText = isConnected
+        ? syncedNow
           ? 'Your emergency report has been sent to responders.'
-          : 'Report saved locally. Will auto-send when internet returns.',
-        [{ text: 'OK', onPress: () => router.back() }]
-      );
-    } catch (e) {
+          : syncFailed
+            ? 'Saved locally due to a network error. Will retry automatically.'
+            : configMissing
+              ? 'Saved locally. Configure Supabase to enable sync.'
+              : 'Saved locally. Will sync shortly.'
+        : 'Report saved locally. Will auto-send when internet returns.';
+
+      Alert.alert('SOS Submitted', messageText, [{ text: 'OK', onPress: () => router.back() }]);
+    } catch {
       Alert.alert('Error', 'Failed to save report. Please try again.');
     } finally {
       setIsSubmitting(false);
@@ -85,148 +99,177 @@ export default function SOSFormScreen() {
   }, [category, location, name, phone, severity, message, isConnected, router]);
 
   return (
-    <ScrollView style={styles.container} contentContainerStyle={styles.content}>
-      {/* Category Selection */}
-      <Text style={styles.sectionTitle}>EMERGENCY TYPE</Text>
-      <View style={styles.categoryGrid}>
-        {SOS_CATEGORIES.map((cat) => (
-          <TouchableOpacity
-            key={cat.key}
-            style={[
-              styles.categoryItem,
-              category === cat.key && { backgroundColor: cat.color + '30', borderColor: cat.color },
-            ]}
-            onPress={() => {
-              setCategory(cat.key);
-              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-            }}
-          >
-            <Text style={styles.categoryIcon}>{cat.icon}</Text>
-            <Text style={[styles.categoryLabel, category === cat.key && { color: cat.color }]}>
-              {cat.label}
-            </Text>
-          </TouchableOpacity>
-        ))}
-      </View>
+    <LinearGradient colors={['#0a0f1f', '#0b152b', '#0a0f1f']} style={styles.container}>
+      <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
+        <Text style={styles.title}>Send SOS</Text>
+        <Text style={styles.subtitle}>Give responders the fastest signal possible.</Text>
 
-      {/* Severity */}
-      <Text style={styles.sectionTitle}>SEVERITY LEVEL</Text>
-      <View style={styles.severityRow}>
-        {SEVERITY_LEVELS.map((s) => (
-          <TouchableOpacity
-            key={s.level}
-            style={[
-              styles.severityItem,
-              {
-                backgroundColor: severity === s.level ? s.color : s.bgColor,
-                borderColor: severity === s.level ? s.color : 'transparent',
-                borderWidth: severity === s.level ? 2 : 0,
-              },
-            ]}
-            onPress={() => {
-              setSeverity(s.level);
-              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-            }}
-          >
-            <Text style={[styles.severityNumber, { color: severity === s.level ? '#fff' : s.color }]}>
-              {s.level}
-            </Text>
-            <Text style={[styles.severityLabel, { color: severity === s.level ? '#fff' : s.color }]}>
-              {s.label}
-            </Text>
-          </TouchableOpacity>
-        ))}
-      </View>
+        <View style={styles.sectionCard}>
+          <Text style={styles.sectionTitle}>EMERGENCY TYPE</Text>
+          <View style={styles.categoryGrid}>
+            {SOS_CATEGORIES.map((cat) => (
+              <TouchableOpacity
+                key={cat.key}
+                style={[
+                  styles.categoryItem,
+                  category === cat.key && { borderColor: cat.color, backgroundColor: cat.color + '25' },
+                ]}
+                onPress={() => {
+                  setCategory(cat.key);
+                  Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                }}
+              >
+                <Text style={styles.categoryIcon}>{cat.icon}</Text>
+                <Text style={[styles.categoryLabel, category === cat.key && { color: cat.color }]}>
+                  {cat.label}
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+        </View>
 
-      {/* Message */}
-      <Text style={styles.sectionTitle}>DESCRIBE EMERGENCY</Text>
-      <TextInput
-        style={styles.messageInput}
-        placeholder="What's happening? Describe your situation..."
-        placeholderTextColor="#475569"
-        multiline
-        numberOfLines={4}
-        value={message}
-        onChangeText={setMessage}
-        textAlignVertical="top"
-      />
+        <View style={styles.sectionCard}>
+          <Text style={styles.sectionTitle}>SEVERITY LEVEL</Text>
+          <View style={styles.severityRow}>
+            {SEVERITY_LEVELS.map((s) => (
+              <TouchableOpacity
+                key={s.level}
+                style={[
+                  styles.severityItem,
+                  {
+                    backgroundColor: severity === s.level ? s.color : s.bgColor,
+                    borderColor: severity === s.level ? s.color : 'transparent',
+                  },
+                ]}
+                onPress={() => {
+                  setSeverity(s.level);
+                  Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+                }}
+              >
+                <Text style={[styles.severityNumber, { color: severity === s.level ? '#fff' : s.color }]}>
+                  {s.level}
+                </Text>
+                <Text style={[styles.severityLabel, { color: severity === s.level ? '#fff' : s.color }]}>
+                  {s.label}
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+        </View>
 
-      {/* Optional Details */}
-      <Text style={styles.sectionTitle}>YOUR INFO (OPTIONAL)</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Name"
-        placeholderTextColor="#475569"
-        value={name}
-        onChangeText={setName}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Phone Number"
-        placeholderTextColor="#475569"
-        keyboardType="phone-pad"
-        value={phone}
-        onChangeText={setPhone}
-      />
+        <View style={styles.sectionCard}>
+          <Text style={styles.sectionTitle}>DESCRIBE EMERGENCY</Text>
+          <TextInput
+            style={styles.messageInput}
+            placeholder="What’s happening? Who needs help? Any hazards?"
+            placeholderTextColor="#637199"
+            multiline
+            numberOfLines={5}
+            value={message}
+            onChangeText={setMessage}
+            textAlignVertical="top"
+          />
+        </View>
 
-      {/* Location Status */}
-      <View style={styles.locationBar}>
-        {isLoadingLocation ? (
-          <>
-            <ActivityIndicator size="small" color="#3b82f6" />
-            <Text style={styles.locationText}>Getting GPS location...</Text>
-          </>
-        ) : location ? (
-          <>
-            <Text style={styles.locationDot}>📍</Text>
-            <Text style={styles.locationText}>
-              {location.latitude.toFixed(4)}, {location.longitude.toFixed(4)}
-            </Text>
-          </>
-        ) : (
-          <Text style={[styles.locationText, { color: '#ef4444' }]}>⚠️ Location unavailable</Text>
-        )}
-      </View>
+        <View style={styles.sectionCard}>
+          <Text style={styles.sectionTitle}>YOUR INFO (OPTIONAL)</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Name"
+            placeholderTextColor="#637199"
+            value={name}
+            onChangeText={setName}
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="Phone Number"
+            placeholderTextColor="#637199"
+            keyboardType="phone-pad"
+            value={phone}
+            onChangeText={setPhone}
+          />
+        </View>
 
-      {/* Submit Button */}
-      <TouchableOpacity
-        style={[styles.submitButton, isSubmitting && styles.submitDisabled]}
-        onPress={handleSubmit}
-        disabled={isSubmitting}
-        activeOpacity={0.7}
-      >
-        {isSubmitting ? (
-          <ActivityIndicator color="#fff" size="small" />
-        ) : (
-          <>
-            <Text style={styles.submitText}>🚨 SEND SOS</Text>
-            <Text style={styles.submitSubtext}>
-              {isConnected ? 'Will be sent immediately' : 'Saved locally, syncs when online'}
-            </Text>
-          </>
-        )}
-      </TouchableOpacity>
+        <View style={styles.sectionCard}>
+          <Text style={styles.sectionTitle}>LOCATION</Text>
+          <View style={styles.locationBar}>
+            {isLoadingLocation ? (
+              <>
+                <ActivityIndicator size="small" color="#3b82f6" />
+                <Text style={styles.locationText}>Getting GPS location...</Text>
+              </>
+            ) : location ? (
+              <>
+                <Text style={styles.locationDot}>📍</Text>
+                <Text style={styles.locationText}>
+                  {location.latitude.toFixed(4)}, {location.longitude.toFixed(4)}
+                </Text>
+              </>
+            ) : (
+              <Text style={[styles.locationText, { color: '#ef4444' }]}>Location unavailable</Text>
+            )}
+          </View>
+        </View>
 
-      <View style={{ height: 40 }} />
-    </ScrollView>
+        <TouchableOpacity
+          style={[styles.submitButton, isSubmitting && styles.submitDisabled]}
+          onPress={handleSubmit}
+          disabled={isSubmitting}
+          activeOpacity={0.85}
+        >
+          <LinearGradient colors={['#ff5a5a', '#ef4444', '#b91c1c']} style={styles.submitGradient}>
+            {isSubmitting ? (
+              <ActivityIndicator color="#fff" size="small" />
+            ) : (
+              <>
+                <Text style={styles.submitText}>SEND SOS</Text>
+                <Text style={styles.submitSubtext}>
+                  {isConnected ? 'Will be sent immediately' : 'Saved locally, syncs when online'}
+                </Text>
+              </>
+            )}
+          </LinearGradient>
+        </TouchableOpacity>
+
+        <View style={{ height: 24 }} />
+      </ScrollView>
+    </LinearGradient>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#0a0e1a',
   },
   content: {
     padding: 20,
   },
+  title: {
+    fontSize: 26,
+    fontWeight: '900',
+    color: '#f8fafc',
+    letterSpacing: 1,
+  },
+  subtitle: {
+    marginTop: 6,
+    marginBottom: 18,
+    fontSize: 13,
+    color: '#8aa0c7',
+  },
+  sectionCard: {
+    backgroundColor: '#111a2d',
+    borderRadius: 16,
+    borderWidth: 1,
+    borderColor: '#1c2742',
+    padding: 16,
+    marginBottom: 14,
+  },
   sectionTitle: {
-    fontSize: 12,
+    fontSize: 11,
     fontWeight: '800',
-    color: '#94a3b8',
+    color: '#9fb0d1',
     letterSpacing: 2,
     marginBottom: 12,
-    marginTop: 20,
   },
   categoryGrid: {
     flexDirection: 'row',
@@ -236,21 +279,21 @@ const styles = StyleSheet.create({
   categoryItem: {
     width: '23%',
     aspectRatio: 1,
-    backgroundColor: '#1e293b',
+    backgroundColor: '#0f182c',
     borderRadius: 12,
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 1.5,
-    borderColor: '#334155',
+    borderColor: '#23314f',
   },
   categoryIcon: {
-    fontSize: 24,
+    fontSize: 22,
     marginBottom: 4,
   },
   categoryLabel: {
     fontSize: 10,
     fontWeight: '700',
-    color: '#94a3b8',
+    color: '#9fb0d1',
     textAlign: 'center',
   },
   severityRow: {
@@ -262,9 +305,10 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
     borderRadius: 10,
     alignItems: 'center',
+    borderWidth: 2,
   },
   severityNumber: {
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: '900',
   },
   severityLabel: {
@@ -274,66 +318,69 @@ const styles = StyleSheet.create({
     letterSpacing: 0.5,
   },
   messageInput: {
-    backgroundColor: '#1e293b',
+    backgroundColor: '#0f182c',
     borderRadius: 12,
-    padding: 16,
+    padding: 14,
     color: '#f8fafc',
-    fontSize: 16,
-    minHeight: 100,
+    fontSize: 15,
+    minHeight: 110,
     borderWidth: 1,
-    borderColor: '#334155',
+    borderColor: '#23314f',
   },
   input: {
-    backgroundColor: '#1e293b',
+    backgroundColor: '#0f182c',
     borderRadius: 12,
-    padding: 16,
+    padding: 14,
     color: '#f8fafc',
-    fontSize: 16,
+    fontSize: 15,
     borderWidth: 1,
-    borderColor: '#334155',
+    borderColor: '#23314f',
     marginBottom: 10,
   },
   locationBar: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 8,
-    backgroundColor: '#1e293b',
+    backgroundColor: '#0f182c',
     padding: 12,
     borderRadius: 10,
-    marginTop: 10,
+    borderWidth: 1,
+    borderColor: '#23314f',
   },
   locationDot: {
     fontSize: 16,
   },
   locationText: {
-    color: '#94a3b8',
+    color: '#9fb0d1',
     fontSize: 13,
     fontFamily: 'monospace',
   },
   submitButton: {
-    backgroundColor: '#dc2626',
-    borderRadius: 16,
-    paddingVertical: 20,
-    alignItems: 'center',
-    marginTop: 24,
-    shadowColor: '#ef4444',
-    shadowOffset: { width: 0, height: 6 },
+    borderRadius: 18,
+    overflow: 'hidden',
+    marginTop: 10,
+    shadowColor: '#ff5a5a',
+    shadowOffset: { width: 0, height: 8 },
     shadowOpacity: 0.4,
-    shadowRadius: 12,
-    elevation: 8,
+    shadowRadius: 16,
+    elevation: 10,
+  },
+  submitGradient: {
+    paddingVertical: 18,
+    alignItems: 'center',
   },
   submitDisabled: {
-    opacity: 0.6,
+    opacity: 0.7,
   },
   submitText: {
     color: '#fff',
-    fontSize: 22,
+    fontSize: 20,
     fontWeight: '900',
     letterSpacing: 2,
   },
   submitSubtext: {
-    color: 'rgba(255,255,255,0.6)',
-    fontSize: 12,
+    color: 'rgba(255,255,255,0.7)',
+    fontSize: 11,
     marginTop: 4,
   },
 });

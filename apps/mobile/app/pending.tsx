@@ -8,8 +8,10 @@ import {
   RefreshControl,
   Alert,
 } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 import { getQueue, QueuedReport } from '../services/offlineQueue';
-import { syncAllPending } from '../services/syncService';
+import { syncAllPending, getLastSyncError } from '../services/syncService';
+import { isSupabaseConfigured } from '../services/supabase';
 import { useNetworkStatus } from '../hooks/useNetworkStatus';
 import { SOS_CATEGORIES, SEVERITY_LEVELS } from '../constants/categories';
 
@@ -18,15 +20,17 @@ export default function PendingScreen() {
   const [reports, setReports] = useState<QueuedReport[]>([]);
   const [refreshing, setRefreshing] = useState(false);
   const [syncing, setSyncing] = useState(false);
+  const [lastError, setLastError] = useState<string | null>(null);
 
   const loadReports = useCallback(async () => {
     const queue = await getQueue();
-    // Show newest first, unsynced first
     const sorted = queue.sort((a, b) => {
       if (a.synced !== b.synced) return a.synced ? 1 : -1;
       return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
     });
     setReports(sorted);
+    const err = await getLastSyncError();
+    setLastError(err);
   }, []);
 
   useEffect(() => {
@@ -42,15 +46,22 @@ export default function PendingScreen() {
   }, [loadReports]);
 
   const handleManualSync = useCallback(async () => {
-    if (!isConnected) {
-      Alert.alert('No Internet', 'Connect to the internet to sync reports.');
+    setSyncing(true);
+    const configured = await isSupabaseConfigured();
+    if (!configured) {
+      setSyncing(false);
+      Alert.alert('Supabase Missing', 'Set Supabase URL and key in Supabase Setup first.');
       return;
     }
-    setSyncing(true);
     const result = await syncAllPending();
     await loadReports();
     setSyncing(false);
-    Alert.alert('Sync Complete', `Synced: ${result.synced}, Failed: ${result.failed}`);
+    Alert.alert(
+      'Sync Complete',
+      isConnected
+        ? `Synced: ${result.synced}, Failed: ${result.failed}`
+        : `Attempted sync while offline. Synced: ${result.synced}, Failed: ${result.failed}`
+    );
   }, [isConnected, loadReports]);
 
   const getCategoryInfo = (key: string) => {
@@ -80,13 +91,15 @@ export default function PendingScreen() {
     return (
       <View style={[styles.reportCard, item.synced && styles.syncedCard]}>
         <View style={styles.cardHeader}>
-          <Text style={styles.cardEmoji}>{cat.icon}</Text>
+          <View style={[styles.iconBadge, { backgroundColor: cat.color + '25' }]}>
+            <Text style={styles.cardEmoji}>{cat.icon}</Text>
+          </View>
           <View style={styles.cardHeaderText}>
             <Text style={styles.cardCategory}>{item.category}</Text>
             <Text style={styles.cardTime}>{formatTime(item.created_at)}</Text>
           </View>
           <View style={[styles.statusBadge, { backgroundColor: item.synced ? '#16a34a' : '#eab308' }]}>
-            <Text style={styles.statusText}>{item.synced ? '✓ Sent' : '⏳ Pending'}</Text>
+            <Text style={styles.statusText}>{item.synced ? 'SENT' : 'PENDING'}</Text>
           </View>
         </View>
         <View style={styles.cardBody}>
@@ -110,8 +123,7 @@ export default function PendingScreen() {
   const unsyncedCount = reports.filter((r) => !r.synced).length;
 
   return (
-    <View style={styles.container}>
-      {/* Sync Header */}
+    <LinearGradient colors={['#0a0f1f', '#0b152b', '#0a0f1f']} style={styles.container}>
       <View style={styles.syncHeader}>
         <View>
           <Text style={styles.syncCount}>{unsyncedCount} pending</Text>
@@ -122,11 +134,16 @@ export default function PendingScreen() {
           onPress={handleManualSync}
           disabled={syncing}
         >
-          <Text style={styles.syncButtonText}>{syncing ? 'Syncing...' : '🔄 Sync Now'}</Text>
+          <Text style={styles.syncButtonText}>{syncing ? 'Syncing...' : 'Sync Now'}</Text>
         </TouchableOpacity>
       </View>
 
-      {/* Report List */}
+      {lastError && (
+        <View style={styles.errorBanner}>
+          <Text style={styles.errorText}>Last sync error: {lastError}</Text>
+        </View>
+      )}
+
       <FlatList
         data={reports}
         keyExtractor={(item) => item.id}
@@ -141,23 +158,22 @@ export default function PendingScreen() {
           </View>
         }
       />
-    </View>
+    </LinearGradient>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#0a0e1a',
   },
   syncHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: 16,
-    backgroundColor: '#111827',
+    backgroundColor: '#0f182c',
     borderBottomWidth: 1,
-    borderBottomColor: '#1e293b',
+    borderBottomColor: '#1c2742',
   },
   syncCount: {
     fontSize: 18,
@@ -166,14 +182,28 @@ const styles = StyleSheet.create({
   },
   syncTotal: {
     fontSize: 12,
-    color: '#64748b',
+    color: '#8aa0c7',
     marginTop: 2,
   },
+  errorBanner: {
+    marginHorizontal: 16,
+    marginTop: 10,
+    backgroundColor: '#2b1508',
+    borderWidth: 1,
+    borderColor: '#7c2d12',
+    borderRadius: 10,
+    padding: 10,
+  },
+  errorText: {
+    color: '#fdba74',
+    fontSize: 11,
+    fontWeight: '700',
+  },
   syncButton: {
-    backgroundColor: '#1e40af',
+    backgroundColor: '#1d4ed8',
     paddingHorizontal: 16,
     paddingVertical: 10,
-    borderRadius: 8,
+    borderRadius: 10,
   },
   syncButtonDisabled: {
     opacity: 0.5,
@@ -181,31 +211,38 @@ const styles = StyleSheet.create({
   syncButtonText: {
     color: '#fff',
     fontWeight: '700',
-    fontSize: 14,
+    fontSize: 13,
+    letterSpacing: 0.5,
   },
   list: {
     padding: 16,
     gap: 12,
   },
   reportCard: {
-    backgroundColor: '#1e293b',
-    borderRadius: 12,
+    backgroundColor: '#111a2d',
+    borderRadius: 14,
     padding: 16,
-    borderLeftWidth: 4,
-    borderLeftColor: '#eab308',
+    borderWidth: 1,
+    borderColor: '#1c2742',
   },
   syncedCard: {
-    borderLeftColor: '#16a34a',
     opacity: 0.7,
   },
   cardHeader: {
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 10,
+    gap: 10,
+  },
+  iconBadge: {
+    width: 36,
+    height: 36,
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   cardEmoji: {
-    fontSize: 24,
-    marginRight: 10,
+    fontSize: 18,
   },
   cardHeaderText: {
     flex: 1,
@@ -217,7 +254,7 @@ const styles = StyleSheet.create({
   },
   cardTime: {
     fontSize: 11,
-    color: '#64748b',
+    color: '#8aa0c7',
     marginTop: 2,
   },
   statusBadge: {
@@ -227,8 +264,9 @@ const styles = StyleSheet.create({
   },
   statusText: {
     color: '#fff',
-    fontSize: 11,
-    fontWeight: '700',
+    fontSize: 10,
+    fontWeight: '800',
+    letterSpacing: 0.6,
   },
   cardBody: {
     gap: 6,
@@ -244,19 +282,19 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
   cardMessage: {
-    color: '#94a3b8',
+    color: '#b7c5e1',
     fontSize: 13,
     lineHeight: 18,
   },
   cardCoords: {
-    color: '#475569',
+    color: '#7c8fb4',
     fontSize: 11,
     fontFamily: 'monospace',
   },
   retryText: {
     color: '#f97316',
     fontSize: 11,
-    marginTop: 6,
+    marginTop: 8,
     fontWeight: '600',
   },
   emptyState: {
@@ -270,11 +308,11 @@ const styles = StyleSheet.create({
   emptyText: {
     fontSize: 18,
     fontWeight: '700',
-    color: '#64748b',
+    color: '#8aa0c7',
   },
   emptySubtext: {
     fontSize: 14,
-    color: '#475569',
+    color: '#6f82a7',
     marginTop: 4,
   },
 });

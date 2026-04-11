@@ -1,5 +1,5 @@
 import { useState, useEffect, createContext, useContext, ReactNode } from 'react';
-import { supabase } from '../services/supabase';
+import { supabase, isSupabaseConfigured } from '../services/supabase';
 import type { UserRole } from '@resqnet/shared-types';
 
 interface User {
@@ -24,6 +24,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (!supabase) {
+      setUser(null);
+      setLoading(false);
+      return;
+    }
     // Check existing session
     supabase.auth.getSession().then(({ data: { session } }) => {
       if (session?.user) {
@@ -47,6 +52,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const fetchProfile = async (userId: string) => {
+    if (!supabase) return;
     const { data } = await supabase
       .from('profiles')
       .select('*')
@@ -65,11 +71,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const login = async (email: string, password: string) => {
+    if (!supabase || !isSupabaseConfigured) {
+      return { error: 'Supabase is not configured.' };
+    }
     const { error } = await supabase.auth.signInWithPassword({ email, password });
     return { error: error?.message || null };
   };
 
   const signup = async (email: string, password: string, name: string, role: string) => {
+    if (!supabase || !isSupabaseConfigured) {
+      return { error: 'Supabase is not configured.' };
+    }
     const { error } = await supabase.auth.signUp({
       email,
       password,
@@ -79,6 +91,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const logout = async () => {
+    if (!supabase) return;
     await supabase.auth.signOut();
     setUser(null);
   };

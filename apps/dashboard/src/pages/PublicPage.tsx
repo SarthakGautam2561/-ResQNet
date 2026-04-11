@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import HeatmapView from '../components/map/HeatmapView';
-import { supabase } from '../services/supabase';
+import { supabase, isSupabaseConfigured } from '../services/supabase';
 import type { SOSReport } from '@resqnet/shared-types';
 
 type PublicSOSReport = Pick<
@@ -23,6 +23,7 @@ export default function PublicPage() {
   const [view, setView] = useState<'heatmap' | 'shelters' | 'alerts'>('heatmap');
 
   const fetchReports = useCallback(async () => {
+    if (!supabase || !isSupabaseConfigured) return;
     const { data } = await supabase
       .from('sos_reports')
       .select('id, created_at, latitude, longitude, category, severity, message, status')
@@ -31,6 +32,7 @@ export default function PublicPage() {
   }, []);
 
   const fetchShelters = useCallback(async () => {
+    if (!supabase || !isSupabaseConfigured) return;
     const { data } = await supabase
       .from('shelters')
       .select('*')
@@ -47,6 +49,14 @@ export default function PublicPage() {
   }, [fetchReports, fetchShelters]);
 
   const criticalCount = reports.filter((r) => r.severity >= 4 && r.status !== 'resolved').length;
+
+  if (!supabase || !isSupabaseConfigured) {
+    return (
+      <div style={{ height: '100vh', width: '100vw', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#0a0e1a', color: '#94a3b8' }}>
+        Supabase not configured. Set `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` in `.env.local` and restart.
+      </div>
+    );
+  }
 
   return (
     <div style={{ height: '100vh', width: '100vw', display: 'flex', flexDirection: 'column', background: '#0a0e1a' }}>

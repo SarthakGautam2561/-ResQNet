@@ -8,7 +8,7 @@ export function useNetworkStatus() {
   const checkNetwork = useCallback(async () => {
     try {
       const state = await Network.getNetworkStateAsync();
-      setIsConnected(state.isConnected === true && state.isInternetReachable === true);
+      setIsConnected(state.isConnected === true);
     } catch {
       setIsConnected(false);
     } finally {

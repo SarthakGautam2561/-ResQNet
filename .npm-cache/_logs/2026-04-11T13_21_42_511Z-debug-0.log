@@ -1,0 +1,150 @@
+0 verbose cli C:\Program Files\nodejs\node.exe C:\Program Files\nodejs\node_modules\npm\bin\npm-cli.js
+1 info using npm@10.9.3
+2 info using node@v22.19.0
+3 silly config load:file:C:\Program Files\nodejs\node_modules\npm\npmrc
+4 silly config load:file:D:\ResQNet\apps\mobile\.npmrc
+5 silly config load:file:C:\Users\sarthak\.npmrc
+6 silly config load:file:C:\Users\sarthak\AppData\Roaming\npm\etc\npmrc
+7 verbose title npm install
+8 verbose argv "install" "--cache" "D:\\ResQNet\\.npm-cache"
+9 verbose logfile logs-max:10 dir:D:\ResQNet\.npm-cache\_logs\2026-04-11T13_21_42_511Z-
+10 verbose logfile D:\ResQNet\.npm-cache\_logs\2026-04-11T13_21_42_511Z-debug-0.log
+11 silly logfile done cleaning log files
+12 silly packumentCache heap:4345298944 maxSize:1086324736 maxEntrySize:543162368
+13 silly idealTree buildDeps
+14 silly fetch manifest with-rn-bluetooth-classic@^1.0.2
+15 silly packumentCache full:https://registry.npmjs.org/with-rn-bluetooth-classic cache-miss
+16 http fetch GET 200 https://registry.npmjs.org/npm 418ms
+17 http fetch GET 200 https://registry.npmjs.org/with-rn-bluetooth-classic 178ms (cache miss)
+18 silly packumentCache full:https://registry.npmjs.org/with-rn-bluetooth-classic set size:undefined disposed:false
+19 silly fetch manifest react-native-bluetooth-classic@^1.75.0
+20 silly packumentCache full:https://registry.npmjs.org/react-native-bluetooth-classic cache-miss
+21 http fetch GET 200 https://registry.npmjs.org/react-native-bluetooth-classic 39ms (cache miss)
+22 silly packumentCache full:https://registry.npmjs.org/react-native-bluetooth-classic set size:undefined disposed:false
+23 silly placeDep ROOT react-native-bluetooth-classic@ OK for: mobile@1.0.0 want: ^1.75.0
+24 silly placeDep ROOT with-rn-bluetooth-classic@1.0.5 OK for: mobile@1.0.0 want: ^1.0.2
+25 silly fetch manifest @expo/config-plugins@^3.0.8
+26 silly packumentCache full:https://registry.npmjs.org/@expo%2fconfig-plugins cache-miss
+27 http fetch GET 200 https://registry.npmjs.org/@expo%2fconfig-plugins 54ms (cache miss)
+28 silly packumentCache full:https://registry.npmjs.org/@expo%2fconfig-plugins set size:undefined disposed:false
+29 silly placeDep node_modules/with-rn-bluetooth-classic @expo/config-plugins@3.1.0 OK for: with-rn-bluetooth-classic@1.0.5 want: ^3.0.8
+30 silly fetch manifest glob@7.1.6
+31 silly packumentCache full:https://registry.npmjs.org/glob cache-miss
+32 silly fetch manifest getenv@^1.0.0
+33 silly packumentCache full:https://registry.npmjs.org/getenv cache-miss
+34 silly fetch manifest semver@^7.3.5
+35 silly packumentCache full:https://registry.npmjs.org/semver cache-miss
+36 silly fetch manifest xml2js@^0.4.23
+37 silly packumentCache full:https://registry.npmjs.org/xml2js cache-miss
+38 silly fetch manifest fs-extra@9.0.0
+39 silly packumentCache full:https://registry.npmjs.org/fs-extra cache-miss
+40 silly fetch manifest @expo/plist@0.0.14
+41 silly packumentCache full:https://registry.npmjs.org/@expo%2fplist cache-miss
+42 silly fetch manifest @expo/json-file@8.2.33
+43 silly packumentCache full:https://registry.npmjs.org/@expo%2fjson-file cache-miss
+44 silly fetch manifest @expo/config-types@^42.0.0
+45 silly packumentCache full:https://registry.npmjs.org/@expo%2fconfig-types cache-miss
+46 http fetch GET 200 https://registry.npmjs.org/getenv 44ms (cache miss)
+47 silly packumentCache full:https://registry.npmjs.org/getenv set size:undefined disposed:false
+48 http fetch GET 200 https://registry.npmjs.org/glob 49ms (cache miss)
+49 silly packumentCache full:https://registry.npmjs.org/glob set size:undefined disposed:false
+50 http fetch GET 200 https://registry.npmjs.org/xml2js 86ms (cache miss)
+51 silly packumentCache full:https://registry.npmjs.org/xml2js set size:undefined disposed:false
+52 http fetch GET 200 https://registry.npmjs.org/semver 92ms (cache miss)
+53 silly packumentCache full:https://registry.npmjs.org/semver set size:undefined disposed:false
+54 http fetch GET 200 https://registry.npmjs.org/fs-extra 97ms (cache miss)
+55 silly packumentCache full:https://registry.npmjs.org/fs-extra set size:undefined disposed:false
+56 http fetch GET 200 https://registry.npmjs.org/@expo%2fplist 102ms (cache miss)
+57 silly packumentCache full:https://registry.npmjs.org/@expo%2fplist set size:undefined disposed:false
+58 http fetch GET 200 https://registry.npmjs.org/@expo%2fconfig-types 106ms (cache miss)
+59 silly packumentCache full:https://registry.npmjs.org/@expo%2fconfig-types set size:undefined disposed:false
+60 http fetch GET 200 https://registry.npmjs.org/@expo%2fjson-file 114ms (cache miss)
+61 silly packumentCache full:https://registry.npmjs.org/@expo%2fjson-file set size:undefined disposed:false
+62 silly placeDep node_modules/with-rn-bluetooth-classic @expo/config-types@42.0.0 OK for: @expo/config-plugins@3.1.0 want: ^42.0.0
+63 silly placeDep node_modules/with-rn-bluetooth-classic @expo/json-file@8.2.33 OK for: @expo/config-plugins@3.1.0 want: 8.2.33
+64 silly placeDep node_modules/with-rn-bluetooth-classic @expo/plist@0.0.14 OK for: @expo/config-plugins@3.1.0 want: 0.0.14
+65 silly placeDep ROOT fs-extra@9.0.0 OK for: @expo/config-plugins@3.1.0 want: 9.0.0
+66 silly placeDep node_modules/with-rn-bluetooth-classic getenv@1.0.0 OK for: @expo/config-plugins@3.1.0 want: ^1.0.0
+67 silly placeDep node_modules/with-rn-bluetooth-classic glob@7.1.6 OK for: @expo/config-plugins@3.1.0 want: 7.1.6
+68 silly placeDep node_modules/with-rn-bluetooth-classic semver@7.7.4 OK for: @expo/config-plugins@3.1.0 want: ^7.3.5
+69 silly placeDep node_modules/with-rn-bluetooth-classic xml2js@0.4.23 OK for: @expo/config-plugins@3.1.0 want: ^0.4.23
+70 silly fetch manifest json5@^1.0.1
+71 silly packumentCache full:https://registry.npmjs.org/json5 cache-miss
+72 silly fetch manifest @babel/code-frame@~7.10.4
+73 silly packumentCache full:https://registry.npmjs.org/@babel%2fcode-frame cache-miss
+74 silly fetch manifest write-file-atomic@^2.3.0
+75 silly packumentCache full:https://registry.npmjs.org/write-file-atomic cache-miss
+76 silly fetch manifest xmlbuilder@^14.0.0
+77 silly packumentCache full:https://registry.npmjs.org/xmlbuilder cache-miss
+78 silly fetch manifest @xmldom/xmldom@~0.7.0
+79 silly packumentCache full:https://registry.npmjs.org/@xmldom%2fxmldom cache-miss
+80 silly fetch manifest jsonfile@^6.0.1
+81 silly packumentCache full:https://registry.npmjs.org/jsonfile cache-miss
+82 silly fetch manifest universalify@^1.0.0
+83 silly packumentCache full:https://registry.npmjs.org/universalify cache-miss
+84 silly fetch manifest at-least-node@^1.0.0
+85 silly packumentCache full:https://registry.npmjs.org/at-least-node cache-miss
+86 silly fetch manifest xmlbuilder@~11.0.0
+87 silly packumentCache full:https://registry.npmjs.org/xmlbuilder cache-miss
+88 http fetch GET 200 https://registry.npmjs.org/at-least-node 40ms (cache miss)
+89 silly packumentCache full:https://registry.npmjs.org/at-least-node set size:undefined disposed:false
+90 http fetch GET 200 https://registry.npmjs.org/universalify 41ms (cache miss)
+91 silly packumentCache full:https://registry.npmjs.org/universalify set size:undefined disposed:false
+92 http fetch GET 200 https://registry.npmjs.org/xmlbuilder 46ms (cache miss)
+93 silly packumentCache full:https://registry.npmjs.org/xmlbuilder set size:undefined disposed:false
+94 http fetch GET 200 https://registry.npmjs.org/write-file-atomic 48ms (cache miss)
+95 silly packumentCache full:https://registry.npmjs.org/write-file-atomic set size:undefined disposed:false
+96 http fetch GET 200 https://registry.npmjs.org/jsonfile 48ms (cache miss)
+97 silly packumentCache full:https://registry.npmjs.org/jsonfile set size:undefined disposed:false
+98 http fetch GET 200 https://registry.npmjs.org/json5 50ms (cache miss)
+99 silly packumentCache full:https://registry.npmjs.org/json5 set size:undefined disposed:false
+100 http fetch GET 200 https://registry.npmjs.org/@babel%2fcode-frame 55ms (cache miss)
+101 silly packumentCache full:https://registry.npmjs.org/@babel%2fcode-frame set size:undefined disposed:false
+102 http fetch GET 200 https://registry.npmjs.org/@xmldom%2fxmldom 58ms (cache miss)
+103 silly packumentCache full:https://registry.npmjs.org/@xmldom%2fxmldom set size:undefined disposed:false
+104 http fetch GET 200 https://registry.npmjs.org/xmlbuilder 85ms (cache miss)
+105 silly packumentCache full:https://registry.npmjs.org/xmlbuilder set size:undefined disposed:false
+106 silly placeDep ROOT at-least-node@1.0.0 OK for: fs-extra@9.0.0 want: ^1.0.0
+107 silly placeDep ROOT jsonfile@6.2.0 OK for: fs-extra@9.0.0 want: ^6.0.1
+108 silly placeDep ROOT universalify@1.0.0 OK for: fs-extra@9.0.0 want: ^1.0.0
+109 silly fetch manifest universalify@^2.0.0
+110 silly packumentCache full:https://registry.npmjs.org/universalify cache-miss
+111 http cache https://registry.npmjs.org/universalify 6ms (cache hit)
+112 silly packumentCache full:https://registry.npmjs.org/universalify set size:19431 disposed:false
+113 silly placeDep node_modules/jsonfile universalify@2.0.1 OK for: jsonfile@6.2.0 want: ^2.0.0
+114 silly placeDep node_modules/with-rn-bluetooth-classic @babel/code-frame@7.10.4 OK for: @expo/json-file@8.2.33 want: ~7.10.4
+115 silly placeDep node_modules/with-rn-bluetooth-classic json5@1.0.2 OK for: @expo/json-file@8.2.33 want: ^1.0.1
+116 silly placeDep node_modules/with-rn-bluetooth-classic write-file-atomic@2.4.3 OK for: @expo/json-file@8.2.33 want: ^2.3.0
+117 silly placeDep node_modules/with-rn-bluetooth-classic @xmldom/xmldom@0.7.13 OK for: @expo/plist@0.0.14 want: ~0.7.0
+118 silly placeDep node_modules/with-rn-bluetooth-classic xmlbuilder@14.0.0 OK for: @expo/plist@0.0.14 want: ^14.0.0
+119 silly placeDep node_modules/with-rn-bluetooth-classic/node_modules/xml2js xmlbuilder@11.0.1 OK for: xml2js@0.4.23 want: ~11.0.0
+120 verbose type range
+121 verbose stack react-native-bluetooth-classic: No matching version found for react-native-bluetooth-classic@^1.75.0.
+121 verbose stack     at module.exports (C:\Program Files\nodejs\node_modules\npm\node_modules\npm-pick-manifest\lib\index.js:215:23)
+121 verbose stack     at RegistryFetcher.manifest (C:\Program Files\nodejs\node_modules\npm\node_modules\pacote\lib\registry.js:130:54)
+121 verbose stack     at async #fetchManifest (C:\Program Files\nodejs\node_modules\npm\node_modules\@npmcli\arborist\lib\arborist\build-ideal-tree.js:1202:20)
+121 verbose stack     at async #nodeFromEdge (C:\Program Files\nodejs\node_modules\npm\node_modules\@npmcli\arborist\lib\arborist\build-ideal-tree.js:1040:19)
+121 verbose stack     at async #buildDepStep (C:\Program Files\nodejs\node_modules\npm\node_modules\@npmcli\arborist\lib\arborist\build-ideal-tree.js:904:11)
+121 verbose stack     at async Arborist.buildIdealTree (C:\Program Files\nodejs\node_modules\npm\node_modules\@npmcli\arborist\lib\arborist\build-ideal-tree.js:181:7)
+121 verbose stack     at async Promise.all (index 1)
+121 verbose stack     at async Arborist.reify (C:\Program Files\nodejs\node_modules\npm\node_modules\@npmcli\arborist\lib\arborist\reify.js:131:5)
+121 verbose stack     at async Install.exec (C:\Program Files\nodejs\node_modules\npm\lib\commands\install.js:150:5)
+121 verbose stack     at async Npm.exec (C:\Program Files\nodejs\node_modules\npm\lib\npm.js:207:9)
+122 error code ETARGET
+123 error notarget No matching version found for react-native-bluetooth-classic@^1.75.0.
+124 error notarget In most cases you or one of your dependencies are requesting
+124 error notarget a package version that doesn't exist.
+125 silly unfinished npm timer reify 1775913702924
+126 silly unfinished npm timer reify:loadTrees 1775913702925
+127 verbose cwd D:\ResQNet\apps\mobile
+128 verbose os Windows_NT 10.0.26200
+129 verbose node v22.19.0
+130 verbose npm  v10.9.3
+131 notice
+131 notice New major version of npm available! 10.9.3 -> 11.12.1
+131 notice Changelog: https://github.com/npm/cli/releases/tag/v11.12.1
+131 notice To update run: npm install -g npm@11.12.1
+131 notice  { force: true, [Symbol(proc-log.meta)]: true }
+132 verbose exit 1
+133 verbose code 1
+134 error A complete log of this run can be found in: D:\ResQNet\.npm-cache\_logs\2026-04-11T13_21_42_511Z-debug-0.log

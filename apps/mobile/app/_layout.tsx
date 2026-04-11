@@ -16,7 +16,9 @@ export default function RootLayout() {
         setTimeout(() => setSyncMessage(null), 3000);
       }
     });
-    return () => stopAutoSync();
+    return () => {
+      stopAutoSync();
+    };
   }, []);
 
   return (
@@ -56,6 +58,9 @@ export default function RootLayout() {
         />
         <Stack.Screen name="pending" options={{ title: 'Pending Reports' }} />
         <Stack.Screen name="status" options={{ title: 'Report Status' }} />
+        <Stack.Screen name="relay" options={{ title: 'Relay Mode' }} />
+        <Stack.Screen name="config" options={{ title: 'Supabase Setup' }} />
+        <Stack.Screen name="diagnostics" options={{ title: 'Diagnostics' }} />
       </Stack>
     </View>
   );

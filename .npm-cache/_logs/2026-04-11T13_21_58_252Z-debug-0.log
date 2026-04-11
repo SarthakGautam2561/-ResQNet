@@ -1,0 +1,1285 @@
+0 verbose cli C:\Program Files\nodejs\node.exe C:\Program Files\nodejs\node_modules\npm\bin\npm-cli.js
+1 info using npm@10.9.3
+2 info using node@v22.19.0
+3 silly config load:file:C:\Program Files\nodejs\node_modules\npm\npmrc
+4 silly config load:file:D:\ResQNet\apps\mobile\.npmrc
+5 silly config load:file:C:\Users\sarthak\.npmrc
+6 silly config load:file:C:\Users\sarthak\AppData\Roaming\npm\etc\npmrc
+7 verbose title npm install
+8 verbose argv "install" "--cache" "D:\\ResQNet\\.npm-cache"
+9 verbose logfile logs-max:10 dir:D:\ResQNet\.npm-cache\_logs\2026-04-11T13_21_58_252Z-
+10 verbose logfile D:\ResQNet\.npm-cache\_logs\2026-04-11T13_21_58_252Z-debug-0.log
+11 silly logfile done cleaning log files
+12 silly packumentCache heap:4345298944 maxSize:1086324736 maxEntrySize:543162368
+13 silly idealTree buildDeps
+14 silly fetch manifest with-rn-bluetooth-classic@^1.0.2
+15 silly packumentCache full:https://registry.npmjs.org/with-rn-bluetooth-classic cache-miss
+16 http cache https://registry.npmjs.org/with-rn-bluetooth-classic 119ms (cache hit)
+17 silly packumentCache full:https://registry.npmjs.org/with-rn-bluetooth-classic set size:19092 disposed:false
+18 silly fetch manifest react-native-bluetooth-classic@^1.73.0-rc.17
+19 silly packumentCache full:https://registry.npmjs.org/react-native-bluetooth-classic cache-miss
+20 http cache https://registry.npmjs.org/react-native-bluetooth-classic 7ms (cache hit)
+21 silly packumentCache full:https://registry.npmjs.org/react-native-bluetooth-classic set size:233457 disposed:false
+22 silly fetch manifest react-native@0.81.5
+23 silly packumentCache full:https://registry.npmjs.org/react-native cache-miss
+24 http fetch GET 200 https://registry.npmjs.org/react-native 246ms (cache miss)
+25 silly packumentCache full:https://registry.npmjs.org/react-native set size:undefined disposed:false
+26 silly fetch manifest @types/react@~19.1.0
+27 silly packumentCache full:https://registry.npmjs.org/@types%2freact cache-miss
+28 http fetch GET 200 https://registry.npmjs.org/@types%2freact 66ms (cache miss)
+29 silly packumentCache full:https://registry.npmjs.org/@types%2freact set size:undefined disposed:false
+30 silly fetch manifest react@19.1.0
+31 silly packumentCache full:https://registry.npmjs.org/react cache-miss
+32 http fetch GET 200 https://registry.npmjs.org/react 112ms (cache miss)
+33 silly packumentCache full:https://registry.npmjs.org/react set size:undefined disposed:false
+34 silly placeDep ROOT react-native-bluetooth-classic@1.73.0-rc.17 OK for: mobile@1.0.0 want: ^1.73.0-rc.17
+35 silly placeDep ROOT with-rn-bluetooth-classic@1.0.5 OK for: mobile@1.0.0 want: ^1.0.2
+36 silly fetch manifest @expo/config-plugins@^3.0.8
+37 silly packumentCache full:https://registry.npmjs.org/@expo%2fconfig-plugins cache-miss
+38 http cache https://registry.npmjs.org/@expo%2fconfig-plugins 10ms (cache hit)
+39 silly packumentCache full:https://registry.npmjs.org/@expo%2fconfig-plugins set size:1139382 disposed:false
+40 silly placeDep node_modules/with-rn-bluetooth-classic @expo/config-plugins@3.1.0 OK for: with-rn-bluetooth-classic@1.0.5 want: ^3.0.8
+41 silly fetch manifest glob@7.1.6
+42 silly packumentCache full:https://registry.npmjs.org/glob cache-miss
+43 silly fetch manifest getenv@^1.0.0
+44 silly packumentCache full:https://registry.npmjs.org/getenv cache-miss
+45 silly fetch manifest semver@^7.3.5
+46 silly packumentCache full:https://registry.npmjs.org/semver cache-miss
+47 silly fetch manifest xml2js@^0.4.23
+48 silly packumentCache full:https://registry.npmjs.org/xml2js cache-miss
+49 silly fetch manifest fs-extra@9.0.0
+50 silly packumentCache full:https://registry.npmjs.org/fs-extra cache-miss
+51 silly fetch manifest @expo/plist@0.0.14
+52 silly packumentCache full:https://registry.npmjs.org/@expo%2fplist cache-miss
+53 silly fetch manifest @expo/json-file@8.2.33
+54 silly packumentCache full:https://registry.npmjs.org/@expo%2fjson-file cache-miss
+55 silly fetch manifest @expo/config-types@^42.0.0
+56 silly packumentCache full:https://registry.npmjs.org/@expo%2fconfig-types cache-miss
+57 http cache https://registry.npmjs.org/getenv 13ms (cache hit)
+58 silly packumentCache full:https://registry.npmjs.org/getenv set size:20110 disposed:false
+59 http cache https://registry.npmjs.org/semver 14ms (cache hit)
+60 silly packumentCache full:https://registry.npmjs.org/semver set size:229620 disposed:false
+61 http cache https://registry.npmjs.org/glob 17ms (cache hit)
+62 silly packumentCache full:https://registry.npmjs.org/glob set size:469465 disposed:false
+63 http cache https://registry.npmjs.org/xml2js 20ms (cache hit)
+64 silly packumentCache full:https://registry.npmjs.org/xml2js set size:198018 disposed:false
+65 http cache https://registry.npmjs.org/@expo%2fplist 21ms (cache hit)
+66 silly packumentCache full:https://registry.npmjs.org/@expo%2fplist set size:496267 disposed:false
+67 http cache https://registry.npmjs.org/fs-extra 24ms (cache hit)
+68 silly packumentCache full:https://registry.npmjs.org/fs-extra set size:232595 disposed:false
+69 http cache https://registry.npmjs.org/@expo%2fjson-file 26ms (cache hit)
+70 silly packumentCache full:https://registry.npmjs.org/@expo%2fjson-file set size:698777 disposed:false
+71 http cache https://registry.npmjs.org/@expo%2fconfig-types 29ms (cache hit)
+72 silly packumentCache full:https://registry.npmjs.org/@expo%2fconfig-types set size:716610 disposed:false
+73 silly placeDep node_modules/with-rn-bluetooth-classic @expo/config-types@42.0.0 OK for: @expo/config-plugins@3.1.0 want: ^42.0.0
+74 silly placeDep node_modules/with-rn-bluetooth-classic @expo/json-file@8.2.33 OK for: @expo/config-plugins@3.1.0 want: 8.2.33
+75 silly placeDep node_modules/with-rn-bluetooth-classic @expo/plist@0.0.14 OK for: @expo/config-plugins@3.1.0 want: 0.0.14
+76 silly placeDep ROOT fs-extra@9.0.0 OK for: @expo/config-plugins@3.1.0 want: 9.0.0
+77 silly placeDep node_modules/with-rn-bluetooth-classic getenv@1.0.0 OK for: @expo/config-plugins@3.1.0 want: ^1.0.0
+78 silly placeDep node_modules/with-rn-bluetooth-classic glob@7.1.6 OK for: @expo/config-plugins@3.1.0 want: 7.1.6
+79 silly placeDep node_modules/with-rn-bluetooth-classic semver@7.7.4 OK for: @expo/config-plugins@3.1.0 want: ^7.3.5
+80 silly placeDep node_modules/with-rn-bluetooth-classic xml2js@0.4.23 OK for: @expo/config-plugins@3.1.0 want: ^0.4.23
+81 silly fetch manifest json5@^1.0.1
+82 silly packumentCache full:https://registry.npmjs.org/json5 cache-miss
+83 silly fetch manifest @babel/code-frame@~7.10.4
+84 silly packumentCache full:https://registry.npmjs.org/@babel%2fcode-frame cache-miss
+85 silly fetch manifest write-file-atomic@^2.3.0
+86 silly packumentCache full:https://registry.npmjs.org/write-file-atomic cache-miss
+87 silly fetch manifest xmlbuilder@^14.0.0
+88 silly packumentCache full:https://registry.npmjs.org/xmlbuilder cache-miss
+89 silly fetch manifest @xmldom/xmldom@~0.7.0
+90 silly packumentCache full:https://registry.npmjs.org/@xmldom%2fxmldom cache-miss
+91 silly fetch manifest jsonfile@^6.0.1
+92 silly packumentCache full:https://registry.npmjs.org/jsonfile cache-miss
+93 silly fetch manifest universalify@^1.0.0
+94 silly packumentCache full:https://registry.npmjs.org/universalify cache-miss
+95 silly fetch manifest at-least-node@^1.0.0
+96 silly packumentCache full:https://registry.npmjs.org/at-least-node cache-miss
+97 silly fetch manifest xmlbuilder@~11.0.0
+98 silly packumentCache full:https://registry.npmjs.org/xmlbuilder cache-miss
+99 http cache https://registry.npmjs.org/json5 10ms (cache hit)
+100 silly packumentCache full:https://registry.npmjs.org/json5 set size:86136 disposed:false
+101 http cache https://registry.npmjs.org/write-file-atomic 11ms (cache hit)
+102 silly packumentCache full:https://registry.npmjs.org/write-file-atomic set size:80317 disposed:false
+103 http cache https://registry.npmjs.org/@xmldom%2fxmldom 12ms (cache hit)
+104 silly packumentCache full:https://registry.npmjs.org/@xmldom%2fxmldom set size:160709 disposed:false
+105 http cache https://registry.npmjs.org/universalify 13ms (cache hit)
+106 silly packumentCache full:https://registry.npmjs.org/universalify set size:19431 disposed:false
+107 http cache https://registry.npmjs.org/at-least-node 13ms (cache hit)
+108 silly packumentCache full:https://registry.npmjs.org/at-least-node set size:4075 disposed:false
+109 http cache https://registry.npmjs.org/jsonfile 14ms (cache hit)
+110 silly packumentCache full:https://registry.npmjs.org/jsonfile set size:51505 disposed:false
+111 http cache https://registry.npmjs.org/xmlbuilder 15ms (cache hit)
+112 silly packumentCache full:https://registry.npmjs.org/xmlbuilder set size:158707 disposed:false
+113 http cache https://registry.npmjs.org/@babel%2fcode-frame 20ms (cache hit)
+114 silly packumentCache full:https://registry.npmjs.org/@babel%2fcode-frame set size:196196 disposed:false
+115 http cache https://registry.npmjs.org/xmlbuilder 23ms (cache hit)
+116 silly packumentCache full:https://registry.npmjs.org/xmlbuilder set size:158707 disposed:false
+117 silly packumentCache full:https://registry.npmjs.org/xmlbuilder dispose
+118 silly placeDep ROOT at-least-node@1.0.0 OK for: fs-extra@9.0.0 want: ^1.0.0
+119 silly placeDep ROOT jsonfile@6.2.0 OK for: fs-extra@9.0.0 want: ^6.0.1
+120 silly placeDep ROOT universalify@1.0.0 OK for: fs-extra@9.0.0 want: ^1.0.0
+121 silly fetch manifest universalify@^2.0.0
+122 silly packumentCache full:https://registry.npmjs.org/universalify cache-hit
+123 silly placeDep node_modules/jsonfile universalify@2.0.1 OK for: jsonfile@6.2.0 want: ^2.0.0
+124 silly placeDep node_modules/with-rn-bluetooth-classic @babel/code-frame@7.10.4 OK for: @expo/json-file@8.2.33 want: ~7.10.4
+125 silly placeDep node_modules/with-rn-bluetooth-classic json5@1.0.2 OK for: @expo/json-file@8.2.33 want: ^1.0.1
+126 silly placeDep node_modules/with-rn-bluetooth-classic write-file-atomic@2.4.3 OK for: @expo/json-file@8.2.33 want: ^2.3.0
+127 silly placeDep node_modules/with-rn-bluetooth-classic @xmldom/xmldom@0.7.13 OK for: @expo/plist@0.0.14 want: ~0.7.0
+128 silly placeDep node_modules/with-rn-bluetooth-classic xmlbuilder@14.0.0 OK for: @expo/plist@0.0.14 want: ^14.0.0
+129 silly placeDep node_modules/with-rn-bluetooth-classic/node_modules/xml2js xmlbuilder@11.0.1 OK for: xml2js@0.4.23 want: ~11.0.0
+130 silly reify mark retired [ 'D:\\ResQNet\\apps\\mobile\\node_modules\\events' ]
+131 silly reify mark retired [ 'D:\\ResQNet\\apps\\mobile\\node_modules\\react-native-udp' ]
+132 silly reify moves {
+132 silly reify   'D:\\ResQNet\\apps\\mobile\\node_modules\\events': 'D:\\ResQNet\\apps\\mobile\\node_modules\\.events-vbKYroqH',
+132 silly reify   'D:\\ResQNet\\apps\\mobile\\node_modules\\react-native-udp': 'D:\\ResQNet\\apps\\mobile\\node_modules\\.react-native-udp-kNo6hzYZ'
+132 silly reify }
+133 silly audit bulk request {
+133 silly audit   '@0no-co/graphql.web': [ '1.2.0' ],
+133 silly audit   '@babel/code-frame': [ '7.29.0', '7.10.4' ],
+133 silly audit   '@babel/compat-data': [ '7.29.0' ],
+133 silly audit   '@babel/core': [ '7.29.0' ],
+133 silly audit   '@babel/generator': [ '7.29.1' ],
+133 silly audit   '@babel/helper-annotate-as-pure': [ '7.27.3' ],
+133 silly audit   '@babel/helper-compilation-targets': [ '7.28.6' ],
+133 silly audit   '@babel/helper-create-class-features-plugin': [ '7.28.6' ],
+133 silly audit   '@babel/helper-create-regexp-features-plugin': [ '7.28.5' ],
+133 silly audit   '@babel/helper-define-polyfill-provider': [ '0.6.8' ],
+133 silly audit   resolve: [ '1.22.11', '1.7.1', '2.0.0-next.6' ],
+133 silly audit   '@babel/helper-globals': [ '7.28.0' ],
+133 silly audit   '@babel/helper-member-expression-to-functions': [ '7.28.5' ],
+133 silly audit   '@babel/helper-module-imports': [ '7.28.6' ],
+133 silly audit   '@babel/helper-module-transforms': [ '7.28.6' ],
+133 silly audit   '@babel/helper-optimise-call-expression': [ '7.27.1' ],
+133 silly audit   '@babel/helper-plugin-utils': [ '7.28.6' ],
+133 silly audit   '@babel/helper-remap-async-to-generator': [ '7.27.1' ],
+133 silly audit   '@babel/helper-replace-supers': [ '7.28.6' ],
+133 silly audit   '@babel/helper-skip-transparent-expression-wrappers': [ '7.27.1' ],
+133 silly audit   '@babel/helper-string-parser': [ '7.27.1' ],
+133 silly audit   '@babel/helper-validator-identifier': [ '7.28.5' ],
+133 silly audit   '@babel/helper-validator-option': [ '7.27.1' ],
+133 silly audit   '@babel/helper-wrap-function': [ '7.28.6' ],
+133 silly audit   '@babel/helpers': [ '7.29.2' ],
+133 silly audit   '@babel/highlight': [ '7.25.9' ],
+133 silly audit   'ansi-styles': [ '3.2.1', '4.3.0', '5.2.0' ],
+133 silly audit   chalk: [ '2.4.2', '4.1.2' ],
+133 silly audit   'color-convert': [ '1.9.3', '2.0.1' ],
+133 silly audit   'color-name': [ '1.1.3', '1.1.4' ],
+133 silly audit   'escape-string-regexp': [ '1.0.5', '4.0.0', '2.0.0' ],
+133 silly audit   'has-flag': [ '3.0.0', '4.0.0' ],
+133 silly audit   'supports-color': [ '5.5.0', '8.1.1', '7.2.0' ],
+133 silly audit   '@babel/parser': [ '7.29.2' ],
+133 silly audit   '@babel/plugin-proposal-decorators': [ '7.29.0' ],
+133 silly audit   '@babel/plugin-proposal-export-default-from': [ '7.27.1' ],
+133 silly audit   '@babel/plugin-syntax-async-generators': [ '7.8.4' ],
+133 silly audit   '@babel/plugin-syntax-bigint': [ '7.8.3' ],
+133 silly audit   '@babel/plugin-syntax-class-properties': [ '7.12.13' ],
+133 silly audit   '@babel/plugin-syntax-class-static-block': [ '7.14.5' ],
+133 silly audit   '@babel/plugin-syntax-decorators': [ '7.28.6' ],
+133 silly audit   '@babel/plugin-syntax-dynamic-import': [ '7.8.3' ],
+133 silly audit   '@babel/plugin-syntax-export-default-from': [ '7.28.6' ],
+133 silly audit   '@babel/plugin-syntax-flow': [ '7.28.6' ],
+133 silly audit   '@babel/plugin-syntax-import-attributes': [ '7.28.6' ],
+133 silly audit   '@babel/plugin-syntax-import-meta': [ '7.10.4' ],
+133 silly audit   '@babel/plugin-syntax-json-strings': [ '7.8.3' ],
+133 silly audit   '@babel/plugin-syntax-jsx': [ '7.28.6' ],
+133 silly audit   '@babel/plugin-syntax-logical-assignment-operators': [ '7.10.4' ],
+133 silly audit   '@babel/plugin-syntax-nullish-coalescing-operator': [ '7.8.3' ],
+133 silly audit   '@babel/plugin-syntax-numeric-separator': [ '7.10.4' ],
+133 silly audit   '@babel/plugin-syntax-object-rest-spread': [ '7.8.3' ],
+133 silly audit   '@babel/plugin-syntax-optional-catch-binding': [ '7.8.3' ],
+133 silly audit   '@babel/plugin-syntax-optional-chaining': [ '7.8.3' ],
+133 silly audit   '@babel/plugin-syntax-private-property-in-object': [ '7.14.5' ],
+133 silly audit   '@babel/plugin-syntax-top-level-await': [ '7.14.5' ],
+133 silly audit   '@babel/plugin-syntax-typescript': [ '7.28.6' ],
+133 silly audit   '@babel/plugin-transform-arrow-functions': [ '7.27.1' ],
+133 silly audit   '@babel/plugin-transform-async-generator-functions': [ '7.29.0' ],
+133 silly audit   '@babel/plugin-transform-async-to-generator': [ '7.28.6' ],
+133 silly audit   '@babel/plugin-transform-block-scoping': [ '7.28.6' ],
+133 silly audit   '@babel/plugin-transform-class-properties': [ '7.28.6' ],
+133 silly audit   '@babel/plugin-transform-class-static-block': [ '7.28.6' ],
+133 silly audit   '@babel/plugin-transform-classes': [ '7.28.6' ],
+133 silly audit   '@babel/plugin-transform-computed-properties': [ '7.28.6' ],
+133 silly audit   '@babel/plugin-transform-destructuring': [ '7.28.5' ],
+133 silly audit   '@babel/plugin-transform-export-namespace-from': [ '7.27.1' ],
+133 silly audit   '@babel/plugin-transform-flow-strip-types': [ '7.27.1' ],
+133 silly audit   '@babel/plugin-transform-for-of': [ '7.27.1' ],
+133 silly audit   '@babel/plugin-transform-function-name': [ '7.27.1' ],
+133 silly audit   '@babel/plugin-transform-literals': [ '7.27.1' ],
+133 silly audit   '@babel/plugin-transform-logical-assignment-operators': [ '7.28.6' ],
+133 silly audit   '@babel/plugin-transform-modules-commonjs': [ '7.28.6' ],
+133 silly audit   '@babel/plugin-transform-named-capturing-groups-regex': [ '7.29.0' ],
+133 silly audit   '@babel/plugin-transform-nullish-coalescing-operator': [ '7.28.6' ],
+133 silly audit   '@babel/plugin-transform-numeric-separator': [ '7.28.6' ],
+133 silly audit   '@babel/plugin-transform-object-rest-spread': [ '7.28.6' ],
+133 silly audit   '@babel/plugin-transform-optional-catch-binding': [ '7.28.6' ],
+133 silly audit   '@babel/plugin-transform-optional-chaining': [ '7.28.6' ],
+133 silly audit   '@babel/plugin-transform-parameters': [ '7.27.7' ],
+133 silly audit   '@babel/plugin-transform-private-methods': [ '7.28.6' ],
+133 silly audit   '@babel/plugin-transform-private-property-in-object': [ '7.28.6' ],
+133 silly audit   '@babel/plugin-transform-react-display-name': [ '7.28.0' ],
+133 silly audit   '@babel/plugin-transform-react-jsx': [ '7.28.6' ],
+133 silly audit   '@babel/plugin-transform-react-jsx-development': [ '7.27.1' ],
+133 silly audit   '@babel/plugin-transform-react-jsx-self': [ '7.27.1' ],
+133 silly audit   '@babel/plugin-transform-react-jsx-source': [ '7.27.1' ],
+133 silly audit   '@babel/plugin-transform-react-pure-annotations': [ '7.27.1' ],
+133 silly audit   '@babel/plugin-transform-regenerator': [ '7.29.0' ],
+133 silly audit   '@babel/plugin-transform-runtime': [ '7.29.0' ],
+133 silly audit   '@babel/plugin-transform-shorthand-properties': [ '7.27.1' ],
+133 silly audit   '@babel/plugin-transform-spread': [ '7.28.6' ],
+133 silly audit   '@babel/plugin-transform-sticky-regex': [ '7.27.1' ],
+133 silly audit   '@babel/plugin-transform-template-literals': [ '7.27.1' ],
+133 silly audit   '@babel/plugin-transform-typescript': [ '7.28.6' ],
+133 silly audit   '@babel/plugin-transform-unicode-regex': [ '7.27.1' ],
+133 silly audit   '@babel/preset-react': [ '7.28.5' ],
+133 silly audit   '@babel/preset-typescript': [ '7.28.5' ],
+133 silly audit   '@babel/runtime': [ '7.29.2' ],
+133 silly audit   '@babel/template': [ '7.28.6' ],
+133 silly audit   '@babel/traverse': [ '7.29.0' ],
+133 silly audit   '@babel/types': [ '7.29.0' ],
+133 silly audit   '@egjs/hammerjs': [ '2.0.17' ],
+133 silly audit   '@emnapi/core': [ '1.9.2' ],
+133 silly audit   '@emnapi/runtime': [ '1.9.2' ],
+133 silly audit   '@emnapi/wasi-threads': [ '1.2.1' ],
+133 silly audit   '@eslint-community/eslint-utils': [ '4.9.1' ],
+133 silly audit   'eslint-visitor-keys': [ '3.4.3', '5.0.1', '4.2.1' ],
+133 silly audit   '@eslint-community/regexpp': [ '4.12.2' ],
+133 silly audit   '@eslint/config-array': [ '0.21.2' ],
+133 silly audit   '@eslint/config-helpers': [ '0.4.2' ],
+133 silly audit   '@eslint/core': [ '0.17.0' ],
+133 silly audit   '@eslint/eslintrc': [ '3.3.5' ],
+133 silly audit   '@eslint/js': [ '9.39.4' ],
+133 silly audit   '@eslint/object-schema': [ '2.1.7' ],
+133 silly audit   '@eslint/plugin-kit': [ '0.4.1' ],
+133 silly audit   '@expo/code-signing-certificates': [ '0.0.6' ],
+133 silly audit   '@expo/config': [ '12.0.13' ],
+133 silly audit   '@expo/config-plugins': [ '54.0.4', '3.1.0' ],
+133 silly audit   semver: [ '7.7.4', '7.6.3', '7.7.2', '6.3.1' ],
+133 silly audit   '@expo/config-types': [ '54.0.10', '42.0.0' ],
+133 silly audit   '@expo/devcert': [ '1.2.1' ],
+133 silly audit   debug: [ '3.2.7', '2.6.9', '4.4.3' ],
+133 silly audit   '@expo/devtools': [ '0.1.8' ],
+133 silly audit   '@expo/env': [ '2.0.11' ],
+133 silly audit   '@expo/fingerprint': [ '0.15.4' ],
+133 silly audit   'brace-expansion': [ '2.0.3', '5.0.5', '1.1.13' ],
+133 silly audit   minimatch: [ '9.0.9', '10.2.5', '3.1.5' ],
+133 silly audit   '@expo/image-utils': [ '0.8.13' ],
+133 silly audit   '@expo/json-file': [ '10.0.13', '8.2.33' ],
+133 silly audit   '@expo/metro': [ '54.2.0' ],
+133 silly audit   '@expo/metro-config': [ '54.0.14' ],
+133 silly audit   '@expo/metro-runtime': [ '6.1.2' ],
+133 silly audit   '@expo/osascript': [ '2.4.2' ],
+133 silly audit   '@expo/package-manager': [ '1.10.4' ],
+133 silly audit   '@expo/plist': [ '0.4.8', '0.0.14' ],
+133 silly audit   '@expo/prebuild-config': [ '54.0.8' ],
+133 silly audit   '@expo/require-utils': [ '55.0.4' ],
+133 silly audit   '@expo/schema-utils': [ '0.1.8' ],
+133 silly audit   '@expo/sdk-runtime-versions': [ '1.0.0' ],
+133 silly audit   '@expo/spawn-async': [ '1.7.2' ],
+133 silly audit   '@expo/sudo-prompt': [ '9.3.2' ],
+133 silly audit   '@expo/vector-icons': [ '15.1.1' ],
+133 silly audit   '@expo/ws-tunnel': [ '1.0.6' ],
+133 silly audit   '@expo/xcpretty': [ '4.4.3' ],
+133 silly audit   '@humanfs/core': [ '0.19.1' ],
+133 silly audit   '@humanfs/node': [ '0.16.7' ],
+133 silly audit   '@humanwhocodes/module-importer': [ '1.0.1' ],
+133 silly audit   '@humanwhocodes/retry': [ '0.4.3' ],
+133 silly audit   '@isaacs/fs-minipass': [ '4.0.1' ],
+133 silly audit   '@isaacs/ttlcache': [ '1.4.1' ],
+133 silly audit   '@istanbuljs/load-nyc-config': [ '1.1.0' ],
+133 silly audit   argparse: [ '1.0.10', '2.0.1' ],
+133 silly audit   camelcase: [ '5.3.1', '6.3.0' ],
+133 silly audit   'find-up': [ '4.1.0', '5.0.0' ],
+133 silly audit   'js-yaml': [ '3.14.2', '4.1.1' ],
+133 silly audit   'locate-path': [ '5.0.0', '6.0.0' ],
+133 silly audit   'p-limit': [ '2.3.0', '3.1.0' ],
+133 silly audit   'p-locate': [ '4.1.0', '5.0.0' ],
+133 silly audit   '@istanbuljs/schema': [ '0.1.3' ],
+133 silly audit   '@jest/create-cache-key-function': [ '29.7.0' ],
+133 silly audit   '@jest/environment': [ '29.7.0' ],
+133 silly audit   '@jest/fake-timers': [ '29.7.0' ],
+133 silly audit   '@jest/schemas': [ '29.6.3' ],
+133 silly audit   '@jest/transform': [ '29.7.0' ],
+133 silly audit   '@jest/types': [ '29.6.3' ],
+133 silly audit   '@jridgewell/gen-mapping': [ '0.3.13' ],
+133 silly audit   '@jridgewell/remapping': [ '2.3.5' ],
+133 silly audit   '@jridgewell/resolve-uri': [ '3.1.2' ],
+133 silly audit   '@jridgewell/source-map': [ '0.3.11' ],
+133 silly audit   '@jridgewell/sourcemap-codec': [ '1.5.5' ],
+133 silly audit   '@jridgewell/trace-mapping': [ '0.3.31' ],
+133 silly audit   '@napi-rs/wasm-runtime': [ '0.2.12' ],
+133 silly audit   '@nolyfill/is-core-module': [ '1.0.39' ],
+133 silly audit   '@radix-ui/primitive': [ '1.1.3' ],
+133 silly audit   '@radix-ui/react-compose-refs': [ '1.1.2' ],
+133 silly audit   '@radix-ui/react-context': [ '1.1.2' ],
+133 silly audit   '@radix-ui/react-direction': [ '1.1.1' ],
+133 silly audit   '@radix-ui/react-focus-guards': [ '1.1.3' ],
+133 silly audit   '@radix-ui/react-id': [ '1.1.1' ],
+133 silly audit   '@radix-ui/react-slot': [ '1.2.0', '1.2.3' ],
+133 silly audit   '@radix-ui/react-use-callback-ref': [ '1.1.1' ],
+133 silly audit   '@radix-ui/react-use-controllable-state': [ '1.2.2' ],
+133 silly audit   '@radix-ui/react-use-effect-event': [ '0.0.2' ],
+133 silly audit   '@radix-ui/react-use-escape-keydown': [ '1.1.1' ],
+133 silly audit   '@radix-ui/react-use-layout-effect': [ '1.1.1' ],
+133 silly audit   '@react-native/assets-registry': [ '0.81.5' ],
+133 silly audit   '@react-native/babel-plugin-codegen': [ '0.81.5' ],
+133 silly audit   '@react-native/babel-preset': [ '0.81.5' ],
+133 silly audit   '@react-native/codegen': [ '0.81.5' ],
+133 silly audit   glob: [ '7.2.3', '13.0.6', '7.1.6' ],
+133 silly audit   '@react-native/community-cli-plugin': [ '0.81.5' ],
+133 silly audit   '@react-native/debugger-frontend': [ '0.81.5' ],
+133 silly audit   '@react-native/dev-middleware': [ '0.81.5' ],
+133 silly audit   ws: [ '6.2.3', '8.20.0', '7.5.10' ],
+133 silly audit   '@react-native/gradle-plugin': [ '0.81.5' ],
+133 silly audit   '@react-native/js-polyfills': [ '0.81.5' ],
+133 silly audit   '@react-native/normalize-colors': [ '0.81.5', '0.74.89' ],
+133 silly audit   '@react-navigation/bottom-tabs': [ '7.15.9' ],
+133 silly audit   '@react-navigation/core': [ '7.17.2' ],
+133 silly audit   '@react-navigation/elements': [ '2.9.14' ],
+133 silly audit   '@react-navigation/native': [ '7.2.2' ],
+133 silly audit   '@react-navigation/native-stack': [ '7.14.10' ],
+133 silly audit   '@react-navigation/routers': [ '7.5.3' ],
+133 silly audit   '@rtsao/scc': [ '1.1.0' ],
+133 silly audit   '@sinclair/typebox': [ '0.27.10' ],
+133 silly audit   '@sinonjs/commons': [ '3.0.1' ],
+133 silly audit   '@sinonjs/fake-timers': [ '10.3.0' ],
+133 silly audit   '@supabase/auth-js': [ '2.103.0' ],
+133 silly audit   '@supabase/functions-js': [ '2.103.0' ],
+133 silly audit   '@supabase/phoenix': [ '0.4.0' ],
+133 silly audit   '@supabase/postgrest-js': [ '2.103.0' ],
+133 silly audit   '@supabase/realtime-js': [ '2.103.0' ],
+133 silly audit   '@supabase/storage-js': [ '2.103.0' ],
+133 silly audit   '@supabase/supabase-js': [ '2.103.0' ],
+133 silly audit   '@tybys/wasm-util': [ '0.10.1' ],
+133 silly audit   '@types/babel__core': [ '7.20.5' ],
+133 silly audit   '@types/babel__generator': [ '7.27.0' ],
+133 silly audit   '@types/babel__template': [ '7.4.4' ],
+133 silly audit   '@types/babel__traverse': [ '7.28.0' ],
+133 silly audit   '@types/estree': [ '1.0.8' ],
+133 silly audit   '@types/graceful-fs': [ '4.1.9' ],
+133 silly audit   '@types/hammerjs': [ '2.0.46' ],
+133 silly audit   '@types/istanbul-lib-coverage': [ '2.0.6' ],
+133 silly audit   '@types/istanbul-lib-report': [ '3.0.3' ],
+133 silly audit   '@types/istanbul-reports': [ '3.0.4' ],
+133 silly audit   '@types/json-schema': [ '7.0.15' ],
+133 silly audit   '@types/json5': [ '0.0.29' ],
+133 silly audit   '@types/node': [ '25.6.0' ],
+133 silly audit   '@types/react': [ '19.1.17' ],
+133 silly audit   '@types/stack-utils': [ '2.0.3' ],
+133 silly audit   '@types/ws': [ '8.18.1' ],
+133 silly audit   '@types/yargs': [ '17.0.35' ],
+133 silly audit   '@types/yargs-parser': [ '21.0.3' ],
+133 silly audit   '@typescript-eslint/eslint-plugin': [ '8.58.1' ],
+133 silly audit   ignore: [ '7.0.5', '5.3.2' ],
+133 silly audit   '@typescript-eslint/parser': [ '8.58.1' ],
+133 silly audit   '@typescript-eslint/project-service': [ '8.58.1' ],
+133 silly audit   '@typescript-eslint/scope-manager': [ '8.58.1' ],
+133 silly audit   '@typescript-eslint/tsconfig-utils': [ '8.58.1' ],
+133 silly audit   '@typescript-eslint/type-utils': [ '8.58.1' ],
+133 silly audit   '@typescript-eslint/types': [ '8.58.1' ],
+133 silly audit   '@typescript-eslint/typescript-estree': [ '8.58.1' ],
+133 silly audit   'balanced-match': [ '4.0.4', '1.0.2' ],
+133 silly audit   '@typescript-eslint/utils': [ '8.58.1' ],
+133 silly audit   '@typescript-eslint/visitor-keys': [ '8.58.1' ],
+133 silly audit   '@ungap/structured-clone': [ '1.3.0' ],
+133 silly audit   '@unrs/resolver-binding-android-arm-eabi': [ '1.11.1' ],
+133 silly audit   '@unrs/resolver-binding-android-arm64': [ '1.11.1' ],
+133 silly audit   '@unrs/resolver-binding-darwin-arm64': [ '1.11.1' ],
+133 silly audit   '@unrs/resolver-binding-darwin-x64': [ '1.11.1' ],
+133 silly audit   '@unrs/resolver-binding-freebsd-x64': [ '1.11.1' ],
+133 silly audit   '@unrs/resolver-binding-linux-arm-gnueabihf': [ '1.11.1' ],
+133 silly audit   '@unrs/resolver-binding-linux-arm-musleabihf': [ '1.11.1' ],
+133 silly audit   '@unrs/resolver-binding-linux-arm64-gnu': [ '1.11.1' ],
+133 silly audit   '@unrs/resolver-binding-linux-arm64-musl': [ '1.11.1' ],
+133 silly audit   '@unrs/resolver-binding-linux-ppc64-gnu': [ '1.11.1' ],
+133 silly audit   '@unrs/resolver-binding-linux-riscv64-gnu': [ '1.11.1' ],
+133 silly audit   '@unrs/resolver-binding-linux-riscv64-musl': [ '1.11.1' ],
+133 silly audit   '@unrs/resolver-binding-linux-s390x-gnu': [ '1.11.1' ],
+133 silly audit   '@unrs/resolver-binding-linux-x64-gnu': [ '1.11.1' ],
+133 silly audit   '@unrs/resolver-binding-linux-x64-musl': [ '1.11.1' ],
+133 silly audit   '@unrs/resolver-binding-wasm32-wasi': [ '1.11.1' ],
+133 silly audit   '@unrs/resolver-binding-win32-arm64-msvc': [ '1.11.1' ],
+133 silly audit   '@unrs/resolver-binding-win32-ia32-msvc': [ '1.11.1' ],
+133 silly audit   '@unrs/resolver-binding-win32-x64-msvc': [ '1.11.1' ],
+133 silly audit   '@urql/core': [ '5.2.0' ],
+133 silly audit   '@urql/exchange-retry': [ '1.3.2' ],
+133 silly audit   '@xmldom/xmldom': [ '0.8.12', '0.7.13' ],
+133 silly audit   'abort-controller': [ '3.0.0' ],
+133 silly audit   accepts: [ '1.3.8' ],
+133 silly audit   acorn: [ '8.16.0' ],
+133 silly audit   'acorn-jsx': [ '5.3.2' ],
+133 silly audit   'agent-base': [ '7.1.4' ],
+133 silly audit   ajv: [ '6.14.0', '8.18.0' ],
+133 silly audit   anser: [ '1.4.10' ],
+133 silly audit   'ansi-escapes': [ '4.3.2' ],
+133 silly audit   'type-fest': [ '0.21.3', '0.7.1' ],
+133 silly audit   'ansi-regex': [ '5.0.1', '4.1.1' ],
+133 silly audit   'any-promise': [ '1.3.0' ],
+133 silly audit   anymatch: [ '3.1.3' ],
+133 silly audit   arg: [ '5.0.2' ],
+133 silly audit   'aria-hidden': [ '1.2.6' ],
+133 silly audit   'array-buffer-byte-length': [ '1.0.2' ],
+133 silly audit   'array-includes': [ '3.1.9' ],
+133 silly audit   'array.prototype.findlast': [ '1.2.5' ],
+133 silly audit   'array.prototype.findlastindex': [ '1.2.6' ],
+133 silly audit   'array.prototype.flat': [ '1.3.3' ],
+133 silly audit   'array.prototype.flatmap': [ '1.3.3' ],
+133 silly audit   'array.prototype.tosorted': [ '1.1.4' ],
+133 silly audit   'arraybuffer.prototype.slice': [ '1.0.4' ],
+133 silly audit   asap: [ '2.0.6' ],
+133 silly audit   'async-function': [ '1.0.0' ],
+133 silly audit   'async-limiter': [ '1.0.1' ],
+133 silly audit   'available-typed-arrays': [ '1.0.7' ],
+133 silly audit   'babel-jest': [ '29.7.0' ],
+133 silly audit   'babel-plugin-istanbul': [ '6.1.1' ],
+133 silly audit   'babel-plugin-jest-hoist': [ '29.6.3' ],
+133 silly audit   'babel-plugin-polyfill-corejs2': [ '0.4.17' ],
+133 silly audit   'babel-plugin-polyfill-corejs3': [ '0.13.0' ],
+133 silly audit   'babel-plugin-polyfill-regenerator': [ '0.6.8' ],
+133 silly audit   'babel-plugin-react-compiler': [ '1.0.0' ],
+133 silly audit   'babel-plugin-react-native-web': [ '0.21.2' ],
+133 silly audit   'babel-plugin-syntax-hermes-parser': [ '0.29.1' ],
+133 silly audit   'babel-plugin-transform-flow-enums': [ '0.0.2' ],
+133 silly audit   'babel-preset-current-node-syntax': [ '1.2.0' ],
+133 silly audit   'babel-preset-expo': [ '54.0.10' ],
+133 silly audit   'babel-preset-jest': [ '29.6.3' ],
+133 silly audit   'base64-js': [ '1.5.1' ],
+133 silly audit   'baseline-browser-mapping': [ '2.10.17' ],
+133 silly audit   'better-opn': [ '3.0.2' ],
+133 silly audit   open: [ '8.4.2', '7.4.2' ],
+133 silly audit   'big-integer': [ '1.6.52' ],
+133 silly audit   'bplist-creator': [ '0.1.0' ],
+133 silly audit   'bplist-parser': [ '0.3.1' ],
+133 silly audit   braces: [ '3.0.3' ],
+133 silly audit   browserslist: [ '4.28.2' ],
+133 silly audit   bser: [ '2.1.1' ],
+133 silly audit   buffer: [ '6.0.3', '5.7.1' ],
+133 silly audit   'buffer-from': [ '1.1.2' ],
+133 silly audit   bytes: [ '3.1.2' ],
+133 silly audit   'call-bind': [ '1.0.9' ],
+133 silly audit   'call-bind-apply-helpers': [ '1.0.2' ],
+133 silly audit   'call-bound': [ '1.0.4' ],
+133 silly audit   callsites: [ '3.1.0' ],
+133 silly audit   'caniuse-lite': [ '1.0.30001787' ],
+133 silly audit   chownr: [ '3.0.0' ],
+133 silly audit   'chrome-launcher': [ '0.15.2' ],
+133 silly audit   'chromium-edge-launcher': [ '0.2.0' ],
+133 silly audit   'ci-info': [ '2.0.0', '3.9.0' ],
+133 silly audit   'cli-cursor': [ '2.1.0' ],
+133 silly audit   'cli-spinners': [ '2.9.2' ],
+133 silly audit   'client-only': [ '0.0.1' ],
+133 silly audit   cliui: [ '8.0.1' ],
+133 silly audit   clone: [ '1.0.4' ],
+133 silly audit   color: [ '4.2.3' ],
+133 silly audit   'color-string': [ '1.9.1' ],
+133 silly audit   commander: [ '7.2.0', '12.1.0', '4.1.1', '2.20.3' ],
+133 silly audit   compressible: [ '2.0.18' ],
+133 silly audit   compression: [ '1.8.1' ],
+133 silly audit   ms: [ '2.0.0', '2.1.3' ],
+133 silly audit   negotiator: [ '0.6.4', '0.6.3' ],
+133 silly audit   'concat-map': [ '0.0.1' ],
+133 silly audit   connect: [ '3.7.0' ],
+133 silly audit   'convert-source-map': [ '2.0.0' ],
+133 silly audit   'core-js-compat': [ '3.49.0' ],
+133 silly audit   'cross-fetch': [ '3.2.0' ],
+133 silly audit   'cross-spawn': [ '7.0.6' ],
+133 silly audit   'css-in-js-utils': [ '3.1.0' ],
+133 silly audit   csstype: [ '3.2.3' ],
+133 silly audit   'data-view-buffer': [ '1.0.2' ],
+133 silly audit   'data-view-byte-length': [ '1.0.2' ],
+133 silly audit   'data-view-byte-offset': [ '1.0.1' ],
+133 silly audit   'decode-uri-component': [ '0.2.2' ],
+133 silly audit   'deep-extend': [ '0.6.0' ],
+133 silly audit   'deep-is': [ '0.1.4' ],
+133 silly audit   deepmerge: [ '4.3.1' ],
+133 silly audit   defaults: [ '1.0.4' ],
+133 silly audit   'define-data-property': [ '1.1.4' ],
+133 silly audit   'define-lazy-prop': [ '2.0.0' ],
+133 silly audit   'define-properties': [ '1.2.1' ],
+133 silly audit   depd: [ '2.0.0' ],
+133 silly audit   destroy: [ '1.2.0' ],
+133 silly audit   'detect-libc': [ '2.1.2' ],
+133 silly audit   'detect-node-es': [ '1.1.0' ],
+133 silly audit   doctrine: [ '2.1.0' ],
+133 silly audit   dotenv: [ '16.4.7' ],
+133 silly audit   'dotenv-expand': [ '11.0.7' ],
+133 silly audit   'dunder-proto': [ '1.0.1' ],
+133 silly audit   'ee-first': [ '1.1.1' ],
+133 silly audit   'electron-to-chromium': [ '1.5.335' ],
+133 silly audit   'emoji-regex': [ '8.0.0' ],
+133 silly audit   encodeurl: [ '1.0.2', '2.0.0' ],
+133 silly audit   'env-editor': [ '0.4.2' ],
+133 silly audit   'error-stack-parser': [ '2.1.4' ],
+133 silly audit   'es-abstract': [ '1.24.2' ],
+133 silly audit   'es-define-property': [ '1.0.1' ],
+133 silly audit   'es-errors': [ '1.3.0' ],
+133 silly audit   'es-iterator-helpers': [ '1.3.2' ],
+133 silly audit   'es-object-atoms': [ '1.1.1' ],
+133 silly audit   'es-set-tostringtag': [ '2.1.0' ],
+133 silly audit   'es-shim-unscopables': [ '1.1.0' ],
+133 silly audit   'es-to-primitive': [ '1.3.0' ],
+133 silly audit   escalade: [ '3.2.0' ],
+133 silly audit   'escape-html': [ '1.0.3' ],
+133 silly audit   eslint: [ '9.39.4' ],
+133 silly audit   'eslint-config-expo': [ '10.0.0' ],
+133 silly audit   globals: [ '16.5.0', '14.0.0' ],
+133 silly audit   'eslint-import-resolver-node': [ '0.3.10' ],
+133 silly audit   'eslint-import-resolver-typescript': [ '3.10.1' ],
+133 silly audit   'eslint-module-utils': [ '2.12.1' ],
+133 silly audit   'eslint-plugin-expo': [ '1.0.0' ],
+133 silly audit   'eslint-plugin-import': [ '2.32.0' ],
+133 silly audit   'eslint-plugin-react': [ '7.37.5' ],
+133 silly audit   'eslint-plugin-react-hooks': [ '5.2.0' ],
+133 silly audit   'eslint-scope': [ '8.4.0' ],
+133 silly audit   espree: [ '10.4.0' ],
+133 silly audit   esprima: [ '4.0.1' ],
+133 silly audit   esquery: [ '1.7.0' ],
+133 silly audit   esrecurse: [ '4.3.0' ],
+133 silly audit   estraverse: [ '5.3.0' ],
+133 silly audit   esutils: [ '2.0.3' ],
+133 silly audit   etag: [ '1.8.1' ],
+133 silly audit   'event-target-shim': [ '5.0.1' ],
+133 silly audit   expo: [ '54.0.33' ],
+133 silly audit   'expo-asset': [ '12.0.12' ],
+133 silly audit   'expo-constants': [ '18.0.13' ],
+133 silly audit   'expo-dev-client': [ '6.0.20' ],
+133 silly audit   'expo-dev-launcher': [ '6.0.20' ],
+133 silly audit   'json-schema-traverse': [ '1.0.0', '0.4.1' ],
+133 silly audit   'expo-dev-menu': [ '7.0.18' ],
+133 silly audit   'expo-dev-menu-interface': [ '2.0.0' ],
+133 silly audit   'expo-file-system': [ '19.0.21' ],
+133 silly audit   'expo-font': [ '14.0.11' ],
+133 silly audit   'expo-haptics': [ '15.0.8' ],
+133 silly audit   'expo-image': [ '3.0.11' ],
+133 silly audit   'expo-json-utils': [ '0.15.0' ],
+133 silly audit   'expo-keep-awake': [ '15.0.8' ],
+133 silly audit   'expo-linear-gradient': [ '55.0.13' ],
+133 silly audit   'expo-linking': [ '8.0.11' ],
+133 silly audit   'expo-location': [ '55.1.8' ],
+133 silly audit   'expo-manifests': [ '1.0.10' ],
+133 silly audit   'expo-modules-autolinking': [ '3.0.24' ],
+133 silly audit   'expo-modules-core': [ '3.0.29' ],
+133 silly audit   'expo-network': [ '55.0.13' ],
+133 silly audit   'expo-router': [ '6.0.23' ],
+133 silly audit   '@radix-ui/react-collection': [ '1.1.7' ],
+133 silly audit   '@radix-ui/react-presence': [ '1.1.5' ],
+133 silly audit   '@radix-ui/react-primitive': [ '2.1.3' ],
+133 silly audit   '@radix-ui/react-roving-focus': [ '1.1.11' ],
+133 silly audit   '@radix-ui/react-tabs': [ '1.1.13' ],
+133 silly audit   'expo-secure-store': [ '55.0.13' ],
+133 silly audit   'expo-server': [ '1.0.5' ],
+133 silly audit   'expo-splash-screen': [ '31.0.13' ],
+133 silly audit   'expo-status-bar': [ '3.0.9' ],
+133 silly audit   'expo-symbols': [ '1.0.8' ],
+133 silly audit   'expo-system-ui': [ '6.0.9' ],
+133 silly audit   'expo-updates-interface': [ '2.0.0' ],
+133 silly audit   'expo-web-browser': [ '15.0.10' ],
+133 silly audit   '@expo/cli': [ '54.0.23' ],
+133 silly audit   picomatch: [ '3.0.2', '2.3.2', '4.0.4' ],
+133 silly audit   'exponential-backoff': [ '3.1.3' ],
+133 silly audit   'fast-deep-equal': [ '3.1.3' ],
+133 silly audit   'fast-json-stable-stringify': [ '2.1.0' ],
+133 silly audit   'fast-levenshtein': [ '2.0.6' ],
+133 silly audit   'fast-uri': [ '3.1.0' ],
+133 silly audit   'fb-watchman': [ '2.0.2' ],
+133 silly audit   fbjs: [ '3.0.5' ],
+133 silly audit   'fbjs-css-vars': [ '1.0.2' ],
+133 silly audit   promise: [ '7.3.1', '8.3.0' ],
+133 silly audit   'file-entry-cache': [ '8.0.0' ],
+133 silly audit   'fill-range': [ '7.1.1' ],
+133 silly audit   'filter-obj': [ '1.1.0' ],
+133 silly audit   finalhandler: [ '1.1.2' ],
+133 silly audit   'flat-cache': [ '4.0.1' ],
+133 silly audit   flatted: [ '3.4.2' ],
+133 silly audit   'flow-enums-runtime': [ '0.0.6' ],
+133 silly audit   fontfaceobserver: [ '2.3.0' ],
+133 silly audit   'for-each': [ '0.3.5' ],
+133 silly audit   'freeport-async': [ '2.0.0' ],
+133 silly audit   fresh: [ '0.5.2' ],
+133 silly audit   'fs.realpath': [ '1.0.0' ],
+133 silly audit   fsevents: [ '2.3.3' ],
+133 silly audit   'function-bind': [ '1.1.2' ],
+133 silly audit   'function.prototype.name': [ '1.1.8' ],
+133 silly audit   'functions-have-names': [ '1.2.3' ],
+133 silly audit   'generator-function': [ '2.0.1' ],
+133 silly audit   gensync: [ '1.0.0-beta.2' ],
+133 silly audit   'get-caller-file': [ '2.0.5' ],
+133 silly audit   'get-intrinsic': [ '1.3.0' ],
+133 silly audit   'get-nonce': [ '1.0.1' ],
+133 silly audit   'get-package-type': [ '0.1.0' ],
+133 silly audit   'get-proto': [ '1.0.1' ],
+133 silly audit   'get-symbol-description': [ '1.1.0' ],
+133 silly audit   'get-tsconfig': [ '4.13.7' ],
+133 silly audit   getenv: [ '2.0.0', '1.0.0' ],
+133 silly audit   'glob-parent': [ '6.0.2' ],
+133 silly audit   globalthis: [ '1.0.4' ],
+133 silly audit   gopd: [ '1.2.0' ],
+133 silly audit   'graceful-fs': [ '4.2.11' ],
+133 silly audit   'has-bigints': [ '1.1.0' ],
+133 silly audit   'has-property-descriptors': [ '1.0.2' ],
+133 silly audit   'has-proto': [ '1.2.0' ],
+133 silly audit   'has-symbols': [ '1.1.0' ],
+133 silly audit   'has-tostringtag': [ '1.0.2' ],
+133 silly audit   hasown: [ '2.0.2' ],
+133 silly audit   'hermes-estree': [ '0.29.1', '0.32.0' ],
+133 silly audit   'hermes-parser': [ '0.29.1', '0.32.0' ],
+133 silly audit   'hoist-non-react-statics': [ '3.3.2' ],
+133 silly audit   'react-is': [ '16.13.1', '18.3.1', '19.2.5' ],
+133 silly audit   'hosted-git-info': [ '7.0.2' ],
+133 silly audit   'lru-cache': [ '10.4.3', '5.1.1', '11.3.3' ],
+133 silly audit   'http-errors': [ '2.0.1' ],
+133 silly audit   statuses: [ '2.0.2', '1.5.0' ],
+133 silly audit   'https-proxy-agent': [ '7.0.6' ],
+133 silly audit   'hyphenate-style-name': [ '1.1.0' ],
+133 silly audit   'iceberg-js': [ '0.8.1' ],
+133 silly audit   ieee754: [ '1.2.1' ],
+133 silly audit   'image-size': [ '1.2.1' ],
+133 silly audit   'import-fresh': [ '3.3.1' ],
+133 silly audit   'resolve-from': [ '4.0.0', '5.0.0' ],
+133 silly audit   imurmurhash: [ '0.1.4' ],
+133 silly audit   inflight: [ '1.0.6' ],
+133 silly audit   inherits: [ '2.0.4' ],
+133 silly audit   ini: [ '1.3.8' ],
+133 silly audit   'inline-style-prefixer': [ '7.0.1' ],
+133 silly audit   'internal-slot': [ '1.1.0' ],
+133 silly audit   invariant: [ '2.2.4' ],
+133 silly audit   'is-array-buffer': [ '3.0.5' ],
+133 silly audit   'is-arrayish': [ '0.3.4' ],
+133 silly audit   'is-async-function': [ '2.1.1' ],
+133 silly audit   'is-bigint': [ '1.1.0' ],
+133 silly audit   'is-boolean-object': [ '1.2.2' ],
+133 silly audit   'is-bun-module': [ '2.0.0' ],
+133 silly audit   'is-callable': [ '1.2.7' ],
+133 silly audit   'is-core-module': [ '2.16.1' ],
+133 silly audit   'is-data-view': [ '1.0.2' ],
+133 silly audit   'is-date-object': [ '1.1.0' ],
+133 silly audit   'is-docker': [ '2.2.1' ],
+133 silly audit   'is-extglob': [ '2.1.1' ],
+133 silly audit   'is-finalizationregistry': [ '1.1.1' ],
+133 silly audit   'is-fullwidth-code-point': [ '3.0.0' ],
+133 silly audit   'is-generator-function': [ '1.1.2' ],
+133 silly audit   'is-glob': [ '4.0.3' ],
+133 silly audit   'is-map': [ '2.0.3' ],
+133 silly audit   'is-negative-zero': [ '2.0.3' ],
+133 silly audit   'is-number': [ '7.0.0' ],
+133 silly audit   'is-number-object': [ '1.1.1' ],
+133 silly audit   'is-regex': [ '1.2.1' ],
+133 silly audit   'is-set': [ '2.0.3' ],
+133 silly audit   'is-shared-array-buffer': [ '1.0.4' ],
+133 silly audit   'is-string': [ '1.1.1' ],
+133 silly audit   'is-symbol': [ '1.1.1' ],
+133 silly audit   'is-typed-array': [ '1.1.15' ],
+133 silly audit   'is-weakmap': [ '2.0.2' ],
+133 silly audit   'is-weakref': [ '1.1.1' ],
+133 silly audit   'is-weakset': [ '2.0.4' ],
+133 silly audit   'is-wsl': [ '2.2.0' ],
+133 silly audit   isarray: [ '2.0.5' ],
+133 silly audit   isexe: [ '2.0.0' ],
+133 silly audit   'istanbul-lib-coverage': [ '3.2.2' ],
+133 silly audit   'istanbul-lib-instrument': [ '5.2.1' ],
+133 silly audit   'iterator.prototype': [ '1.1.5' ],
+133 silly audit   'jest-environment-node': [ '29.7.0' ],
+133 silly audit   'jest-get-type': [ '29.6.3' ],
+133 silly audit   'jest-haste-map': [ '29.7.0' ],
+133 silly audit   'jest-message-util': [ '29.7.0' ],
+133 silly audit   'jest-mock': [ '29.7.0' ],
+133 silly audit   'jest-regex-util': [ '29.6.3' ],
+133 silly audit   'jest-util': [ '29.7.0' ],
+133 silly audit   'jest-validate': [ '29.7.0' ],
+133 silly audit   'jest-worker': [ '29.7.0' ],
+133 silly audit   'jimp-compact': [ '0.16.1' ],
+133 silly audit   'js-tokens': [ '4.0.0' ],
+133 silly audit   'jsc-safe-url': [ '0.2.4' ],
+133 silly audit   jsesc: [ '3.1.0' ],
+133 silly audit   'json-buffer': [ '3.0.1' ],
+133 silly audit   'json-stable-stringify-without-jsonify': [ '1.0.1' ],
+133 silly audit   json5: [ '2.2.3', '1.0.2' ],
+133 silly audit   'jsx-ast-utils': [ '3.3.5' ],
+133 silly audit   keyv: [ '4.5.4' ],
+133 silly audit   kleur: [ '3.0.3' ],
+133 silly audit   'lan-network': [ '0.1.7' ],
+133 silly audit   leven: [ '3.1.0' ],
+133 silly audit   levn: [ '0.4.1' ],
+133 silly audit   'lighthouse-logger': [ '1.4.2' ],
+133 silly audit   lightningcss: [ '1.32.0' ],
+133 silly audit   'lightningcss-android-arm64': [ '1.32.0' ],
+133 silly audit   'lightningcss-darwin-arm64': [ '1.32.0' ],
+133 silly audit   'lightningcss-darwin-x64': [ '1.32.0' ],
+133 silly audit   'lightningcss-freebsd-x64': [ '1.32.0' ],
+133 silly audit   'lightningcss-linux-arm-gnueabihf': [ '1.32.0' ],
+133 silly audit   'lightningcss-linux-arm64-gnu': [ '1.32.0' ],
+133 silly audit   'lightningcss-linux-arm64-musl': [ '1.32.0' ],
+133 silly audit   'lightningcss-linux-x64-gnu': [ '1.32.0' ],
+133 silly audit   'lightningcss-linux-x64-musl': [ '1.32.0' ],
+133 silly audit   'lightningcss-win32-arm64-msvc': [ '1.32.0' ],
+133 silly audit   'lightningcss-win32-x64-msvc': [ '1.32.0' ],
+133 silly audit   'lines-and-columns': [ '1.2.4' ],
+133 silly audit   'lodash.debounce': [ '4.0.8' ],
+133 silly audit   'lodash.merge': [ '4.6.2' ],
+133 silly audit   'lodash.throttle': [ '4.1.1' ],
+133 silly audit   'log-symbols': [ '2.2.0' ],
+133 silly audit   'loose-envify': [ '1.4.0' ],
+133 silly audit   makeerror: [ '1.0.12' ],
+133 silly audit   marky: [ '1.3.0' ],
+133 silly audit   'math-intrinsics': [ '1.1.0' ],
+133 silly audit   'memoize-one': [ '5.2.1', '6.0.0' ],
+133 silly audit   'merge-stream': [ '2.0.0' ],
+133 silly audit   metro: [ '0.83.3' ],
+133 silly audit   'metro-babel-transformer': [ '0.83.3' ],
+133 silly audit   'metro-cache': [ '0.83.3' ],
+133 silly audit   'metro-cache-key': [ '0.83.3' ],
+133 silly audit   'metro-config': [ '0.83.3' ],
+133 silly audit   'metro-core': [ '0.83.3' ],
+133 silly audit   'metro-file-map': [ '0.83.3' ],
+133 silly audit   'metro-minify-terser': [ '0.83.3' ],
+133 silly audit   'metro-resolver': [ '0.83.3' ],
+133 silly audit   'metro-runtime': [ '0.83.3' ],
+133 silly audit   'metro-source-map': [ '0.83.3' ],
+133 silly audit   'metro-symbolicate': [ '0.83.3' ],
+133 silly audit   'metro-transform-plugins': [ '0.83.3' ],
+133 silly audit   'metro-transform-worker': [ '0.83.3' ],
+133 silly audit   micromatch: [ '4.0.8' ],
+133 silly audit   mime: [ '1.6.0' ],
+133 silly audit   'mime-db': [ '1.52.0' ],
+133 silly audit   'mime-types': [ '2.1.35' ],
+133 silly audit   'mimic-fn': [ '1.2.0' ],
+133 silly audit   minimist: [ '1.2.8' ],
+133 silly audit   minipass: [ '7.1.3' ],
+133 silly audit   minizlib: [ '3.1.0' ],
+133 silly audit   mkdirp: [ '1.0.4' ],
+133 silly audit   mz: [ '2.7.0' ],
+133 silly audit   nanoid: [ '3.3.11' ],
+133 silly audit   'napi-postinstall': [ '0.3.4' ],
+133 silly audit   'natural-compare': [ '1.4.0' ],
+133 silly audit   'nested-error-stacks': [ '2.0.1' ],
+133 silly audit   'node-exports-info': [ '1.6.0' ],
+133 silly audit   'node-fetch': [ '2.7.0' ],
+133 silly audit   'node-forge': [ '1.4.0' ],
+133 silly audit   'node-int64': [ '0.4.0' ],
+133 silly audit   'node-releases': [ '2.0.37' ],
+133 silly audit   'normalize-path': [ '3.0.0' ],
+133 silly audit   'npm-package-arg': [ '11.0.3' ],
+133 silly audit   nullthrows: [ '1.1.1' ],
+133 silly audit   ob1: [ '0.83.3' ],
+133 silly audit   'object-assign': [ '4.1.1' ],
+133 silly audit   'object-inspect': [ '1.13.4' ],
+133 silly audit   'object-keys': [ '1.1.1' ],
+133 silly audit   'object.assign': [ '4.1.7' ],
+133 silly audit   'object.entries': [ '1.1.9' ],
+133 silly audit   'object.fromentries': [ '2.0.8' ],
+133 silly audit   'object.groupby': [ '1.0.3' ],
+133 silly audit   'object.values': [ '1.2.1' ],
+133 silly audit   'on-finished': [ '2.3.0', '2.4.1' ],
+133 silly audit   'on-headers': [ '1.1.0' ],
+133 silly audit   once: [ '1.4.0' ],
+133 silly audit   onetime: [ '2.0.1' ],
+133 silly audit   optionator: [ '0.9.4' ],
+133 silly audit   ora: [ '3.4.0' ],
+133 silly audit   'strip-ansi': [ '5.2.0', '6.0.1' ],
+133 silly audit   'own-keys': [ '1.0.1' ],
+133 silly audit   'p-try': [ '2.2.0' ],
+133 silly audit   'parent-module': [ '1.0.1' ],
+133 silly audit   'parse-png': [ '2.1.0' ],
+133 silly audit   parseurl: [ '1.3.3' ],
+133 silly audit   'path-exists': [ '4.0.0' ],
+133 silly audit   'path-is-absolute': [ '1.0.1' ],
+133 silly audit   'path-key': [ '3.1.1' ],
+133 silly audit   'path-parse': [ '1.0.7' ],
+133 silly audit   'path-scurry': [ '2.0.2' ],
+133 silly audit   picocolors: [ '1.1.1' ],
+133 silly audit   pirates: [ '4.0.7' ],
+133 silly audit   plist: [ '3.1.0' ],
+133 silly audit   pngjs: [ '3.4.0' ],
+133 silly audit   'possible-typed-array-names': [ '1.1.0' ],
+133 silly audit   postcss: [ '8.4.49' ],
+133 silly audit   'postcss-value-parser': [ '4.2.0' ],
+133 silly audit   'prelude-ls': [ '1.2.1' ],
+133 silly audit   'pretty-bytes': [ '5.6.0' ],
+133 silly audit   'pretty-format': [ '29.7.0' ],
+133 silly audit   'proc-log': [ '4.2.0' ],
+133 silly audit   progress: [ '2.0.3' ],
+133 silly audit   prompts: [ '2.4.2' ],
+133 silly audit   'prop-types': [ '15.8.1' ],
+133 silly audit   punycode: [ '2.3.1' ],
+133 silly audit   'qrcode-terminal': [ '0.11.0' ],
+133 silly audit   'query-string': [ '7.1.3' ],
+133 silly audit   queue: [ '6.0.2' ],
+133 silly audit   'range-parser': [ '1.2.1' ],
+133 silly audit   rc: [ '1.2.8' ],
+133 silly audit   'strip-json-comments': [ '2.0.1', '3.1.1' ],
+133 silly audit   react: [ '19.1.0' ],
+133 silly audit   'react-devtools-core': [ '6.1.5' ],
+133 silly audit   'react-dom': [ '19.1.0' ],
+133 silly audit   'react-fast-compare': [ '3.2.2' ],
+133 silly audit   'react-freeze': [ '1.0.4' ],
+133 silly audit   'react-native': [ '0.81.5' ],
+133 silly audit   'react-native-gesture-handler': [ '2.28.0' ],
+133 silly audit   'react-native-is-edge-to-edge': [ '1.3.1' ],
+133 silly audit   'react-native-reanimated': [ '4.1.7' ],
+133 silly audit   'react-native-safe-area-context': [ '5.6.2' ],
+133 silly audit   'react-native-screens': [ '4.16.0' ],
+133 silly audit   'react-native-uuid': [ '2.0.4' ],
+133 silly audit   'react-native-web': [ '0.21.2' ],
+133 silly audit   'react-native-worklets': [ '0.5.1' ],
+133 silly audit   '@react-native/virtualized-lists': [ '0.81.5' ],
+133 silly audit   'react-refresh': [ '0.14.2' ],
+133 silly audit   'react-remove-scroll': [ '2.7.2' ],
+133 silly audit   'react-remove-scroll-bar': [ '2.3.8' ],
+133 silly audit   'react-style-singleton': [ '2.2.3' ],
+133 silly audit   'reflect.getprototypeof': [ '1.0.10' ],
+133 silly audit   regenerate: [ '1.4.2' ],
+133 silly audit   'regenerate-unicode-properties': [ '10.2.2' ],
+133 silly audit   'regenerator-runtime': [ '0.13.11' ],
+133 silly audit   'regexp.prototype.flags': [ '1.5.4' ],
+133 silly audit   'regexpu-core': [ '6.4.0' ],
+133 silly audit   regjsgen: [ '0.8.0' ],
+133 silly audit   regjsparser: [ '0.13.1' ],
+133 silly audit   'require-directory': [ '2.1.1' ],
+133 silly audit   'require-from-string': [ '2.0.2' ],
+133 silly audit   requireg: [ '0.2.2' ],
+133 silly audit   'resolve-pkg-maps': [ '1.0.0' ],
+133 silly audit   'resolve-workspace-root': [ '2.0.1' ],
+133 silly audit   'resolve.exports': [ '2.0.3' ],
+133 silly audit   'restore-cursor': [ '2.0.0' ],
+133 silly audit   rimraf: [ '3.0.2' ],
+133 silly audit   'safe-array-concat': [ '1.1.3' ],
+133 silly audit   'safe-buffer': [ '5.2.1' ],
+133 silly audit   'safe-push-apply': [ '1.0.0' ],
+133 silly audit   'safe-regex-test': [ '1.1.0' ],
+133 silly audit   sax: [ '1.6.0' ],
+133 silly audit   scheduler: [ '0.26.0' ],
+133 silly audit   send: [ '0.19.2' ],
+133 silly audit   'serialize-error': [ '2.1.0' ],
+133 silly audit   'serve-static': [ '1.16.3' ],
+133 silly audit   'server-only': [ '0.0.1' ],
+133 silly audit   'set-function-length': [ '1.2.2' ],
+133 silly audit   'set-function-name': [ '2.0.2' ],
+133 silly audit   'set-proto': [ '1.0.0' ],
+133 silly audit   setimmediate: [ '1.0.5' ],
+133 silly audit   setprototypeof: [ '1.2.0' ],
+133 silly audit   'sf-symbols-typescript': [ '2.2.0' ],
+133 silly audit   shallowequal: [ '1.1.0' ],
+133 silly audit   'shebang-command': [ '2.0.0' ],
+133 silly audit   'shebang-regex': [ '3.0.0' ],
+133 silly audit   'shell-quote': [ '1.8.3' ],
+133 silly audit   'side-channel': [ '1.1.0' ],
+133 silly audit   'side-channel-list': [ '1.0.1' ],
+133 silly audit   'side-channel-map': [ '1.0.1' ],
+133 silly audit   'side-channel-weakmap': [ '1.0.2' ],
+133 silly audit   'signal-exit': [ '3.0.7' ],
+133 silly audit   'simple-plist': [ '1.3.1' ],
+133 silly audit   'simple-swizzle': [ '0.2.4' ],
+133 silly audit   sisteransi: [ '1.0.5' ],
+133 silly audit   slash: [ '3.0.0' ],
+133 silly audit   slugify: [ '1.6.9' ],
+133 silly audit   'source-map': [ '0.5.7', '0.6.1' ],
+133 silly audit   'source-map-js': [ '1.2.1' ],
+133 silly audit   'source-map-support': [ '0.5.21' ],
+133 silly audit   'split-on-first': [ '1.1.0' ],
+133 silly audit   'sprintf-js': [ '1.0.3' ],
+133 silly audit   'stable-hash': [ '0.0.5' ],
+133 silly audit   'stack-utils': [ '2.0.6' ],
+133 silly audit   stackframe: [ '1.3.4' ],
+133 silly audit   'stacktrace-parser': [ '0.1.11' ],
+133 silly audit   'stop-iteration-iterator': [ '1.1.0' ],
+133 silly audit   'stream-buffers': [ '2.2.0' ],
+133 silly audit   'strict-uri-encode': [ '2.0.0' ],
+133 silly audit   'string-width': [ '4.2.3' ],
+133 silly audit   'string.prototype.matchall': [ '4.0.12' ],
+133 silly audit   'string.prototype.repeat': [ '1.0.0' ],
+133 silly audit   'string.prototype.trim': [ '1.2.10' ],
+133 silly audit   'string.prototype.trimend': [ '1.0.9' ],
+133 silly audit   'string.prototype.trimstart': [ '1.0.8' ],
+133 silly audit   'strip-bom': [ '3.0.0' ],
+133 silly audit   'structured-headers': [ '0.4.1' ],
+133 silly audit   styleq: [ '0.1.3' ],
+133 silly audit   sucrase: [ '3.35.1' ],
+133 silly audit   'supports-hyperlinks': [ '2.3.0' ],
+133 silly audit   'supports-preserve-symlinks-flag': [ '1.0.0' ],
+133 silly audit   tar: [ '7.5.13' ],
+133 silly audit   yallist: [ '5.0.0', '3.1.1' ],
+133 silly audit   'terminal-link': [ '2.1.1' ],
+133 silly audit   terser: [ '5.46.1' ],
+133 silly audit   'test-exclude': [ '6.0.0' ],
+133 silly audit   thenify: [ '3.3.1' ],
+133 silly audit   'thenify-all': [ '1.6.0' ],
+133 silly audit   throat: [ '5.0.0' ],
+133 silly audit   tinyglobby: [ '0.2.16' ],
+133 silly audit   fdir: [ '6.5.0' ],
+133 silly audit   tmpl: [ '1.0.5' ],
+133 silly audit   'to-regex-range': [ '5.0.1' ],
+133 silly audit   toidentifier: [ '1.0.1' ],
+133 silly audit   tr46: [ '0.0.3' ],
+133 silly audit   'ts-api-utils': [ '2.5.0' ],
+133 silly audit   'ts-interface-checker': [ '0.1.13' ],
+133 silly audit   'tsconfig-paths': [ '3.15.0' ],
+133 silly audit   tslib: [ '2.8.1' ],
+133 silly audit   'type-check': [ '0.4.0' ],
+133 silly audit   'type-detect': [ '4.0.8' ],
+133 silly audit   'typed-array-buffer': [ '1.0.3' ],
+133 silly audit   'typed-array-byte-length': [ '1.0.3' ],
+133 silly audit   'typed-array-byte-offset': [ '1.0.4' ],
+133 silly audit   'typed-array-length': [ '1.0.7' ],
+133 silly audit   typescript: [ '5.9.3' ],
+133 silly audit   'ua-parser-js': [ '1.0.41' ],
+133 silly audit   'unbox-primitive': [ '1.1.0' ],
+133 silly audit   undici: [ '6.24.1' ],
+133 silly audit   'undici-types': [ '7.19.2' ],
+133 silly audit   'unicode-canonical-property-names-ecmascript': [ '2.0.1' ],
+133 silly audit   'unicode-match-property-ecmascript': [ '2.0.0' ],
+133 silly audit   'unicode-match-property-value-ecmascript': [ '2.2.1' ],
+133 silly audit   'unicode-property-aliases-ecmascript': [ '2.2.0' ],
+133 silly audit   unpipe: [ '1.0.0' ],
+133 silly audit   'unrs-resolver': [ '1.11.1' ],
+133 silly audit   'update-browserslist-db': [ '1.2.3' ],
+133 silly audit   'uri-js': [ '4.4.1' ],
+133 silly audit   'use-callback-ref': [ '1.3.3' ],
+133 silly audit   'use-latest-callback': [ '0.2.6' ],
+133 silly audit   'use-sidecar': [ '1.1.3' ],
+133 silly audit   'use-sync-external-store': [ '1.6.0' ],
+133 silly audit   'utils-merge': [ '1.0.1' ],
+133 silly audit   uuid: [ '7.0.3' ],
+133 silly audit   'validate-npm-package-name': [ '5.0.1' ],
+133 silly audit   vary: [ '1.1.2' ],
+133 silly audit   vaul: [ '1.1.2' ],
+133 silly audit   '@radix-ui/react-dialog': [ '1.1.15' ],
+133 silly audit   '@radix-ui/react-dismissable-layer': [ '1.1.11' ],
+133 silly audit   '@radix-ui/react-focus-scope': [ '1.1.7' ],
+133 silly audit   '@radix-ui/react-portal': [ '1.1.9' ],
+133 silly audit   vlq: [ '1.0.1' ],
+133 silly audit   walker: [ '1.0.8' ],
+133 silly audit   'warn-once': [ '0.1.1' ],
+133 silly audit   wcwidth: [ '1.0.1' ],
+133 silly audit   'webidl-conversions': [ '3.0.1', '5.0.0' ],
+133 silly audit   'whatwg-fetch': [ '3.6.20' ],
+133 silly audit   'whatwg-url': [ '5.0.0' ],
+133 silly audit   'whatwg-url-without-unicode': [ '8.0.0-3' ],
+133 silly audit   which: [ '2.0.2' ],
+133 silly audit   'which-boxed-primitive': [ '1.1.1' ],
+133 silly audit   'which-builtin-type': [ '1.2.1' ],
+133 silly audit   'which-collection': [ '1.0.2' ],
+133 silly audit   'which-typed-array': [ '1.1.20' ],
+133 silly audit   wonka: [ '6.3.6' ],
+133 silly audit   'word-wrap': [ '1.2.5' ],
+133 silly audit   'wrap-ansi': [ '7.0.0' ],
+133 silly audit   wrappy: [ '1.0.2' ],
+133 silly audit   'write-file-atomic': [ '4.0.2', '2.4.3' ],
+133 silly audit   xcode: [ '3.0.1' ],
+133 silly audit   xml2js: [ '0.6.0', '0.4.23' ],
+133 silly audit   xmlbuilder: [ '11.0.1', '15.1.1', '14.0.0' ],
+133 silly audit   y18n: [ '5.0.8' ],
+133 silly audit   yaml: [ '2.8.3' ],
+133 silly audit   yargs: [ '17.7.2' ],
+133 silly audit   'yargs-parser': [ '21.1.1' ],
+133 silly audit   'yocto-queue': [ '0.1.0' ],
+133 silly audit   'react-native-bluetooth-classic': [ '1.73.0-rc.17' ],
+133 silly audit   'with-rn-bluetooth-classic': [ '1.0.5' ],
+133 silly audit   'fs-extra': [ '9.0.0' ],
+133 silly audit   'at-least-node': [ '1.0.0' ],
+133 silly audit   jsonfile: [ '6.2.0' ],
+133 silly audit   universalify: [ '1.0.0', '2.0.1' ]
+133 silly audit }
+134 verbose reify failed optional dependency D:\ResQNet\apps\mobile\node_modules\lightningcss-win32-arm64-msvc
+135 silly reify mark deleted [
+135 silly reify   'D:\\ResQNet\\apps\\mobile\\node_modules\\lightningcss-win32-arm64-msvc'
+135 silly reify ]
+136 verbose reify failed optional dependency D:\ResQNet\apps\mobile\node_modules\lightningcss-linux-x64-musl
+137 silly reify mark deleted [
+137 silly reify   'D:\\ResQNet\\apps\\mobile\\node_modules\\lightningcss-linux-x64-musl'
+137 silly reify ]
+138 verbose reify failed optional dependency D:\ResQNet\apps\mobile\node_modules\lightningcss-linux-x64-gnu
+139 silly reify mark deleted [
+139 silly reify   'D:\\ResQNet\\apps\\mobile\\node_modules\\lightningcss-linux-x64-gnu'
+139 silly reify ]
+140 verbose reify failed optional dependency D:\ResQNet\apps\mobile\node_modules\lightningcss-linux-arm64-musl
+141 silly reify mark deleted [
+141 silly reify   'D:\\ResQNet\\apps\\mobile\\node_modules\\lightningcss-linux-arm64-musl'
+141 silly reify ]
+142 verbose reify failed optional dependency D:\ResQNet\apps\mobile\node_modules\lightningcss-linux-arm64-gnu
+143 silly reify mark deleted [
+143 silly reify   'D:\\ResQNet\\apps\\mobile\\node_modules\\lightningcss-linux-arm64-gnu'
+143 silly reify ]
+144 verbose reify failed optional dependency D:\ResQNet\apps\mobile\node_modules\lightningcss-linux-arm-gnueabihf
+145 silly reify mark deleted [
+145 silly reify   'D:\\ResQNet\\apps\\mobile\\node_modules\\lightningcss-linux-arm-gnueabihf'
+145 silly reify ]
+146 verbose reify failed optional dependency D:\ResQNet\apps\mobile\node_modules\lightningcss-freebsd-x64
+147 silly reify mark deleted [ 'D:\\ResQNet\\apps\\mobile\\node_modules\\lightningcss-freebsd-x64' ]
+148 verbose reify failed optional dependency D:\ResQNet\apps\mobile\node_modules\lightningcss-darwin-x64
+149 silly reify mark deleted [ 'D:\\ResQNet\\apps\\mobile\\node_modules\\lightningcss-darwin-x64' ]
+150 verbose reify failed optional dependency D:\ResQNet\apps\mobile\node_modules\lightningcss-darwin-arm64
+151 silly reify mark deleted [
+151 silly reify   'D:\\ResQNet\\apps\\mobile\\node_modules\\lightningcss-darwin-arm64'
+151 silly reify ]
+152 verbose reify failed optional dependency D:\ResQNet\apps\mobile\node_modules\lightningcss-android-arm64
+153 silly reify mark deleted [
+153 silly reify   'D:\\ResQNet\\apps\\mobile\\node_modules\\lightningcss-android-arm64'
+153 silly reify ]
+154 verbose reify failed optional dependency D:\ResQNet\apps\mobile\node_modules\fsevents
+155 silly reify mark deleted [ 'D:\\ResQNet\\apps\\mobile\\node_modules\\fsevents' ]
+156 verbose reify failed optional dependency D:\ResQNet\apps\mobile\node_modules\@unrs\resolver-binding-win32-ia32-msvc
+157 silly reify mark deleted [
+157 silly reify   'D:\\ResQNet\\apps\\mobile\\node_modules\\@unrs\\resolver-binding-win32-ia32-msvc'
+157 silly reify ]
+158 verbose reify failed optional dependency D:\ResQNet\apps\mobile\node_modules\@unrs\resolver-binding-win32-arm64-msvc
+159 silly reify mark deleted [
+159 silly reify   'D:\\ResQNet\\apps\\mobile\\node_modules\\@unrs\\resolver-binding-win32-arm64-msvc'
+159 silly reify ]
+160 verbose reify failed optional dependency D:\ResQNet\apps\mobile\node_modules\@unrs\resolver-binding-wasm32-wasi
+161 silly reify mark deleted [
+161 silly reify   'D:\\ResQNet\\apps\\mobile\\node_modules\\@unrs\\resolver-binding-wasm32-wasi'
+161 silly reify ]
+162 verbose reify failed optional dependency D:\ResQNet\apps\mobile\node_modules\@napi-rs\wasm-runtime
+163 silly reify mark deleted [ 'D:\\ResQNet\\apps\\mobile\\node_modules\\@napi-rs\\wasm-runtime' ]
+164 verbose reify failed optional dependency D:\ResQNet\apps\mobile\node_modules\@emnapi\core
+165 silly reify mark deleted [ 'D:\\ResQNet\\apps\\mobile\\node_modules\\@emnapi\\core' ]
+166 verbose reify failed optional dependency D:\ResQNet\apps\mobile\node_modules\@emnapi\runtime
+167 silly reify mark deleted [ 'D:\\ResQNet\\apps\\mobile\\node_modules\\@emnapi\\runtime' ]
+168 verbose reify failed optional dependency D:\ResQNet\apps\mobile\node_modules\@tybys\wasm-util
+169 silly reify mark deleted [ 'D:\\ResQNet\\apps\\mobile\\node_modules\\@tybys\\wasm-util' ]
+170 verbose reify failed optional dependency D:\ResQNet\apps\mobile\node_modules\@emnapi\wasi-threads
+171 silly reify mark deleted [ 'D:\\ResQNet\\apps\\mobile\\node_modules\\@emnapi\\wasi-threads' ]
+172 verbose reify failed optional dependency D:\ResQNet\apps\mobile\node_modules\@unrs\resolver-binding-linux-x64-musl
+173 silly reify mark deleted [
+173 silly reify   'D:\\ResQNet\\apps\\mobile\\node_modules\\@unrs\\resolver-binding-linux-x64-musl'
+173 silly reify ]
+174 verbose reify failed optional dependency D:\ResQNet\apps\mobile\node_modules\@unrs\resolver-binding-linux-x64-gnu
+175 silly reify mark deleted [
+175 silly reify   'D:\\ResQNet\\apps\\mobile\\node_modules\\@unrs\\resolver-binding-linux-x64-gnu'
+175 silly reify ]
+176 verbose reify failed optional dependency D:\ResQNet\apps\mobile\node_modules\@unrs\resolver-binding-linux-s390x-gnu
+177 silly reify mark deleted [
+177 silly reify   'D:\\ResQNet\\apps\\mobile\\node_modules\\@unrs\\resolver-binding-linux-s390x-gnu'
+177 silly reify ]
+178 verbose reify failed optional dependency D:\ResQNet\apps\mobile\node_modules\@unrs\resolver-binding-linux-riscv64-musl
+179 silly reify mark deleted [
+179 silly reify   'D:\\ResQNet\\apps\\mobile\\node_modules\\@unrs\\resolver-binding-linux-riscv64-musl'
+179 silly reify ]
+180 verbose reify failed optional dependency D:\ResQNet\apps\mobile\node_modules\@unrs\resolver-binding-linux-riscv64-gnu
+181 silly reify mark deleted [
+181 silly reify   'D:\\ResQNet\\apps\\mobile\\node_modules\\@unrs\\resolver-binding-linux-riscv64-gnu'
+181 silly reify ]
+182 verbose reify failed optional dependency D:\ResQNet\apps\mobile\node_modules\@unrs\resolver-binding-linux-ppc64-gnu
+183 silly reify mark deleted [
+183 silly reify   'D:\\ResQNet\\apps\\mobile\\node_modules\\@unrs\\resolver-binding-linux-ppc64-gnu'
+183 silly reify ]
+184 verbose reify failed optional dependency D:\ResQNet\apps\mobile\node_modules\@unrs\resolver-binding-linux-arm64-musl
+185 silly reify mark deleted [
+185 silly reify   'D:\\ResQNet\\apps\\mobile\\node_modules\\@unrs\\resolver-binding-linux-arm64-musl'
+185 silly reify ]
+186 verbose reify failed optional dependency D:\ResQNet\apps\mobile\node_modules\@unrs\resolver-binding-linux-arm64-gnu
+187 silly reify mark deleted [
+187 silly reify   'D:\\ResQNet\\apps\\mobile\\node_modules\\@unrs\\resolver-binding-linux-arm64-gnu'
+187 silly reify ]
+188 verbose reify failed optional dependency D:\ResQNet\apps\mobile\node_modules\@unrs\resolver-binding-linux-arm-musleabihf
+189 silly reify mark deleted [
+189 silly reify   'D:\\ResQNet\\apps\\mobile\\node_modules\\@unrs\\resolver-binding-linux-arm-musleabihf'
+189 silly reify ]
+190 verbose reify failed optional dependency D:\ResQNet\apps\mobile\node_modules\@unrs\resolver-binding-linux-arm-gnueabihf
+191 silly reify mark deleted [
+191 silly reify   'D:\\ResQNet\\apps\\mobile\\node_modules\\@unrs\\resolver-binding-linux-arm-gnueabihf'
+191 silly reify ]
+192 verbose reify failed optional dependency D:\ResQNet\apps\mobile\node_modules\@unrs\resolver-binding-freebsd-x64
+193 silly reify mark deleted [
+193 silly reify   'D:\\ResQNet\\apps\\mobile\\node_modules\\@unrs\\resolver-binding-freebsd-x64'
+193 silly reify ]
+194 verbose reify failed optional dependency D:\ResQNet\apps\mobile\node_modules\@unrs\resolver-binding-darwin-x64
+195 silly reify mark deleted [
+195 silly reify   'D:\\ResQNet\\apps\\mobile\\node_modules\\@unrs\\resolver-binding-darwin-x64'
+195 silly reify ]
+196 verbose reify failed optional dependency D:\ResQNet\apps\mobile\node_modules\@unrs\resolver-binding-darwin-arm64
+197 silly reify mark deleted [
+197 silly reify   'D:\\ResQNet\\apps\\mobile\\node_modules\\@unrs\\resolver-binding-darwin-arm64'
+197 silly reify ]
+198 verbose reify failed optional dependency D:\ResQNet\apps\mobile\node_modules\@unrs\resolver-binding-android-arm64
+199 silly reify mark deleted [
+199 silly reify   'D:\\ResQNet\\apps\\mobile\\node_modules\\@unrs\\resolver-binding-android-arm64'
+199 silly reify ]
+200 verbose reify failed optional dependency D:\ResQNet\apps\mobile\node_modules\@unrs\resolver-binding-android-arm-eabi
+201 silly reify mark deleted [
+201 silly reify   'D:\\ResQNet\\apps\\mobile\\node_modules\\@unrs\\resolver-binding-android-arm-eabi'
+201 silly reify ]
+202 http cache universalify@https://registry.npmjs.org/universalify/-/universalify-1.0.0.tgz 0ms (cache hit)
+203 http cache at-least-node@https://registry.npmjs.org/at-least-node/-/at-least-node-1.0.0.tgz 0ms (cache hit)
+204 http cache with-rn-bluetooth-classic@https://registry.npmjs.org/with-rn-bluetooth-classic/-/with-rn-bluetooth-classic-1.0.5.tgz 0ms (cache hit)
+205 http cache @tybys/wasm-util@https://registry.npmjs.org/@tybys/wasm-util/-/wasm-util-0.10.1.tgz 0ms (cache hit)
+206 http cache @emnapi/runtime@https://registry.npmjs.org/@emnapi/runtime/-/runtime-1.9.2.tgz 0ms (cache hit)
+207 http cache @emnapi/wasi-threads@https://registry.npmjs.org/@emnapi/wasi-threads/-/wasi-threads-1.2.1.tgz 0ms (cache hit)
+208 http cache @emnapi/core@https://registry.npmjs.org/@emnapi/core/-/core-1.9.2.tgz 0ms (cache hit)
+209 http cache @napi-rs/wasm-runtime@https://registry.npmjs.org/@napi-rs/wasm-runtime/-/wasm-runtime-0.2.12.tgz 0ms (cache hit)
+210 http cache universalify@https://registry.npmjs.org/universalify/-/universalify-2.0.1.tgz 0ms (cache hit)
+211 http cache write-file-atomic@https://registry.npmjs.org/write-file-atomic/-/write-file-atomic-2.4.3.tgz 0ms (cache hit)
+212 http cache xmlbuilder@https://registry.npmjs.org/xmlbuilder/-/xmlbuilder-14.0.0.tgz 0ms (cache hit)
+213 http cache @xmldom/xmldom@https://registry.npmjs.org/@xmldom/xmldom/-/xmldom-0.7.13.tgz 0ms (cache hit)
+214 http cache fs-extra@https://registry.npmjs.org/fs-extra/-/fs-extra-9.0.0.tgz 0ms (cache hit)
+215 http cache json5@https://registry.npmjs.org/json5/-/json5-1.0.2.tgz 0ms (cache hit)
+216 http cache xml2js@https://registry.npmjs.org/xml2js/-/xml2js-0.4.23.tgz 0ms (cache hit)
+217 http cache jsonfile@https://registry.npmjs.org/jsonfile/-/jsonfile-6.2.0.tgz 0ms (cache hit)
+218 http cache @babel/code-frame@https://registry.npmjs.org/@babel/code-frame/-/code-frame-7.10.4.tgz 0ms (cache hit)
+219 http cache react-native-bluetooth-classic@https://registry.npmjs.org/react-native-bluetooth-classic/-/react-native-bluetooth-classic-1.73.0-rc.17.tgz 0ms (cache hit)
+220 http cache xmlbuilder@https://registry.npmjs.org/xmlbuilder/-/xmlbuilder-11.0.1.tgz 0ms (cache hit)
+221 http cache @expo/json-file@https://registry.npmjs.org/@expo/json-file/-/json-file-8.2.33.tgz 0ms (cache hit)
+222 http cache @expo/config-plugins@https://registry.npmjs.org/@expo/config-plugins/-/config-plugins-3.1.0.tgz 0ms (cache hit)
+223 http cache @expo/config-types@https://registry.npmjs.org/@expo/config-types/-/config-types-42.0.0.tgz 0ms (cache hit)
+224 http cache @expo/plist@https://registry.npmjs.org/@expo/plist/-/plist-0.0.14.tgz 0ms (cache hit)
+225 silly tarball no local data for universalify@https://registry.npmjs.org/universalify/-/universalify-1.0.0.tgz. Extracting by manifest.
+226 silly tarball no local data for at-least-node@https://registry.npmjs.org/at-least-node/-/at-least-node-1.0.0.tgz. Extracting by manifest.
+227 silly tarball no local data for with-rn-bluetooth-classic@https://registry.npmjs.org/with-rn-bluetooth-classic/-/with-rn-bluetooth-classic-1.0.5.tgz. Extracting by manifest.
+228 silly tarball no local data for @tybys/wasm-util@https://registry.npmjs.org/@tybys/wasm-util/-/wasm-util-0.10.1.tgz. Extracting by manifest.
+229 silly tarball no local data for @emnapi/runtime@https://registry.npmjs.org/@emnapi/runtime/-/runtime-1.9.2.tgz. Extracting by manifest.
+230 silly tarball no local data for @emnapi/wasi-threads@https://registry.npmjs.org/@emnapi/wasi-threads/-/wasi-threads-1.2.1.tgz. Extracting by manifest.
+231 silly tarball no local data for @emnapi/core@https://registry.npmjs.org/@emnapi/core/-/core-1.9.2.tgz. Extracting by manifest.
+232 silly tarball no local data for @napi-rs/wasm-runtime@https://registry.npmjs.org/@napi-rs/wasm-runtime/-/wasm-runtime-0.2.12.tgz. Extracting by manifest.
+233 http cache getenv@https://registry.npmjs.org/getenv/-/getenv-1.0.0.tgz 0ms (cache hit)
+234 silly tarball no local data for universalify@https://registry.npmjs.org/universalify/-/universalify-2.0.1.tgz. Extracting by manifest.
+235 silly tarball no local data for write-file-atomic@https://registry.npmjs.org/write-file-atomic/-/write-file-atomic-2.4.3.tgz. Extracting by manifest.
+236 silly tarball no local data for xmlbuilder@https://registry.npmjs.org/xmlbuilder/-/xmlbuilder-14.0.0.tgz. Extracting by manifest.
+237 silly tarball no local data for @xmldom/xmldom@https://registry.npmjs.org/@xmldom/xmldom/-/xmldom-0.7.13.tgz. Extracting by manifest.
+238 http cache semver@https://registry.npmjs.org/semver/-/semver-7.7.4.tgz 0ms (cache hit)
+239 silly tarball no local data for fs-extra@https://registry.npmjs.org/fs-extra/-/fs-extra-9.0.0.tgz. Extracting by manifest.
+240 silly tarball no local data for json5@https://registry.npmjs.org/json5/-/json5-1.0.2.tgz. Extracting by manifest.
+241 silly tarball no local data for xml2js@https://registry.npmjs.org/xml2js/-/xml2js-0.4.23.tgz. Extracting by manifest.
+242 silly tarball no local data for jsonfile@https://registry.npmjs.org/jsonfile/-/jsonfile-6.2.0.tgz. Extracting by manifest.
+243 silly tarball no local data for @babel/code-frame@https://registry.npmjs.org/@babel/code-frame/-/code-frame-7.10.4.tgz. Extracting by manifest.
+244 http cache glob@https://registry.npmjs.org/glob/-/glob-7.1.6.tgz 0ms (cache hit)
+245 silly tarball no local data for react-native-bluetooth-classic@https://registry.npmjs.org/react-native-bluetooth-classic/-/react-native-bluetooth-classic-1.73.0-rc.17.tgz. Extracting by manifest.
+246 silly tarball no local data for xmlbuilder@https://registry.npmjs.org/xmlbuilder/-/xmlbuilder-11.0.1.tgz. Extracting by manifest.
+247 silly tarball no local data for @expo/json-file@https://registry.npmjs.org/@expo/json-file/-/json-file-8.2.33.tgz. Extracting by manifest.
+248 silly tarball no local data for @expo/config-plugins@https://registry.npmjs.org/@expo/config-plugins/-/config-plugins-3.1.0.tgz. Extracting by manifest.
+249 silly tarball no local data for @expo/config-types@https://registry.npmjs.org/@expo/config-types/-/config-types-42.0.0.tgz. Extracting by manifest.
+250 silly tarball no local data for @expo/plist@https://registry.npmjs.org/@expo/plist/-/plist-0.0.14.tgz. Extracting by manifest.
+251 silly tarball no local data for getenv@https://registry.npmjs.org/getenv/-/getenv-1.0.0.tgz. Extracting by manifest.
+252 silly tarball no local data for semver@https://registry.npmjs.org/semver/-/semver-7.7.4.tgz. Extracting by manifest.
+253 silly tarball no local data for glob@https://registry.npmjs.org/glob/-/glob-7.1.6.tgz. Extracting by manifest.
+254 http fetch POST 200 https://registry.npmjs.org/-/npm/v1/security/advisories/bulk 315ms
+255 silly audit report {
+255 silly audit report   '@xmldom/xmldom': [
+255 silly audit report     {
+255 silly audit report       id: 1115997,
+255 silly audit report       url: 'https://github.com/advisories/GHSA-wh4c-j3r5-mjhp',
+255 silly audit report       title: 'xmldom: XML injection via unsafe CDATA serialization allows attacker-controlled markup insertion',
+255 silly audit report       severity: 'high',
+255 silly audit report       vulnerable_versions: '<0.8.12',
+255 silly audit report       cwe: [Array],
+255 silly audit report       cvss: [Object]
+255 silly audit report     }
+255 silly audit report   ],
+255 silly audit report   xml2js: [
+255 silly audit report     {
+255 silly audit report       id: 1096693,
+255 silly audit report       url: 'https://github.com/advisories/GHSA-776f-qx25-q3cc',
+255 silly audit report       title: 'xml2js is vulnerable to prototype pollution',
+255 silly audit report       severity: 'moderate',
+255 silly audit report       vulnerable_versions: '<0.5.0',
+255 silly audit report       cwe: [Array],
+255 silly audit report       cvss: [Object]
+255 silly audit report     }
+255 silly audit report   ]
+255 silly audit report }
+256 silly packumentCache corgi:https://registry.npmjs.org/@xmldom%2fxmldom cache-miss
+257 silly packumentCache corgi:https://registry.npmjs.org/xml2js cache-miss
+258 http fetch GET 200 https://registry.npmjs.org/universalify/-/universalify-1.0.0.tgz 351ms (cache miss)
+259 http fetch GET 200 https://registry.npmjs.org/at-least-node/-/at-least-node-1.0.0.tgz 352ms (cache miss)
+260 http fetch GET 200 https://registry.npmjs.org/universalify/-/universalify-2.0.1.tgz 351ms (cache miss)
+261 http fetch GET 200 https://registry.npmjs.org/write-file-atomic/-/write-file-atomic-2.4.3.tgz 363ms (cache miss)
+262 http fetch GET 200 https://registry.npmjs.org/jsonfile/-/jsonfile-6.2.0.tgz 363ms (cache miss)
+263 http fetch GET 200 https://registry.npmjs.org/getenv/-/getenv-1.0.0.tgz 352ms (cache miss)
+264 http fetch GET 200 https://registry.npmjs.org/with-rn-bluetooth-classic/-/with-rn-bluetooth-classic-1.0.5.tgz 378ms (cache miss)
+265 http fetch GET 200 https://registry.npmjs.org/xml2js 129ms (cache miss)
+266 silly packumentCache corgi:https://registry.npmjs.org/xml2js set size:undefined disposed:false
+267 http fetch GET 200 https://registry.npmjs.org/xml2js/-/xml2js-0.4.23.tgz 429ms (cache miss)
+268 http fetch GET 200 https://registry.npmjs.org/glob/-/glob-7.1.6.tgz 401ms (cache miss)
+269 warn deprecated glob@7.1.6: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+270 http fetch GET 200 https://registry.npmjs.org/@xmldom%2fxmldom 145ms (cache miss)
+271 silly packumentCache corgi:https://registry.npmjs.org/@xmldom%2fxmldom set size:undefined disposed:false
+272 http fetch GET 200 https://registry.npmjs.org/json5/-/json5-1.0.2.tgz 447ms (cache miss)
+273 silly packumentCache corgi:https://registry.npmjs.org/@expo%2fplist cache-miss
+274 http fetch GET 200 https://registry.npmjs.org/@emnapi/wasi-threads/-/wasi-threads-1.2.1.tgz 467ms (cache miss)
+275 http fetch GET 200 https://registry.npmjs.org/@emnapi/runtime/-/runtime-1.9.2.tgz 491ms (cache miss)
+276 http fetch GET 200 https://registry.npmjs.org/fs-extra/-/fs-extra-9.0.0.tgz 527ms (cache miss)
+277 http fetch GET 200 https://registry.npmjs.org/xmlbuilder/-/xmlbuilder-11.0.1.tgz 530ms (cache miss)
+278 http fetch GET 200 https://registry.npmjs.org/@babel/code-frame/-/code-frame-7.10.4.tgz 537ms (cache miss)
+279 http fetch GET 200 https://registry.npmjs.org/semver/-/semver-7.7.4.tgz 517ms (cache miss)
+280 http fetch GET 200 https://registry.npmjs.org/xmlbuilder/-/xmlbuilder-14.0.0.tgz 558ms (cache miss)
+281 http fetch GET 200 https://registry.npmjs.org/@emnapi/core/-/core-1.9.2.tgz 560ms (cache miss)
+282 http fetch GET 200 https://registry.npmjs.org/@xmldom/xmldom/-/xmldom-0.7.13.tgz 560ms (cache miss)
+283 warn deprecated @xmldom/xmldom@0.7.13: this version has critical issues, please update to the latest version
+284 http fetch GET 200 https://registry.npmjs.org/@tybys/wasm-util/-/wasm-util-0.10.1.tgz 564ms (cache miss)
+285 http fetch GET 200 https://registry.npmjs.org/@napi-rs/wasm-runtime/-/wasm-runtime-0.2.12.tgz 592ms (cache miss)
+286 http fetch GET 200 https://registry.npmjs.org/@expo/json-file/-/json-file-8.2.33.tgz 605ms (cache miss)
+287 http fetch GET 200 https://registry.npmjs.org/react-native-bluetooth-classic/-/react-native-bluetooth-classic-1.73.0-rc.17.tgz 611ms (cache miss)
+288 http fetch GET 200 https://registry.npmjs.org/@expo/config-plugins/-/config-plugins-3.1.0.tgz 814ms (cache miss)
+289 http fetch GET 200 https://registry.npmjs.org/@expo%2fplist 361ms (cache miss)
+290 silly packumentCache corgi:https://registry.npmjs.org/@expo%2fplist set size:undefined disposed:false
+291 silly packumentCache corgi:https://registry.npmjs.org/@expo%2fconfig-plugins cache-miss
+292 http fetch GET 200 https://registry.npmjs.org/@expo%2fconfig-plugins 77ms (cache miss)
+293 silly packumentCache corgi:https://registry.npmjs.org/@expo%2fconfig-plugins set size:undefined disposed:false
+294 silly packumentCache corgi:https://registry.npmjs.org/with-rn-bluetooth-classic cache-miss
+295 http fetch GET 200 https://registry.npmjs.org/@expo/plist/-/plist-0.0.14.tgz 1155ms (cache miss)
+296 http fetch GET 200 https://registry.npmjs.org/with-rn-bluetooth-classic 382ms (cache miss)
+297 silly packumentCache corgi:https://registry.npmjs.org/with-rn-bluetooth-classic set size:undefined disposed:false
+298 http fetch GET 200 https://registry.npmjs.org/@expo/config-types/-/config-types-42.0.0.tgz 1409ms (cache miss)
+299 silly ADD node_modules/universalify
+300 silly ADD node_modules/jsonfile
+301 silly ADD node_modules/jsonfile/node_modules/universalify
+302 silly ADD node_modules/at-least-node
+303 silly ADD node_modules/fs-extra
+304 silly ADD node_modules/with-rn-bluetooth-classic
+305 silly ADD node_modules/with-rn-bluetooth-classic/node_modules/xmlbuilder
+306 silly ADD node_modules/with-rn-bluetooth-classic/node_modules/@xmldom/xmldom
+307 silly ADD node_modules/with-rn-bluetooth-classic/node_modules/write-file-atomic
+308 silly ADD node_modules/with-rn-bluetooth-classic/node_modules/json5
+309 silly ADD node_modules/with-rn-bluetooth-classic/node_modules/@babel/code-frame
+310 silly ADD node_modules/with-rn-bluetooth-classic/node_modules/xml2js
+311 silly ADD node_modules/with-rn-bluetooth-classic/node_modules/xml2js/node_modules/xmlbuilder
+312 silly ADD node_modules/with-rn-bluetooth-classic/node_modules/semver
+313 silly ADD node_modules/with-rn-bluetooth-classic/node_modules/glob
+314 silly ADD node_modules/with-rn-bluetooth-classic/node_modules/getenv
+315 silly ADD node_modules/with-rn-bluetooth-classic/node_modules/@expo/plist
+316 silly ADD node_modules/with-rn-bluetooth-classic/node_modules/@expo/json-file
+317 silly ADD node_modules/with-rn-bluetooth-classic/node_modules/@expo/config-types
+318 silly ADD node_modules/with-rn-bluetooth-classic/node_modules/@expo/config-plugins
+319 silly ADD node_modules/react-native-bluetooth-classic
+320 silly ADD
+321 silly ADD
+322 silly ADD
+323 silly ADD
+324 silly ADD
+325 silly ADD
+326 silly ADD
+327 silly ADD
+328 silly ADD
+329 silly ADD
+330 silly ADD
+331 silly ADD
+332 silly ADD
+333 silly ADD
+334 silly ADD
+335 silly ADD
+336 silly ADD
+337 silly ADD
+338 silly ADD
+339 silly ADD
+340 silly ADD
+341 silly ADD
+342 silly ADD
+343 silly ADD
+344 silly ADD
+345 silly ADD
+346 silly ADD
+347 silly ADD
+348 silly ADD
+349 silly ADD
+350 silly ADD
+351 silly ADD
+352 silly ADD
+353 silly ADD
+354 silly REMOVE node_modules/react-native-udp
+355 silly REMOVE node_modules/react-native-udp/node_modules/buffer
+356 silly REMOVE node_modules/events
+357 verbose cwd D:\ResQNet\apps\mobile
+358 verbose os Windows_NT 10.0.26200
+359 verbose node v22.19.0
+360 verbose npm  v10.9.3
+361 verbose exit 0
+362 info ok
