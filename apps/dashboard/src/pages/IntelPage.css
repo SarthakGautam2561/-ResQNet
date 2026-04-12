@@ -47,12 +47,14 @@
 
 .intel-panel {
   padding: 14px;
-  overflow: auto;
+  overflow: hidden;
 }
 
 .intel-panel .analytics-panel {
   height: 100%;
   min-height: 0;
+  overflow: auto;
+  overflow-x: hidden;
 }
 
 .intel-feed {
@@ -76,6 +78,22 @@
 .intel-feed .feed-table-wrap {
   flex: 1;
   min-height: 0;
+  overflow-x: hidden;
+}
+
+.intel-feed .feed-table {
+  min-width: 100%;
+  table-layout: fixed;
+}
+
+.intel-feed .feed-td,
+.intel-feed .feed-th {
+  white-space: nowrap;
+}
+
+.intel-feed .feed-td--area,
+.intel-feed .feed-td--message {
+  max-width: 240px;
 }
 
 @media (max-width: 1200px) {
