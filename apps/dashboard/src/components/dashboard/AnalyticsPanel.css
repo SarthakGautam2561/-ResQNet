@@ -8,6 +8,12 @@
   gap: 16px;
   backdrop-filter: blur(16px);
   min-height: 240px;
+  overflow: visible;
+}
+
+:root[data-theme='light'] .analytics-panel {
+  background: rgba(255, 255, 255, 0.85);
+  border-color: rgba(15, 23, 42, 0.08);
 }
 
 .analytics-header {
@@ -41,10 +47,22 @@
   background: rgba(16, 185, 129, 0.1);
 }
 
+:root[data-theme='light'] .analytics-status {
+  color: #059669;
+  background: rgba(16, 185, 129, 0.12);
+  border-color: rgba(16, 185, 129, 0.3);
+}
+
 .analytics-status.is-loading {
   color: #fbbf24;
   border-color: rgba(251, 191, 36, 0.4);
   background: rgba(251, 191, 36, 0.1);
+}
+
+:root[data-theme='light'] .analytics-status.is-loading {
+  color: #d97706;
+  border-color: rgba(217, 119, 6, 0.35);
+  background: rgba(251, 191, 36, 0.12);
 }
 
 .analytics-error,
@@ -55,6 +73,12 @@
   border: 1px dashed rgba(148, 163, 184, 0.3);
   border-radius: 12px;
   background: rgba(15, 23, 42, 0.4);
+}
+
+:root[data-theme='light'] .analytics-error,
+:root[data-theme='light'] .analytics-empty {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: rgba(15, 23, 42, 0.12);
 }
 
 .analytics-body {
@@ -78,6 +102,11 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
+}
+
+:root[data-theme='light'] .analytics-kpi {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: rgba(37, 99, 235, 0.2);
 }
 
 .analytics-kpi-value {
@@ -107,6 +136,11 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+}
+
+:root[data-theme='light'] .analytics-card {
+  background: rgba(255, 255, 255, 0.92);
+  border-color: rgba(15, 23, 42, 0.1);
 }
 
 .analytics-card-title {
@@ -151,9 +185,17 @@
   overflow: hidden;
 }
 
+:root[data-theme='light'] .analytics-bar {
+  background: rgba(15, 23, 42, 0.08);
+}
+
 .analytics-bar-fill {
   height: 100%;
   background: linear-gradient(90deg, rgba(76, 201, 255, 0.25), rgba(255, 84, 81, 0.8));
+}
+
+:root[data-theme='light'] .analytics-bar-fill {
+  background: linear-gradient(90deg, rgba(37, 99, 235, 0.35), rgba(220, 38, 38, 0.8));
 }
 
 .analytics-needs {
@@ -173,6 +215,10 @@
   color: var(--text-primary);
   border-bottom: 1px dashed rgba(148, 163, 184, 0.15);
   padding-bottom: 4px;
+}
+
+:root[data-theme='light'] .analytics-need {
+  border-bottom-color: rgba(15, 23, 42, 0.12);
 }
 
 .analytics-need:last-child {

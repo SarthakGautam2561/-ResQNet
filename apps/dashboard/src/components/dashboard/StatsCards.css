@@ -16,6 +16,13 @@
   overflow: hidden;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   backdrop-filter: blur(10px);
+  box-shadow: 0 10px 24px rgba(10, 12, 22, 0.35);
+}
+
+:root[data-theme='light'] .stat-card {
+  background: rgba(255, 255, 255, 0.92);
+  border-color: rgba(15, 23, 42, 0.08);
+  box-shadow: 0 10px 24px rgba(148, 163, 184, 0.25);
 }
 
 .stat-card::after {
@@ -41,9 +48,19 @@
   background: linear-gradient(140deg, rgba(255, 91, 91, 0.12), rgba(13, 19, 36, 0.8));
 }
 
+:root[data-theme='light'] .stat-card--critical {
+  background: linear-gradient(140deg, rgba(220, 38, 38, 0.12), rgba(255, 255, 255, 0.95));
+  border-color: rgba(220, 38, 38, 0.3);
+}
+
 .stat-card--pending {
   border-color: rgba(255, 209, 102, 0.5);
   background: linear-gradient(140deg, rgba(255, 209, 102, 0.12), rgba(13, 19, 36, 0.8));
+}
+
+:root[data-theme='light'] .stat-card--pending {
+  background: linear-gradient(140deg, rgba(245, 158, 11, 0.15), rgba(255, 255, 255, 0.95));
+  border-color: rgba(245, 158, 11, 0.3);
 }
 
 .stat-icon-wrap {
@@ -58,12 +75,22 @@
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
+:root[data-theme='light'] .stat-icon-wrap {
+  background: rgba(15, 23, 42, 0.05);
+  border-color: rgba(15, 23, 42, 0.08);
+}
+
 .stat-icon-wrap--critical {
   background: rgba(255, 91, 91, 0.2);
   border-color: rgba(255, 91, 91, 0.4);
 }
 .stat-icon-wrap--critical .stat-icon {
   color: var(--severity-critical);
+}
+
+:root[data-theme='light'] .stat-icon-wrap--critical {
+  background: rgba(220, 38, 38, 0.12);
+  border-color: rgba(220, 38, 38, 0.25);
 }
 
 .stat-icon-wrap--zones {
@@ -74,6 +101,11 @@
   color: var(--severity-moderate);
 }
 
+:root[data-theme='light'] .stat-icon-wrap--zones {
+  background: rgba(37, 99, 235, 0.12);
+  border-color: rgba(37, 99, 235, 0.25);
+}
+
 .stat-icon-wrap--pending {
   background: rgba(255, 209, 102, 0.18);
   border-color: rgba(255, 209, 102, 0.4);
@@ -82,12 +114,22 @@
   color: var(--severity-important);
 }
 
+:root[data-theme='light'] .stat-icon-wrap--pending {
+  background: rgba(245, 158, 11, 0.12);
+  border-color: rgba(245, 158, 11, 0.25);
+}
+
 .stat-icon-wrap--resolved {
   background: rgba(45, 212, 191, 0.2);
   border-color: rgba(45, 212, 191, 0.4);
 }
 .stat-icon-wrap--resolved .stat-icon {
   color: var(--success);
+}
+
+:root[data-theme='light'] .stat-icon-wrap--resolved {
+  background: rgba(16, 185, 129, 0.12);
+  border-color: rgba(16, 185, 129, 0.25);
 }
 
 .stat-icon {

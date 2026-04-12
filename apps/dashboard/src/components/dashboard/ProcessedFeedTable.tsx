@@ -72,6 +72,7 @@ export default function ProcessedFeedTable({ reports }: ProcessedFeedTableProps)
             <tr>
               <th className="feed-th">TIME</th>
               <th className="feed-th">DISTRICT</th>
+              <th className="feed-th feed-th--area">AREA</th>
               <th className="feed-th">CATEGORY</th>
               <th className="feed-th">VERIFIED SEVERITY</th>
               <th className="feed-th">NEEDS</th>
@@ -94,6 +95,9 @@ export default function ProcessedFeedTable({ reports }: ProcessedFeedTableProps)
                 <tr key={report.id} className={`feed-row ${verified >= 5 ? 'feed-row--critical' : ''}`}>
                   <td className="feed-td feed-td--time">{formatTime(report.created_at)}</td>
                   <td className="feed-td">{report.district || 'Unknown'}</td>
+                  <td className="feed-td feed-td--area" title={report.detailed_area || undefined}>
+                    {report.detailed_area || '--'}
+                  </td>
                   <td className="feed-td">
                     <span className="feed-category">
                       <span>{CATEGORY_ICONS[(report.category as any) || 'Other'] || '!'}</span>

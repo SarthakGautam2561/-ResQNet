@@ -17,6 +17,7 @@
   position: relative;
 }
 
+
 .sidebar::after {
   content: '';
   position: absolute;
@@ -89,12 +90,14 @@
   border-color: rgba(76, 201, 255, 0.3);
 }
 
+
 .nav-item--active {
   color: var(--text-primary);
   background: linear-gradient(120deg, rgba(29, 155, 240, 0.25), rgba(122, 229, 130, 0.12));
   border-color: rgba(76, 201, 255, 0.6);
   box-shadow: 0 8px 24px rgba(29, 155, 240, 0.2);
 }
+
 
 .nav-item--active::before {
   content: '';
@@ -113,6 +116,7 @@
   padding: 14px 16px;
   border-top: 1px solid var(--glass-stroke);
 }
+
 
 .user-info {
   display: flex;

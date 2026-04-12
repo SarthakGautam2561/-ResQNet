@@ -23,9 +23,10 @@ interface SOSFeedTableProps {
   reports: SOSReport[];
   onMarkResolved?: (id: string) => void;
   detailedAreaById?: Record<string, string | null | undefined>;
+  headerAction?: React.ReactNode;
 }
 
-export default function SOSFeedTable({ reports, onMarkResolved, detailedAreaById }: SOSFeedTableProps) {
+export default function SOSFeedTable({ reports, onMarkResolved, detailedAreaById, headerAction }: SOSFeedTableProps) {
   const { user } = useAuth();
   const role = user?.role || 'public';
   const canResolve = ['admin', 'official', 'ngo'].includes(role);
@@ -67,7 +68,10 @@ export default function SOSFeedTable({ reports, onMarkResolved, detailedAreaById
   return (
     <div className="feed-container">
       <div className="feed-header">
-        <h3 className="feed-title">LIVE SOS FEED</h3>
+        <div className="feed-title-wrap">
+          <h3 className="feed-title">LIVE SOS FEED</h3>
+          {headerAction && <div className="feed-header-action">{headerAction}</div>}
+        </div>
         <div className="feed-filters">
           <select
             className="feed-select"

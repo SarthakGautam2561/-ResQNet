@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+﻿import { useEffect, useMemo, useRef, useState } from 'react';
 import { MapContainer, TileLayer, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -32,21 +32,26 @@ function HeatLayer({ reports }: { reports: HeatmapReport[] }) {
         map.removeLayer(layerRef.current);
       }
 
-      const points = reports.map((r) => [r.latitude, r.longitude, r.severity / 5] as [number, number, number]);
+      const points = reports.map((r) => {
+        const weight = Math.min(1, Math.max(0.25, Math.pow(r.severity / 5, 1.15)));
+        return [r.latitude, r.longitude, weight] as [number, number, number];
+      });
 
       if (points.length > 0 && (L as any).heatLayer) {
         layerRef.current = (L as any)
           .heatLayer(points, {
-            radius: 35,
-            blur: 25,
-            maxZoom: 14,
+            radius: 48,
+            blur: 32,
+            maxZoom: 15,
+            minOpacity: 0.35,
             max: 1.0,
             gradient: {
-              0.1: '#6a8cff',
-              0.35: '#4cc9ff',
-              0.6: '#ffd166',
+              0.05: '#2b59ff',
+              0.25: '#4cc9ff',
+              0.45: '#34e2c6',
+              0.65: '#ffd166',
               0.8: '#ff8a4c',
-              1.0: '#ff5b5b',
+              1.0: '#ff3b3b',
             },
           })
           .addTo(map);
@@ -72,11 +77,22 @@ interface HeatmapViewProps {
 export default function HeatmapView({ reports, style, className }: HeatmapViewProps) {
   const [includeResolved, setIncludeResolved] = useState(false);
   const [mapRef, setMapRef] = useState<L.Map | null>(null);
-  const [tileMode, setTileMode] = useState<'dark' | 'light'>('dark');
+  const [baseLayer, setBaseLayer] = useState<'dark' | 'streets' | 'satellite' | 'osm'>('streets');
+  // Dark-only map styling.
 
   const visibleReports = useMemo(() => {
     return includeResolved ? reports : reports.filter((r) => r.status !== 'resolved');
   }, [reports, includeResolved]);
+
+  const severityCounts = useMemo(() => {
+    const counts = { 5: 0, 4: 0, 3: 0, 2: 0, 1: 0 };
+    visibleReports.forEach((r) => {
+      if (counts[r.severity as 1 | 2 | 3 | 4 | 5] !== undefined) {
+        counts[r.severity as 1 | 2 | 3 | 4 | 5] += 1;
+      }
+    });
+    return counts;
+  }, [visibleReports]);
 
   return (
     <div className={`map-shell ${className || ''}`} style={{ width: '100%', height: '100%', ...style }}>
@@ -87,18 +103,40 @@ export default function HeatmapView({ reports, style, className }: HeatmapViewPr
         zoomControl={false}
         whenCreated={setMapRef}
       >
-        {tileMode === 'dark' ? (
+        {baseLayer === 'dark' && (
           <TileLayer
             url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
             attribution='&copy; <a href="https://carto.com/">CARTO</a>'
-            className="map-tiles map-tiles--dark"
+            className="map-tiles map-tiles--base"
           />
-        ) : (
+        )}
+        {baseLayer === 'streets' && (
           <TileLayer
-            url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
+            url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
             attribution='&copy; <a href="https://carto.com/">CARTO</a>'
-            className="map-tiles map-tiles--light"
+            className="map-tiles map-tiles--base"
           />
+        )}
+        {baseLayer === 'osm' && (
+          <TileLayer
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            className="map-tiles map-tiles--base"
+          />
+        )}
+        {baseLayer === 'satellite' && (
+          <>
+            <TileLayer
+              url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+              attribution='&copy; Esri, Maxar, Earthstar Geographics, and the GIS User Community'
+              className="map-tiles map-tiles--base"
+            />
+            <TileLayer
+              url="https://services.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}"
+              attribution=" "
+              className="map-tiles map-tiles--labels"
+            />
+          </>
         )}
         <HeatLayer reports={visibleReports} />
       </MapContainer>
@@ -113,9 +151,23 @@ export default function HeatmapView({ reports, style, className }: HeatmapViewPr
           <button type="button" onClick={() => setIncludeResolved((prev) => !prev)}>
             {includeResolved ? 'Hide Resolved' : 'Show Resolved'}
           </button>
-          <button type="button" onClick={() => setTileMode((prev) => (prev === 'dark' ? 'light' : 'dark'))}>
-            Map: {tileMode === 'dark' ? 'Night' : 'Day'}
-          </button>
+          <div className="map-layer-toggle" role="group" aria-label="Map style">
+            {[
+              { id: 'streets', label: 'Streets' },
+              { id: 'osm', label: 'OSM' },
+              { id: 'dark', label: 'Dark' },
+              { id: 'satellite', label: 'Satellite' },
+            ].map((layer) => (
+              <button
+                key={layer.id}
+                type="button"
+                className={baseLayer === layer.id ? 'is-active' : ''}
+                onClick={() => setBaseLayer(layer.id as 'dark' | 'streets' | 'satellite' | 'osm')}
+              >
+                {layer.label}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 
@@ -125,6 +177,12 @@ export default function HeatmapView({ reports, style, className }: HeatmapViewPr
         <div className="map-heat-labels">
           <span>LOW</span>
           <span>HIGH</span>
+        </div>
+        <div className="map-heat-counts">
+          <span>Critical: {severityCounts[5]}</span>
+          <span>High: {severityCounts[4]}</span>
+          <span>Moderate+: {severityCounts[3] + severityCounts[2]}</span>
+          <span>Low: {severityCounts[1]}</span>
         </div>
       </div>
 
@@ -149,3 +207,5 @@ export default function HeatmapView({ reports, style, className }: HeatmapViewPr
     </div>
   );
 }
+
+

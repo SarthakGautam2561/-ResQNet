@@ -4,6 +4,8 @@
   flex-direction: column;
   gap: 16px;
   padding: 20px 22px;
+  min-height: 0;
+  overflow: hidden;
 }
 
 .intel-page-header h2 {
@@ -37,13 +39,26 @@
   min-height: 0;
 }
 
+:root[data-theme='light'] .intel-panel,
+:root[data-theme='light'] .intel-feed {
+  background: rgba(255, 255, 255, 0.88);
+  border-color: rgba(15, 23, 42, 0.08);
+}
+
 .intel-panel {
   padding: 14px;
+  overflow: auto;
+}
+
+.intel-panel .analytics-panel {
+  height: 100%;
+  min-height: 0;
 }
 
 .intel-feed {
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 .intel-loading,
@@ -51,6 +66,16 @@
   padding: 16px;
   color: var(--text-secondary);
   font-size: 12px;
+}
+
+.intel-feed .feed-container {
+  flex: 1;
+  min-height: 0;
+}
+
+.intel-feed .feed-table-wrap {
+  flex: 1;
+  min-height: 0;
 }
 
 @media (max-width: 1200px) {

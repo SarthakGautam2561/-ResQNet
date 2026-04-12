@@ -54,6 +54,7 @@
     linear-gradient(160deg, #0a0c16 10%, #0f1628 50%, #0b0f1d 90%);
 }
 
+
 * {
   margin: 0;
   padding: 0;
@@ -79,6 +80,7 @@ body::before {
   pointer-events: none;
   z-index: 0;
 }
+
 
 #root {
   width: 100vw;

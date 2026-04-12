@@ -13,6 +13,7 @@ export default function DashboardPage() {
   const { analytics, loading: analyticsLoading, error: analyticsError } = useAnalytics();
   const { reports: processedReports } = useProcessedSOS();
   const [showIntel, setShowIntel] = useState(false);
+  const [layoutMode, setLayoutMode] = useState<'split' | 'map' | 'feed'>('split');
 
   const detailedAreaById = useMemo(() => {
     const map: Record<string, string> = {};
@@ -66,14 +67,22 @@ export default function DashboardPage() {
       </div>
 
       {/* Map + Feed Split */}
-      <div className="dashboard-main">
+      <div className={`dashboard-main dashboard-main--${layoutMode}`}>
         <div className="dashboard-map-section">
           <div className="section-header">
             <span className="section-title">SITUATIONAL AWARENESS MAP</span>
-            <span className="section-count">{reports.filter(r => r.status !== 'resolved').length} active incidents</span>
+            <div className="section-actions">
+              <span className="section-count">{reports.filter(r => r.status !== 'resolved').length} active incidents</span>
+              <button
+                className="section-action-btn"
+                onClick={() => setLayoutMode(layoutMode === 'map' ? 'split' : 'map')}
+              >
+                {layoutMode === 'map' ? 'Split View' : 'Map Focus'}
+              </button>
+            </div>
           </div>
           <div className="dashboard-map">
-            <LiveMap reports={reports} />
+            <LiveMap reports={reports} detailedAreaById={detailedAreaById} />
           </div>
         </div>
 
@@ -82,6 +91,14 @@ export default function DashboardPage() {
             reports={reports}
             onMarkResolved={handleMarkResolved}
             detailedAreaById={detailedAreaById}
+            headerAction={
+              <button
+                className="section-action-btn"
+                onClick={() => setLayoutMode(layoutMode === 'feed' ? 'split' : 'feed')}
+              >
+                {layoutMode === 'feed' ? 'Split View' : 'Feed Focus'}
+              </button>
+            }
           />
         </div>
       </div>
