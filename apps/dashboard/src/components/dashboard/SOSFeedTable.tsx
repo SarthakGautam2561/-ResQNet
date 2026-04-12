@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
 import { CheckCircle, Navigation, ChevronDown, ChevronUp } from 'lucide-react';
 import type { SOSReport } from '../../hooks/useRealtimeSOS';
 import { CATEGORY_ICONS, SEVERITY_COLORS, SEVERITY_LABELS } from '@resqnet/shared-types';
@@ -34,6 +34,7 @@ export default function SOSFeedTable({ reports, onMarkResolved, detailedAreaById
   const [sortDir, setSortDir] = useState<'asc' | 'desc'>('desc');
   const [categoryFilter, setCategoryFilter] = useState('all');
   const [statusFilter, setStatusFilter] = useState('all');
+  const [expandedRows, setExpandedRows] = useState<string[]>([]);
 
   const formatTime = (t: string) => {
     const d = new Date(t);
@@ -42,6 +43,15 @@ export default function SOSFeedTable({ reports, onMarkResolved, detailedAreaById
     if (diff < 60) return `${diff}m ago`;
     if (diff < 1440) return `${Math.floor(diff / 60)}h ago`;
     return d.toLocaleDateString();
+  };
+
+  const isFresh = (t: string) => {
+    const d = new Date(t);
+    return Date.now() - d.getTime() < 5 * 60 * 1000;
+  };
+
+  const toggleExpanded = (id: string) => {
+    setExpandedRows((prev) => (prev.includes(id) ? prev.filter((row) => row !== id) : [...prev, id]));
   };
 
   const toggleSort = (field: 'created_at' | 'severity') => {
@@ -120,64 +130,115 @@ export default function SOSFeedTable({ reports, onMarkResolved, detailedAreaById
           <tbody>
             {filtered.map((report, idx) => {
               const detailedArea = detailedAreaById?.[report.id];
+              const expanded = expandedRows.includes(report.id);
+              const fresh = isFresh(report.created_at);
               return (
-                <tr
-                  key={report.id}
-                  className={`feed-row ${idx === 0 ? 'animate-slide-in' : ''} ${
-                    report.severity >= 5 ? 'feed-row--critical' : ''
-                  }`}
-                >
-                  <td className="feed-td feed-td--time">{formatTime(report.created_at)}</td>
-                  <td className="feed-td">{report.name || '--'}</td>
-                  <td className="feed-td">
-                    <span className="feed-category">
-                      <span>{CATEGORY_ICONS[report.category] || '!'}</span>
-                      <span>{report.category}</span>
-                    </span>
-                  </td>
-                  <td className="feed-td">
-                    <span className="feed-severity" style={{ background: SEVERITY_COLORS[report.severity] }}>
-                      {report.severity} - {SEVERITY_LABELS[report.severity]}
-                    </span>
-                  </td>
-                  <td className="feed-td feed-td--message">{report.message || '--'}</td>
-                  <td className="feed-td feed-td--area" title={detailedArea || undefined}>
-                    {detailedArea || '--'}
-                  </td>
-                  <td className="feed-td">
-                    <span
-                      className="feed-status"
-                      style={{
-                        color: STATUS_COLORS[report.status] || '#94a3b8',
-                        borderColor: STATUS_COLORS[report.status] || '#94a3b8',
-                      }}
-                    >
-                      {STATUS_LABELS[report.status] || report.status.replace('_', ' ')}
-                    </span>
-                  </td>
-                  <td className="feed-td feed-td--actions">
-                    {report.status !== 'resolved' && canResolve && (
-                      <>
-                        <button
-                          className="feed-action feed-action--resolve"
-                          onClick={() => onMarkResolved?.(report.id)}
-                          title="Mark Resolved"
-                        >
-                          <CheckCircle size={14} />
+                <Fragment key={report.id}>
+                  <tr
+                    className={`feed-row ${idx === 0 ? 'animate-slide-in' : ''} ${
+                      report.severity >= 5 ? 'feed-row--critical' : ''
+                    } ${fresh ? 'feed-row--new' : ''}`}
+                  >
+                    <td className="feed-td feed-td--time">
+                      <div className="feed-time">
+                        <span>{formatTime(report.created_at)}</span>
+                        {fresh && <span className="feed-badge">NEW</span>}
+                      </div>
+                    </td>
+                    <td className="feed-td">{report.name || '--'}</td>
+                    <td className="feed-td">
+                      <span className="feed-category">
+                        <span>{CATEGORY_ICONS[report.category] || '!'}</span>
+                        <span>{report.category}</span>
+                      </span>
+                    </td>
+                    <td className="feed-td">
+                      <span className="feed-severity" style={{ background: SEVERITY_COLORS[report.severity] }}>
+                        {report.severity} - {SEVERITY_LABELS[report.severity]}
+                      </span>
+                    </td>
+                    <td className="feed-td feed-td--message">
+                      <div className={`feed-message ${expanded ? 'is-expanded' : ''}`}>
+                        {report.message || '--'}
+                      </div>
+                      {report.message && report.message.length > 120 && (
+                        <button className="feed-expand" onClick={() => toggleExpanded(report.id)} type="button">
+                          {expanded ? 'Show less' : 'Read more'}
                         </button>
-                        <a
-                          className="feed-action feed-action--navigate"
-                          href={`https://www.google.com/maps?q=${report.latitude},${report.longitude}`}
-                          target="_blank"
-                          rel="noreferrer"
-                          title="Navigate"
-                        >
-                          <Navigation size={14} />
-                        </a>
-                      </>
-                    )}
-                  </td>
-                </tr>
+                      )}
+                    </td>
+                    <td className="feed-td feed-td--area" title={detailedArea || undefined}>
+                      {detailedArea || '--'}
+                    </td>
+                    <td className="feed-td">
+                      <span
+                        className="feed-status"
+                        style={{
+                          color: STATUS_COLORS[report.status] || '#94a3b8',
+                          borderColor: STATUS_COLORS[report.status] || '#94a3b8',
+                        }}
+                      >
+                        {STATUS_LABELS[report.status] || report.status.replace('_', ' ')}
+                      </span>
+                    </td>
+                    <td className="feed-td feed-td--actions">
+                      {report.status !== 'resolved' && canResolve && (
+                        <>
+                          <button
+                            className="feed-action feed-action--resolve"
+                            onClick={() => onMarkResolved?.(report.id)}
+                            title="Mark Resolved"
+                          >
+                            <CheckCircle size={14} />
+                          </button>
+                          <a
+                            className="feed-action feed-action--navigate"
+                            href={`https://www.google.com/maps?q=${report.latitude},${report.longitude}`}
+                            target="_blank"
+                            rel="noreferrer"
+                            title="Navigate"
+                          >
+                            <Navigation size={14} />
+                          </a>
+                        </>
+                      )}
+                    </td>
+                  </tr>
+                  {expanded && (
+                    <tr className="feed-row feed-row--details">
+                      <td className="feed-td feed-td--details" colSpan={8}>
+                        <div className="feed-details">
+                          <div className="feed-details-section">
+                            <div className="feed-details-label">Full Message</div>
+                            <p className="feed-details-text">{report.message || '--'}</p>
+                          </div>
+                          <div className="feed-details-grid">
+                            <div>
+                              <div className="feed-details-label">Location</div>
+                              <span className="feed-details-text">
+                                {report.latitude.toFixed(5)}, {report.longitude.toFixed(5)}
+                              </span>
+                            </div>
+                            <div>
+                              <div className="feed-details-label">Phone</div>
+                              <span className="feed-details-text">{report.phone || '--'}</span>
+                            </div>
+                            <div>
+                              <div className="feed-details-label">Detailed Area</div>
+                              <span className="feed-details-text">{detailedArea || '--'}</span>
+                            </div>
+                            <div>
+                              <div className="feed-details-label">Timestamp</div>
+                              <span className="feed-details-text">
+                                {new Date(report.created_at).toLocaleString()}
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  )}
+                </Fragment>
               );
             })}
           </tbody>

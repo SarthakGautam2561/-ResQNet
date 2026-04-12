@@ -96,6 +96,32 @@
   max-width: 240px;
 }
 
+.intel-feed .feed-td {
+  white-space: normal;
+  word-break: break-word;
+}
+
+.intel-feed .feed-td--time,
+.intel-feed .feed-td--actions,
+.intel-feed .feed-status,
+.intel-feed .feed-severity {
+  white-space: nowrap;
+}
+
+.intel-feed .feed-td--area,
+.intel-feed .feed-td--message {
+  max-width: none;
+}
+
+.intel-feed .feed-needs {
+  max-width: none;
+  flex-wrap: wrap;
+}
+
+.intel-feed .feed-need {
+  white-space: nowrap;
+}
+
 @media (max-width: 1200px) {
   .intel-page-grid {
     grid-template-columns: 1fr;
