@@ -1,7 +1,9 @@
+import { useCallback, useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
-import { useRouter } from 'expo-router';
-import { useEffect, useState } from 'react';
+import { useRouter, useFocusEffect } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { StatusBar } from 'expo-status-bar';
 import { getPendingCount } from '../services/offlineQueue';
 import { isSupabaseConfigured } from '../services/supabase';
 import { useNetworkStatus } from '../hooks/useNetworkStatus';
@@ -14,15 +16,18 @@ export default function HomeScreen() {
   const [pendingCount, setPendingCount] = useState(0);
   const [hasConfig, setHasConfig] = useState(true);
 
-  useEffect(() => {
-    const loadCount = async () => {
-      const count = await getPendingCount();
-      setPendingCount(count);
-    };
-    loadCount();
-    const interval = setInterval(loadCount, 5000);
-    return () => clearInterval(interval);
+  const loadCount = useCallback(async () => {
+    const count = await getPendingCount();
+    setPendingCount(count);
   }, []);
+
+  useFocusEffect(
+    useCallback(() => {
+      loadCount();
+      const interval = setInterval(loadCount, 15000);
+      return () => clearInterval(interval);
+    }, [loadCount])
+  );
 
   useEffect(() => {
     const loadConfig = async () => {
@@ -34,112 +39,113 @@ export default function HomeScreen() {
 
   return (
     <LinearGradient colors={['#0a0f1f', '#0b152b', '#0a0f1f']} style={styles.container}>
-      {/* Header */}
-      <View style={styles.header}>
-        <View style={styles.brandRow}>
-          <Text style={styles.logo}>RESQNET</Text>
-          <View style={[styles.statusPill, isConnected ? styles.statusOnline : styles.statusOffline]}>
-            <View style={[styles.statusDot, { backgroundColor: isConnected ? '#22c55e' : '#ef4444' }]} />
-            <Text style={styles.statusText}>{isConnected ? 'ONLINE' : 'OFFLINE'}</Text>
-          </View>
-        </View>
-        <Text style={styles.subtitle}>Emergency Response System</Text>
-      </View>
-
-      {!hasConfig && (
-        <TouchableOpacity style={styles.configBanner} onPress={() => router.push('/config')}>
-          <Text style={styles.configBannerText}>Supabase not configured â€” tap to set URL and key</Text>
-        </TouchableOpacity>
-      )}
-
-      {/* Giant SOS Button */}
-      <TouchableOpacity
-        style={styles.sosButton}
-        onPress={() => router.push('/sos-form')}
-        activeOpacity={0.85}
-      >
-        <LinearGradient
-          colors={['#ff5a5a', '#ef4444', '#b91c1c']}
-          style={styles.sosGradient}
-        >
-          <Text style={styles.sosIcon}>🆘</Text>
-          <Text style={styles.sosText}>SEND SOS</Text>
-          <Text style={styles.sosSubtext}>One tap emergency report</Text>
-        </LinearGradient>
-      </TouchableOpacity>
-
-      {/* Action Cards */}
-      <View style={styles.grid}>
-        <TouchableOpacity
-          style={styles.gridCard}
-          onPress={() => router.push('/pending')}
-          activeOpacity={0.8}
-        >
-          <View style={styles.gridIconWrap}>
-            <Text style={styles.gridIcon}>📋</Text>
-          </View>
-          <Text style={styles.gridLabel}>Pending Reports</Text>
-          <Text style={styles.gridHint}>Unsynced items</Text>
-          {pendingCount > 0 && (
-            <View style={styles.badge}>
-              <Text style={styles.badgeText}>{pendingCount}</Text>
+      <StatusBar style="light" />
+      <SafeAreaView style={styles.safeArea}>
+        <View style={styles.header}>
+          <View style={styles.brandRow}>
+            <Text style={styles.logo}>RESQNET</Text>
+            <View style={[styles.statusPill, isConnected ? styles.statusOnline : styles.statusOffline]}>
+              <View style={[styles.statusDot, { backgroundColor: isConnected ? '#22c55e' : '#ef4444' }]} />
+              <Text style={styles.statusText}>{isConnected ? 'ONLINE' : 'OFFLINE'}</Text>
             </View>
-          )}
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.gridCard}
-          onPress={() => router.push('/status')}
-          activeOpacity={0.8}
-        >
-          <View style={styles.gridIconWrap}>
-            <Text style={styles.gridIcon}>📊</Text>
           </View>
-          <Text style={styles.gridLabel}>Live Status</Text>
-          <Text style={styles.gridHint}>Updates from responders</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.gridCard} onPress={() => {}} activeOpacity={0.8}>
-          <View style={styles.gridIconWrap}>
-            <Text style={styles.gridIcon}>💡</Text>
-          </View>
-          <Text style={styles.gridLabel}>Safety Tips</Text>
-          <Text style={styles.gridHint}>Offline guidance</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.gridCard} onPress={() => router.push('/relay')} activeOpacity={0.8}>
-          <View style={styles.gridIconWrap}>
-            <Text style={styles.gridIcon}>📡</Text>
-          </View>
-          <Text style={styles.gridLabel}>Relay Mode</Text>
-          <Text style={styles.gridHint}>Forward nearby SOS</Text>
-        </TouchableOpacity>
+          <Text style={styles.subtitle}>Emergency Response System</Text>
+        </View>
 
         {!hasConfig && (
-          <TouchableOpacity style={styles.gridCard} onPress={() => router.push('/config')} activeOpacity={0.8}>
-            <View style={styles.gridIconWrap}>
-              <Text style={styles.gridIcon}>⚙️</Text>
-            </View>
-            <Text style={styles.gridLabel}>Supabase Setup</Text>
-            <Text style={styles.gridHint}>Enter URL + key</Text>
+          <TouchableOpacity style={styles.configBanner} onPress={() => router.push('/config')}>
+            <Text style={styles.configBannerText}>Supabase not configured — tap to set URL and key</Text>
           </TouchableOpacity>
         )}
 
-        <TouchableOpacity style={styles.gridCard} onPress={() => router.push('/diagnostics')} activeOpacity={0.8}>
-          <View style={styles.gridIconWrap}>
-            <Text style={styles.gridIcon}>🧪</Text>
+        <View style={styles.quickStats}>
+          <View style={styles.statCard}>
+            <Text style={styles.statLabel}>PENDING</Text>
+            <Text style={styles.statValue}>{pendingCount}</Text>
+            <Text style={styles.statHint}>Queued on device</Text>
           </View>
-          <Text style={styles.gridLabel}>Diagnostics</Text>
-          <Text style={styles.gridHint}>Test Supabase</Text>
-        </TouchableOpacity>
-      </View>
+          <View style={styles.statCard}>
+            <Text style={styles.statLabel}>NETWORK</Text>
+            <Text style={styles.statValue}>{isConnected ? 'LIVE' : 'OFFLINE'}</Text>
+            <Text style={styles.statHint}>{isConnected ? 'Sync enabled' : 'Auto-sync later'}</Text>
+          </View>
+        </View>
 
-      {/* Footer */}
-      <View style={styles.footer}>
-        <Text style={styles.footerText}>
-          {isConnected ? 'Online — reports sync automatically' : 'Offline — reports saved on device'}
-        </Text>
-      </View>
+        <TouchableOpacity
+          style={styles.sosButton}
+          onPress={() => router.push('/sos-form')}
+          activeOpacity={0.85}
+        >
+          <LinearGradient colors={['#ff5a5a', '#ef4444', '#b91c1c']} style={styles.sosGradient}>
+            <Text style={styles.sosIcon}>SOS</Text>
+            <Text style={styles.sosText}>SEND SOS</Text>
+            <Text style={styles.sosSubtext}>One tap emergency report</Text>
+          </LinearGradient>
+        </TouchableOpacity>
+
+        <View style={styles.grid}>
+          <TouchableOpacity style={styles.gridCard} onPress={() => router.push('/pending')} activeOpacity={0.8}>
+            <View style={styles.gridIconWrap}>
+              <Text style={styles.gridIcon}>LIST</Text>
+            </View>
+            <Text style={styles.gridLabel}>Pending Reports</Text>
+            <Text style={styles.gridHint}>Unsynced items</Text>
+            {pendingCount > 0 && (
+              <View style={styles.badge}>
+                <Text style={styles.badgeText}>{pendingCount}</Text>
+              </View>
+            )}
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.gridCard} onPress={() => router.push('/status')} activeOpacity={0.8}>
+            <View style={styles.gridIconWrap}>
+              <Text style={styles.gridIcon}>LIVE</Text>
+            </View>
+            <Text style={styles.gridLabel}>Live Status</Text>
+            <Text style={styles.gridHint}>Updates from responders</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.gridCard} onPress={() => {}} activeOpacity={0.8}>
+            <View style={styles.gridIconWrap}>
+              <Text style={styles.gridIcon}>TIPS</Text>
+            </View>
+            <Text style={styles.gridLabel}>Safety Tips</Text>
+            <Text style={styles.gridHint}>Offline guidance</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.gridCard} onPress={() => router.push('/relay')} activeOpacity={0.8}>
+            <View style={styles.gridIconWrap}>
+              <Text style={styles.gridIcon}>RELAY</Text>
+            </View>
+            <Text style={styles.gridLabel}>Relay Mode</Text>
+            <Text style={styles.gridHint}>Forward nearby SOS</Text>
+          </TouchableOpacity>
+
+          {!hasConfig && (
+            <TouchableOpacity style={styles.gridCard} onPress={() => router.push('/config')} activeOpacity={0.8}>
+              <View style={styles.gridIconWrap}>
+                <Text style={styles.gridIcon}>SET</Text>
+              </View>
+              <Text style={styles.gridLabel}>Supabase Setup</Text>
+              <Text style={styles.gridHint}>Enter URL + key</Text>
+            </TouchableOpacity>
+          )}
+
+          <TouchableOpacity style={styles.gridCard} onPress={() => router.push('/diagnostics')} activeOpacity={0.8}>
+            <View style={styles.gridIconWrap}>
+              <Text style={styles.gridIcon}>DIAG</Text>
+            </View>
+            <Text style={styles.gridLabel}>Diagnostics</Text>
+            <Text style={styles.gridHint}>Test Supabase</Text>
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.footer}>
+          <Text style={styles.footerText}>
+            {isConnected ? 'Online — reports sync automatically' : 'Offline — reports saved on device'}
+          </Text>
+        </View>
+      </SafeAreaView>
     </LinearGradient>
   );
 }
@@ -147,11 +153,14 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 60,
+  },
+  safeArea: {
+    flex: 1,
     paddingHorizontal: 20,
+    paddingTop: 8,
   },
   header: {
-    marginBottom: 24,
+    marginBottom: 18,
   },
   brandRow: {
     flexDirection: 'row',
@@ -159,13 +168,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   logo: {
-    fontSize: 32,
+    fontSize: 30,
     fontWeight: '900',
     color: '#ff5a5a',
     letterSpacing: 4,
   },
   subtitle: {
-    fontSize: 14,
+    fontSize: 13,
     color: '#9fb0d1',
     marginTop: 6,
     letterSpacing: 1,
@@ -176,7 +185,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#223253',
     padding: 12,
-    marginBottom: 16,
+    marginBottom: 14,
   },
   configBannerText: {
     color: '#cbd5f5',
@@ -211,6 +220,36 @@ const styles = StyleSheet.create({
     fontWeight: '800',
     letterSpacing: 1,
   },
+  quickStats: {
+    flexDirection: 'row',
+    gap: 12,
+    marginBottom: 18,
+  },
+  statCard: {
+    flex: 1,
+    backgroundColor: '#111a2d',
+    borderRadius: 16,
+    borderWidth: 1,
+    borderColor: '#1c2742',
+    padding: 14,
+  },
+  statLabel: {
+    fontSize: 10,
+    fontWeight: '700',
+    letterSpacing: 1.5,
+    color: '#8aa0c7',
+  },
+  statValue: {
+    marginTop: 6,
+    fontSize: 18,
+    fontWeight: '900',
+    color: '#f8fafc',
+  },
+  statHint: {
+    marginTop: 4,
+    fontSize: 11,
+    color: '#8aa0c7',
+  },
   sosButton: {
     marginBottom: 20,
     borderRadius: 24,
@@ -222,23 +261,26 @@ const styles = StyleSheet.create({
     shadowRadius: 20,
   },
   sosGradient: {
-    paddingVertical: 40,
+    paddingVertical: 36,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 24,
   },
   sosIcon: {
-    fontSize: 48,
-    marginBottom: 8,
+    fontSize: 26,
+    marginBottom: 6,
+    color: '#fff',
+    letterSpacing: 6,
+    fontWeight: '800',
   },
   sosText: {
-    fontSize: 36,
+    fontSize: 32,
     fontWeight: '900',
     color: '#ffffff',
     letterSpacing: 3,
   },
   sosSubtext: {
-    fontSize: 13,
+    fontSize: 12,
     color: 'rgba(255,255,255,0.7)',
     marginTop: 4,
   },
@@ -270,7 +312,9 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   gridIcon: {
-    fontSize: 20,
+    fontSize: 11,
+    fontWeight: '800',
+    color: '#cbd5f5',
   },
   gridLabel: {
     fontSize: 13,
@@ -301,10 +345,7 @@ const styles = StyleSheet.create({
     fontWeight: '800',
   },
   footer: {
-    position: 'absolute',
-    bottom: 40,
-    left: 0,
-    right: 0,
+    marginTop: 18,
     alignItems: 'center',
   },
   footerText: {

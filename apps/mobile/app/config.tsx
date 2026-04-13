@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+﻿import { useEffect, useState } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity, Alert, ScrollView } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { getSupabaseConfig, setSupabaseConfig, clearSupabaseConfig } from '../services/supabase';
@@ -40,7 +40,7 @@ export default function ConfigScreen() {
       <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
         <Text style={styles.title}>Supabase Setup</Text>
         <Text style={styles.subtitle}>
-          If the build doesnâ€™t have env vars, paste them here once. This is only stored on-device.
+          If the build does not have env vars, paste them here once. This is only stored on-device.
         </Text>
 
         <View style={styles.card}>
@@ -77,7 +77,7 @@ export default function ConfigScreen() {
         <View style={styles.note}>
           <Text style={styles.noteText}>
             Tip: For production builds, set `EXPO_PUBLIC_SUPABASE_URL` and `EXPO_PUBLIC_SUPABASE_ANON_KEY`
-            in EAS environment variables so you donâ€™t need to paste them here.
+            in EAS environment variables so you do not need to paste them here.
           </Text>
         </View>
       </ScrollView>
@@ -166,3 +166,4 @@ const styles = StyleSheet.create({
     lineHeight: 16,
   },
 });
+

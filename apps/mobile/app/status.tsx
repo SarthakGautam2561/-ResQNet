@@ -1,7 +1,11 @@
 import { useState, useEffect, useCallback } from 'react';
-import { View, Text, FlatList, StyleSheet, RefreshControl } from 'react-native';
+import { View, Text, FlatList, StyleSheet, RefreshControl, TouchableOpacity } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { StatusBar } from 'expo-status-bar';
+import { useRouter } from 'expo-router';
 import { getSupabaseClient } from '../services/supabase';
+import { useNetworkStatus } from '../hooks/useNetworkStatus';
 import { SOS_CATEGORIES, SEVERITY_LEVELS } from '../constants/categories';
 import type { SOSReport } from '@resqnet/shared-types';
 
@@ -11,6 +15,8 @@ type StatusReport = Pick<
 >;
 
 export default function StatusScreen() {
+  const router = useRouter();
+  const { isConnected } = useNetworkStatus();
   const [reports, setReports] = useState<StatusReport[]>([]);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
@@ -23,13 +29,13 @@ export default function StatusScreen() {
         setReports([]);
         return;
       }
-      const { data, error } = await client
+      const { data } = await client
         .from('sos_reports')
         .select('id, created_at, name, category, severity, message, status, assigned_to')
         .order('created_at', { ascending: false })
         .limit(50);
 
-      if (!error && data) {
+      if (data) {
         setReports(data);
       }
     } catch {
@@ -106,7 +112,7 @@ export default function StatusScreen() {
       <View style={styles.card}>
         <View style={styles.cardTop}>
           <View style={[styles.iconBadge, { backgroundColor: (cat?.color || '#94a3b8') + '25' }]}>
-            <Text style={styles.cardEmoji}>{cat?.icon || '⚠️'}</Text>
+            <Text style={styles.cardEmoji}>{cat?.icon || '!'}</Text>
           </View>
           <View style={styles.cardInfo}>
             <Text style={styles.cardCategory}>{item.category}</Text>
@@ -118,11 +124,7 @@ export default function StatusScreen() {
           </View>
         </View>
 
-        {item.message && (
-          <Text style={styles.cardMessage} numberOfLines={2}>
-            {item.message}
-          </Text>
-        )}
+        {item.message && <Text style={styles.cardMessage}>{item.message}</Text>}
 
         <View style={styles.cardFooter}>
           <View style={[styles.sevBadge, { backgroundColor: sev?.bgColor || '#334155' }]}>
@@ -140,6 +142,7 @@ export default function StatusScreen() {
   if (loading) {
     return (
       <LinearGradient colors={['#0a0f1f', '#0b152b', '#0a0f1f']} style={styles.loadingContainer}>
+        <StatusBar style="light" />
         <Text style={styles.loadingText}>{clientReady ? 'Loading reports...' : 'Preparing connection...'}</Text>
       </LinearGradient>
     );
@@ -147,28 +150,50 @@ export default function StatusScreen() {
 
   return (
     <LinearGradient colors={['#0a0f1f', '#0b152b', '#0a0f1f']} style={styles.container}>
-      <FlatList
-        data={reports}
-        keyExtractor={(item) => item.id}
-        renderItem={renderItem}
-        contentContainerStyle={styles.list}
-        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor="#3b82f6" />}
-        ListEmptyComponent={
-          <View style={styles.emptyState}>
-            <Text style={styles.emptyIcon}>📡</Text>
-            <Text style={styles.emptyText}>No reports found</Text>
-            <Text style={styles.emptySubtext}>Connect to internet to see report statuses</Text>
+      <StatusBar style="light" />
+      <SafeAreaView style={styles.safeArea}>
+        {!isConnected && (
+          <View style={styles.banner}>
+            <Text style={styles.bannerText}>Offline. Connect to see live report updates.</Text>
           </View>
-        }
-      />
+        )}
+        {reports.length === 0 && (
+          <TouchableOpacity style={styles.banner} onPress={() => router.push('/config')}>
+            <Text style={styles.bannerText}>No reports loaded. Check Supabase setup.</Text>
+          </TouchableOpacity>
+        )}
+        <FlatList
+          data={reports}
+          keyExtractor={(item) => item.id}
+          renderItem={renderItem}
+          contentContainerStyle={styles.list}
+          refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor="#3b82f6" />}
+          ListEmptyComponent={
+            <View style={styles.emptyState}>
+              <Text style={styles.emptyText}>No reports found</Text>
+              <Text style={styles.emptySubtext}>Connect to internet to see report statuses</Text>
+            </View>
+          }
+        />
+      </SafeAreaView>
     </LinearGradient>
   );
 }
 
 const styles = StyleSheet.create({
   container: { flex: 1 },
+  safeArea: { flex: 1 },
   loadingContainer: { flex: 1, justifyContent: 'center', alignItems: 'center' },
   loadingText: { color: '#8aa0c7', fontSize: 16 },
+  banner: {
+    margin: 16,
+    backgroundColor: '#0f1b33',
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: '#223253',
+    padding: 12,
+  },
+  bannerText: { color: '#cbd5f5', fontSize: 12, lineHeight: 18 },
   list: { padding: 16, gap: 12 },
   card: {
     backgroundColor: '#111a2d',
@@ -193,13 +218,12 @@ const styles = StyleSheet.create({
   badgeDot: { width: 6, height: 6, borderRadius: 3 },
   badgeText: { fontSize: 11, fontWeight: '700' },
   cardMessage: { color: '#b7c5e1', fontSize: 13, lineHeight: 18, marginBottom: 8 },
-  cardFooter: { flexDirection: 'row', alignItems: 'center', gap: 8 },
+  cardFooter: { flexDirection: 'row', alignItems: 'center', gap: 8, flexWrap: 'wrap' },
   sevBadge: { paddingHorizontal: 6, paddingVertical: 2, borderRadius: 4 },
   sevText: { fontSize: 10, fontWeight: '700' },
   nameText: { color: '#8aa0c7', fontSize: 11 },
   assignedText: { color: '#3b82f6', fontSize: 11, fontWeight: '600' },
   emptyState: { alignItems: 'center', paddingTop: 80 },
-  emptyIcon: { fontSize: 48, marginBottom: 12 },
   emptyText: { fontSize: 18, fontWeight: '700', color: '#8aa0c7' },
   emptySubtext: { fontSize: 14, color: '#6f82a7', marginTop: 4 },
 });

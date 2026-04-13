@@ -12,7 +12,7 @@ export default function RootLayout() {
   useEffect(() => {
     startAutoSync((result) => {
       if (result.synced > 0) {
-        setSyncMessage(`✅ ${result.synced} report(s) synced`);
+        setSyncMessage(`${result.synced} report(s) synced`);
         setTimeout(() => setSyncMessage(null), 3000);
       }
     });
@@ -25,14 +25,12 @@ export default function RootLayout() {
     <View style={styles.container}>
       <StatusBar style="light" />
 
-      {/* Offline banner */}
       {!isConnected && (
         <View style={styles.offlineBanner}>
-          <Text style={styles.offlineText}>📡 No Internet — Reports saved locally</Text>
+          <Text style={styles.offlineText}>No Internet — Reports saved locally</Text>
         </View>
       )}
 
-      {/* Sync notification */}
       {syncMessage && (
         <View style={styles.syncBanner}>
           <Text style={styles.syncText}>{syncMessage}</Text>

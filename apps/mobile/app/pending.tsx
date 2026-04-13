@@ -9,6 +9,9 @@ import {
   Alert,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { StatusBar } from 'expo-status-bar';
+import { useFocusEffect } from 'expo-router';
 import { getQueue, QueuedReport } from '../services/offlineQueue';
 import { syncAllPending, getLastSyncError } from '../services/syncService';
 import { isSupabaseConfigured } from '../services/supabase';
@@ -21,6 +24,7 @@ export default function PendingScreen() {
   const [refreshing, setRefreshing] = useState(false);
   const [syncing, setSyncing] = useState(false);
   const [lastError, setLastError] = useState<string | null>(null);
+  const [lastUpdated, setLastUpdated] = useState<string>('');
 
   const loadReports = useCallback(async () => {
     const queue = await getQueue();
@@ -31,12 +35,19 @@ export default function PendingScreen() {
     setReports(sorted);
     const err = await getLastSyncError();
     setLastError(err);
+    setLastUpdated(new Date().toLocaleTimeString());
   }, []);
+
+  useFocusEffect(
+    useCallback(() => {
+      loadReports();
+      const interval = setInterval(loadReports, 20000);
+      return () => clearInterval(interval);
+    }, [loadReports])
+  );
 
   useEffect(() => {
     loadReports();
-    const interval = setInterval(loadReports, 5000);
-    return () => clearInterval(interval);
   }, [loadReports]);
 
   const onRefresh = useCallback(async () => {
@@ -105,12 +116,12 @@ export default function PendingScreen() {
         <View style={styles.cardBody}>
           <View style={[styles.severityBadge, { backgroundColor: sev.bgColor }]}>
             <Text style={[styles.severityText, { color: sev.color }]}>
-              Severity {item.severity} — {sev.label}
+              Severity {item.severity} - {sev.label}
             </Text>
           </View>
-          {item.message && <Text style={styles.cardMessage} numberOfLines={2}>{item.message}</Text>}
+          {item.message && <Text style={styles.cardMessage}>{item.message}</Text>}
           <Text style={styles.cardCoords}>
-            📍 {item.latitude.toFixed(4)}, {item.longitude.toFixed(4)}
+            Location: {item.latitude.toFixed(4)}, {item.longitude.toFixed(4)}
           </Text>
         </View>
         {item.retry_count > 0 && !item.synced && (
@@ -124,46 +135,52 @@ export default function PendingScreen() {
 
   return (
     <LinearGradient colors={['#0a0f1f', '#0b152b', '#0a0f1f']} style={styles.container}>
-      <View style={styles.syncHeader}>
-        <View>
-          <Text style={styles.syncCount}>{unsyncedCount} pending</Text>
-          <Text style={styles.syncTotal}>{reports.length} total reports</Text>
-        </View>
-        <TouchableOpacity
-          style={[styles.syncButton, syncing && styles.syncButtonDisabled]}
-          onPress={handleManualSync}
-          disabled={syncing}
-        >
-          <Text style={styles.syncButtonText}>{syncing ? 'Syncing...' : 'Sync Now'}</Text>
-        </TouchableOpacity>
-      </View>
-
-      {lastError && (
-        <View style={styles.errorBanner}>
-          <Text style={styles.errorText}>Last sync error: {lastError}</Text>
-        </View>
-      )}
-
-      <FlatList
-        data={reports}
-        keyExtractor={(item) => item.id}
-        renderItem={renderItem}
-        contentContainerStyle={styles.list}
-        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor="#3b82f6" />}
-        ListEmptyComponent={
-          <View style={styles.emptyState}>
-            <Text style={styles.emptyIcon}>📭</Text>
-            <Text style={styles.emptyText}>No reports yet</Text>
-            <Text style={styles.emptySubtext}>Your SOS reports will appear here</Text>
+      <StatusBar style="light" />
+      <SafeAreaView style={styles.safeArea}>
+        <View style={styles.syncHeader}>
+          <View>
+            <Text style={styles.syncCount}>{unsyncedCount} pending</Text>
+            <Text style={styles.syncTotal}>{reports.length} total reports</Text>
+            <Text style={styles.syncMeta}>Last update: {lastUpdated || '--'}</Text>
           </View>
-        }
-      />
+          <TouchableOpacity
+            style={[styles.syncButton, syncing && styles.syncButtonDisabled]}
+            onPress={handleManualSync}
+            disabled={syncing}
+          >
+            <Text style={styles.syncButtonText}>{syncing ? 'Syncing...' : 'Sync Now'}</Text>
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.statusBar}>
+          <View style={[styles.statusDot, { backgroundColor: isConnected ? '#22c55e' : '#ef4444' }]} />
+          <Text style={styles.statusBarText}>{isConnected ? 'Online' : 'Offline'}</Text>
+          {lastError && <Text style={styles.statusBarError}>Last error: {lastError}</Text>}
+        </View>
+
+        <FlatList
+          data={reports}
+          keyExtractor={(item) => item.id}
+          renderItem={renderItem}
+          contentContainerStyle={styles.list}
+          refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor="#3b82f6" />}
+          ListEmptyComponent={
+            <View style={styles.emptyState}>
+              <Text style={styles.emptyText}>No reports yet</Text>
+              <Text style={styles.emptySubtext}>Your SOS reports will appear here</Text>
+            </View>
+          }
+        />
+      </SafeAreaView>
     </LinearGradient>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
+  },
+  safeArea: {
     flex: 1,
   },
   syncHeader: {
@@ -185,19 +202,36 @@ const styles = StyleSheet.create({
     color: '#8aa0c7',
     marginTop: 2,
   },
-  errorBanner: {
-    marginHorizontal: 16,
-    marginTop: 10,
-    backgroundColor: '#2b1508',
-    borderWidth: 1,
-    borderColor: '#7c2d12',
-    borderRadius: 10,
-    padding: 10,
+  syncMeta: {
+    fontSize: 11,
+    color: '#6f82a7',
+    marginTop: 4,
   },
-  errorText: {
+  statusBar: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    paddingHorizontal: 16,
+    paddingVertical: 10,
+    backgroundColor: '#0f182c',
+    borderBottomWidth: 1,
+    borderBottomColor: '#1c2742',
+  },
+  statusDot: {
+    width: 6,
+    height: 6,
+    borderRadius: 3,
+  },
+  statusBarText: {
+    color: '#cbd5f5',
+    fontSize: 12,
+    fontWeight: '700',
+  },
+  statusBarError: {
     color: '#fdba74',
     fontSize: 11,
-    fontWeight: '700',
+    fontWeight: '600',
+    marginLeft: 6,
   },
   syncButton: {
     backgroundColor: '#1d4ed8',
@@ -300,10 +334,6 @@ const styles = StyleSheet.create({
   emptyState: {
     alignItems: 'center',
     paddingTop: 80,
-  },
-  emptyIcon: {
-    fontSize: 48,
-    marginBottom: 12,
   },
   emptyText: {
     fontSize: 18,
